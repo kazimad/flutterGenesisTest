@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_genesis_test/network/Post.dart';
 import 'package:flutter_genesis_test/ui/text/StatefulText.dart';
 
 abstract class ListViewItem {}
@@ -76,7 +79,9 @@ class RegularItem extends StatelessWidget implements ListViewItem {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.green),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            makeCall();
+                          },
                         )
                       ],
                     )
@@ -89,4 +94,22 @@ class RegularItem extends StatelessWidget implements ListViewItem {
       ),
     );
   }
+
+}
+
+makeCall() {
+  log('myLog: sss()');
+
+  Future<Post> post;
+
+  FutureBuilder<Post>(future: post, builder: (context, snapshot) {
+    log('myLog: ${snapshot.toString()}');
+
+    if (snapshot.hasData) {
+      print('myLog: ${snapshot.data.title}');
+      // ignore: missing_return
+    } else if (snapshot.hasError) {
+      print('myLog: ${snapshot.error}');
+    }
+  });
 }
