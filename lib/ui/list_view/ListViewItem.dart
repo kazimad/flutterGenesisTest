@@ -94,22 +94,23 @@ class RegularItem extends StatelessWidget implements ListViewItem {
       ),
     );
   }
-
 }
 
 makeCall() {
   log('myLog: sss()');
 
-  Future<Post> post;
-
-  FutureBuilder<Post>(future: post, builder: (context, snapshot) {
-    log('myLog: ${snapshot.toString()}');
-
-    if (snapshot.hasData) {
-      print('myLog: ${snapshot.data.title}');
-      // ignore: missing_return
-    } else if (snapshot.hasError) {
-      print('myLog: ${snapshot.error}');
-    }
-  });
+  Future post = fetchPost();
+  FutureBuilder<Post>(
+      future: post,
+      builder: (context, snapshot) {
+        log('myLog: ${snapshot.toString()}');
+        if (snapshot.hasData) {
+          print('myLog: ${snapshot.data.title}');
+          // ignore: missing_return
+        } else if (!snapshot.hasData) {
+          print('myLog: !snapshot.hasData + ${snapshot.data.title}');
+        } else if (snapshot.hasError) {
+          print('myLog: ${snapshot.error}');
+        }
+      });
 }
