@@ -2,15 +2,32 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-Future<Post> fetchPost() async {
-  final response = await http.get('https://jsonplaceholder.typicode.com/posts/1');
+//void onButtonClick() async {
+//  try {
+//    var value = await http.get('https://jsonplaceholder.typicode.com/posts/1');
+//  } catch(_) {
+//    enableInputs();
+//    print('WTF');
+//  }
+//}
 
-  if (response.statusCode == 200) {
-    // If the call to the server was successful, parse the JSON.
-    return Post.fromJson(json.decode(response.body));
-  } else {
-    // If that call was not successful, throw an error.
-    throw Exception('Failed to load post');
+Future<Post> fetchPost() async {
+  try {
+    final response =
+        await http.get('https://jsonplaceholder.typicode.com/posts/1');
+    if (response.statusCode == 200) {
+      print('myLog: ${response.statusCode}');
+
+      // If the call to the server was successful, parse the JSON.
+      return Post.fromJson(json.decode(response.body));
+    } else {
+      print('myLog: else is ${response.statusCode}');
+
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load post');
+    }
+  } catch (_) {
+    print('myLog: ${_.toString()}');
   }
 }
 
