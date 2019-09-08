@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_genesis_test/ui/list_view/myListView.dart';
+import 'package:flutter_genesis_test/ui/list_view/MyListView.dart';
 
 class MyTabView extends StatelessWidget {
   final String bodyContent;
@@ -10,7 +10,7 @@ class MyTabView extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: Center(child: myListView(context)),
+      body: Center(child: MyListView()),
     );
   }
 }

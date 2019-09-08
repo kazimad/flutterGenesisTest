@@ -1,8 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_genesis_test/network/Post.dart';
-import 'package:flutter_genesis_test/ui/text/StatefulText.dart';
+import 'package:flutter_genesis_test/network/data_classes/Post.dart';
 
 abstract class ListViewItem {}
 
@@ -13,12 +12,12 @@ class HeaderItem extends Text implements ListViewItem {
 }
 
 class RegularItem extends StatelessWidget implements ListViewItem {
-  final String listViewItemText;
+  final Post post;
   final double imageSize = 100;
   final double margin8 = 8;
   final double elevation = 4;
 
-  const RegularItem({Key key, this.listViewItemText});
+  const RegularItem({Key key, this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +45,8 @@ class RegularItem extends StatelessWidget implements ListViewItem {
               Align(
                 alignment: Alignment.bottomLeft,
                 child: Container(
-                  child: StateFulText(),
+                  child: Text(post.id.toString()),
+//                  child: Text("ss"),
                   margin: EdgeInsets.only(
                       left: (imageSize / 2), top: imageSize + (imageSize / 5)),
                 ),
@@ -56,8 +56,10 @@ class RegularItem extends StatelessWidget implements ListViewItem {
                     left: imageSize + (margin8 * 2), top: margin8),
                 child: Column(
                   children: <Widget>[
-                    StateFulText(),
-                    StateFulText(),
+                    Text(post.title),
+//                    Text("ssss"),
+                    Text(post.title),
+//                    Text("qqq"),
                     Divider(
                       color: Colors.grey,
                     ),
@@ -80,7 +82,7 @@ class RegularItem extends StatelessWidget implements ListViewItem {
                                 color: Colors.green),
                           ),
                           onPressed: () {
-                            makeCall();
+                            makeCall(context, post);
                           },
                         )
                       ],
@@ -96,21 +98,8 @@ class RegularItem extends StatelessWidget implements ListViewItem {
   }
 }
 
-makeCall() {
+makeCall(context, post) {
   log('myLog: sss()');
-  Future future = fetchPost();
-//  Future post = fetchPost();
-//  FutureBuilder<Post>(
-//      future: post,
-//      builder: (context, snapshot) {
-//        log('myLog: ${snapshot.toString()}');
-//        if (snapshot.hasData) {
-//          print('myLog: ${snapshot.data.title}');
-//          // ignore: missing_return
-//        } else if (!snapshot.hasData) {
-//          print('myLog: !snapshot.hasData + ${snapshot.data.title}');
-//        } else if (snapshot.hasError) {
-//          print('myLog: ${snapshot.error}');
-//        }
-//      });
+  Scaffold.of(context).showSnackBar(
+      new SnackBar(content: new Text(post.id.toString() + ' - ' + post.title)));
 }
