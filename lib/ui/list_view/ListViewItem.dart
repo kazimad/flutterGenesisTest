@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_genesis_test/network/data_classes/Post.dart';
+import 'package:flutter_genesis_test/data_classes/Post.dart';
 
 abstract class ListViewItem {}
 

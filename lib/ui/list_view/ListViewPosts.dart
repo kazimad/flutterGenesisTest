@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_genesis_test/network/data_classes/Post.dart';
+import 'package:flutter_genesis_test/data_classes/Post.dart';
 import 'package:flutter_genesis_test/ui/list_view/ListViewItem.dart';
 
 class ListViewPosts extends StatelessWidget {
