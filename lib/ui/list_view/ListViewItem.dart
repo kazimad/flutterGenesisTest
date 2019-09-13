@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/data_classes/Post.dart';
+import 'package:flutter_genesis_test/ui/utils/Commands.dart';
 
 abstract class ListViewItem {}
 
@@ -82,7 +83,7 @@ class RegularItem extends StatelessWidget implements ListViewItem {
                                 color: Colors.green),
                           ),
                           onPressed: () {
-                            makeCall(context, post);
+                            Commands.showSnackBar(context, post.id.toString() + ' - ' + post.title);
                           },
                         )
                       ],
@@ -96,10 +97,4 @@ class RegularItem extends StatelessWidget implements ListViewItem {
       ),
     );
   }
-}
-
-makeCall(context, post) {
-  log('myLog: sss()');
-  Scaffold.of(context).showSnackBar(
-      new SnackBar(content: new Text(post.id.toString() + ' - ' + post.title)));
 }

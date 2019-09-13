@@ -12,9 +12,5 @@ Future<List<Post>> fetchPosts() async {
 
 List<Post> parsePosts(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-
-
-
-  
   return parsed.map<Post>((json) => Post.fromJson(json)).toList();
 }

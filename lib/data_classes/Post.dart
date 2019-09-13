@@ -1,4 +1,5 @@
 import 'package:flutter_genesis_test/ui/utils/Commands.dart';
+import 'package:flutter_genesis_test/ui/utils/Constants.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Post {
@@ -18,7 +19,6 @@ class Post {
     };
   }
 
-
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
       userId: json['userId'],
@@ -33,67 +33,64 @@ class Post {
     return 'Post{userId: $userId, id: $id, title: $title, body: $body}';
   }
 
-  Future<void> insertPost(Post post) async {
-    // Get a reference to the database.
-    final Database db = await Commands.database;
+  static Future<void> insertAllPosts(List<Post> postsToInsert) async {
+    final db = await Commands.database;
+    var batch = db.batch();
+    postsToInsert.forEach((element) => {
+          batch.insert(DB_NAME, element.toMap(),
+              conflictAlgorithm: ConflictAlgorithm.replace)
+        });
+    await batch.commit();
+  }
 
-    // Insert the Dog into the correct table. Also specify the
-    // `conflictAlgorithm`. In this case, if the same dog is inserted
-    // multiple times, it replaces the previous data.
+  static Future<void> insertPost(Post post) async {
+    final Database db = await Commands.database;
     await db.insert(
-      'posts',
+      DB_NAME,
       post.toMap(),
+      // TODO be noticed thet there is a come at the end, check - does it have to be here
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
-
-  Future<List<Post>> getPosts() async {
-    // Get a reference to the database.
+  static Future<List<Post>> getPosts() async {
     final Database db = await Commands.database;
-
-    // Query the table for all The Dogs.
-    final List<Map<String, dynamic>> maps = await db.query('posts');
-
-    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    final List<Map<String, dynamic>> maps = await db.query(DB_NAME);
     return List.generate(maps.length, (i) {
       return Post(
-        id: maps[i]['id'],
-        userId: maps[i]['userId'],
-        title: maps[i]['title'],
-        body: maps[i]['body'],
-      );
+          id: maps[i]['id'],
+          userId: maps[i]['userId'],
+          title: maps[i]['title'],
+          body: maps[i]['body']);
     });
   }
 
-  Future<void> updatePost(Post post) async {
-    // Get a reference to the database.
+  static Future<void> updatePost(Post post) async {
     final db = await Commands.database;
-
-    // Update the given Dog.
-    await db.update(
-      'posts',
-      post.toMap(),
-      // Ensure that the Dog has a matching id.
-      where: "id = ?",
-      // Pass the Dog's id as a whereArg to prevent SQL injection.
-      whereArgs: [post.id],
-    );
+    await db
+        .update(DB_NAME, post.toMap(), where: "id = ?", whereArgs: [post.id]);
   }
 
-  Future<void> deletePost(int id) async {
-    // Get a reference to the database.
+  static Future<void> deleteBatchOfPosts(List<Post> postsToDelete) async {
     final db = await Commands.database;
-
-    // Remove the Dog from the database.
-    await db.delete(
-      'posts',
-      // Use a `where` clause to delete a specific dog.
-      where: "id = ?",
-      // Pass the Dog's id as a whereArg to prevent SQL injection.
-      whereArgs: [id],
-    );
+    var batch = db.batch();
+    postsToDelete.forEach((element) => {
+          batch.delete(
+            DB_NAME,
+            where: "id = ?",
+            whereArgs: [element.id],
+          )
+        });
+    await batch.commit();
   }
 
+  static Future<void> deleteAllInTable() async {
+    final db = await Commands.database;
+    await db.execute("DELETE FROM $DB_NAME");
+  }
 
+  static Future<void> deletePost(int id) async {
+    final db = await Commands.database;
+    await db.delete(DB_NAME, where: "id = ?", whereArgs: [id]);
+  }
 }
