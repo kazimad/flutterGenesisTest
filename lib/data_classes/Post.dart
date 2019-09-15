@@ -34,13 +34,15 @@ class Post {
   }
 
   static Future<void> insertAllPosts(List<Post> postsToInsert) async {
-    final db = await Commands.database;
-    var batch = db.batch();
-    postsToInsert.forEach((element) => {
-          batch.insert(DB_NAME, element.toMap(),
-              conflictAlgorithm: ConflictAlgorithm.replace)
-        });
-    await batch.commit();
+    Future<Database> fdb = Commands.database;
+    fdb.then((value) {
+      var batch = value.batch();
+      postsToInsert.forEach((element) => {
+            batch.insert(DB_NAME, element.toMap(),
+                conflictAlgorithm: ConflictAlgorithm.replace)
+          });
+      batch.commit();
+    });
   }
 
   static Future<void> insertPost(Post post) async {
@@ -84,9 +86,19 @@ class Post {
     await batch.commit();
   }
 
-  static Future<void> deleteAllInTable() async {
-    final db = await Commands.database;
-    await db.execute("DELETE FROM $DB_NAME");
+//  static Future<void> deleteAllInTable() async {
+//    Future<Database> fdb = Commands.database;
+//    fdb.then((value) {
+//      value == null
+//          ? print("deleteAllInTable db == null")
+//          : print("deleteAllInTable db != null");
+//      value.execute("DELETE FROM $DB_NAME");
+//    }).catchError((error) => {print("deleteAllInTable $error")});
+//  }
+
+  deleteAll() async {
+    final db = await database;
+    db.rawDelete("Delete * from Client");
   }
 
   static Future<void> deletePost(int id) async {
