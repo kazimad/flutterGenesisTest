@@ -78,6 +78,6 @@ class DatabaseHelper {
 
   Future<int> deleteAll() async {
     Database db = await instance.database;
-    return await db.rawDelete("Delete * from $DB_NAME");
+    return await db.rawDelete("Delete from $DB_NAME");
   }
 }

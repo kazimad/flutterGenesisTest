@@ -17,9 +17,15 @@ class MyListView extends StatelessWidget {
       future: fetchPosts(),
       builder: (context, snapshot) {
         if (!snapshot.hasError) {
-          dbHelper.deleteAll();
-          dbHelper.insert(snapshot.data[0].toMap());
+          if (snapshot.hasData) {
+            dbHelper.deleteAll();
+            print("MyListView snapshot.data is ${snapshot.data.length}");
+            dbHelper.insert(snapshot.data[0].toMap());
 //          Post.insertAllPosts(snapshot.data);
+            dbHelper
+                .queryAllRows()
+                .then((value) => {print("dbHelper.queryAllRows() $value")});
+          }
         } else {
           print(snapshot.error);
         }
@@ -27,13 +33,13 @@ class MyListView extends StatelessWidget {
         dbHelper.queryAllRows().then((value) {
           var proxyValue = value;
           var listPosts = List<Post>();
-          proxyValue.forEach((nextProxyValue) => {
-            // тут я хочу трансформировать то что пришло в лист постов что бы передать в список
-          
-            Post valueTotransform = Post.fromJson(nextProxyValue);
+          Post valueToTransform;
+          proxyValue.forEach((nextProxyValue) {
+            valueToTransform = Post.fromJson(nextProxyValue);
+            listPosts.add(valueToTransform);
           });
-          return value != null
-              ? ListViewPosts(posts: value)
+          return listPosts != null
+              ? ListViewPosts(posts: listPosts)
               : Center(child: CircularProgressIndicator());
         }, onError: (error) {
           return Commands.showSnackBar(context, "error is ${error.toString()}");
