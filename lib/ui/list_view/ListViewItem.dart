@@ -1,9 +1,7 @@
-import 'dart:developer';
-
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/data_classes/Post.dart';
 import 'package:flutter_genesis_test/ui/utils/Commands.dart';
-import 'package:flutter_genesis_test/ui/utils/DatabaseHelper.dart';
 
 abstract class ListViewItem {}
 
@@ -18,6 +16,8 @@ class RegularItem extends StatelessWidget implements ListViewItem {
   final double imageSize = 100;
   final double margin8 = 8;
   final double elevation = 4;
+  final double minFontSize = 12;
+  final int maxLines =1;
 
   const RegularItem({Key key, this.post});
 
@@ -65,27 +65,42 @@ class RegularItem extends StatelessWidget implements ListViewItem {
                     Divider(
                       color: Colors.grey,
                     ),
+                    // TODO change to FlexBox
+
                     Row(
                       children: <Widget>[
-                        MaterialButton(
-                          child: Text(
-                            "add to favorite".toUpperCase(),
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.green),
+                        Flexible(
+                          flex: 2,
+                          child: MaterialButton(
+                            child: AutoSizeText(
+                              "add to favorite".toUpperCase(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green),
+                              minFontSize: minFontSize,
+                              maxLines: maxLines,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            onPressed: () {},
                           ),
-                          onPressed: () {},
                         ),
-                        MaterialButton(
-                          child: Text(
-                            "share".toUpperCase(),
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.green),
+                        Flexible(
+                          flex: 1,
+                          child: MaterialButton(
+                            child: AutoSizeText(
+                              "share".toUpperCase(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green),
+                              minFontSize: minFontSize,
+                              maxLines: maxLines,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            onPressed: () {
+                              showErrorMessage(context,
+                                  post.id.toString() + ' - ' + post.title);
+                            },
                           ),
-                          onPressed: () {
-                            Commands.showSnackBar(context, post.id.toString() + ' - ' + post.title);
-                          },
                         )
                       ],
                     )

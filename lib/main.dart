@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
           length: 2,
           initialIndex: 0,
           child: Scaffold(
+//            key: new GlobalKey("DebagGlobalScafold"),
             appBar: AppBar(
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
