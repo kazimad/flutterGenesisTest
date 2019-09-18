@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_genesis_test/ui/list_view/MyListView.dart';
 import 'package:flutter_genesis_test/ui/tabs/MyTab.dart';
-import 'package:flutter_genesis_test/ui/tabs/MyTabView.dart';
 
 void main() => runApp(MyApp());
 
@@ -49,12 +49,14 @@ class MyApp extends StatelessWidget {
             ),
             body: TabBarView(
               children: <Widget>[
-                MyTabView(
-                    key: PageStorageKey("bodyContent1"),
-                    bodyContent: "bodyContent1"),
-                MyTabView(
-                    key: PageStorageKey("bodyContent2"),
-                    bodyContent: "bodyContent2"),
+                MyListView(
+                  key: PageStorageKey("bodyContent1"),
+//                  bodyContent: "bodyContent1",
+                ),
+                MyListView(
+                  key: PageStorageKey("bodyContent2"),
+//                    bodyContent: "bodyContent2"
+                ),
               ],
             ),
           ),

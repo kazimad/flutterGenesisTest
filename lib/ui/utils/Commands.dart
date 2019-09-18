@@ -6,6 +6,15 @@ showErrorMessage(context, String whatToShow) {
   );
 }
 
+Future<void> navigateSomewhere(BuildContext context, String whatToShow) async {
+  await Future<void>.microtask(() {
+    Scaffold.of(context).showSnackBar(
+      SnackBar(content: Text(whatToShow)),
+    );
+  });
+}
+
+
 bool isNotNullAndNotEmpty(String stringToCheck) {
   if (stringToCheck == null) {
     return false;
