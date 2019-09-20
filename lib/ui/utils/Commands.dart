@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 
-showErrorMessage(context, String whatToShow) {
-  Scaffold.of(context).showSnackBar(
-    SnackBar(content: Text(whatToShow)),
-  );
-}
-
-Future<void> navigateSomewhere(BuildContext context, String whatToShow) async {
+Future<void> showErrorMessage(BuildContext context, String whatToShow) async {
   await Future<void>.microtask(() {
     Scaffold.of(context).showSnackBar(
       SnackBar(content: Text(whatToShow)),

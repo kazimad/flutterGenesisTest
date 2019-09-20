@@ -1,14 +1,13 @@
-import 'package:flutter_genesis_test/network/response/PostResponse.dart';
+import 'package:flutter_genesis_test/data_classes/Pair.dart';
 import 'package:flutter_genesis_test/repositories/PostRepository.dart';
 import 'package:rxdart/rxdart.dart';
 
-class PostBlock{
+class PostBlock {
   final PostRepository _repository = PostRepository();
-  final BehaviorSubject<PostResponse> _subject =
-  BehaviorSubject<PostResponse>();
+  final BehaviorSubject<Pair> _subject = BehaviorSubject<Pair>();
 
-  getUser() async {
-    PostResponse response = await _repository.getUser();
+  getPosts() async {
+    Pair response = await _repository.getUser();
     _subject.sink.add(response);
   }
 
@@ -16,6 +15,7 @@ class PostBlock{
     _subject.close();
   }
 
-  BehaviorSubject<PostResponse> get subject => _subject;
+  BehaviorSubject<Pair> get subject => _subject;
 }
+
 final bloc = PostBlock();

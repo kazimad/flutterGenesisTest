@@ -6,7 +6,9 @@ class PostResponse {
 
   PostResponse(this.results, this.error);
 
-  PostResponse.fromJson(Map<String, dynamic> json)
+  // probably in real life - I will need this line, currently it is commented
+//  PostResponse.fromJson(Map<String, dynamic> json)
+  PostResponse.fromJson(List<dynamic> json)
       : results = (json as List).map((i) => new Post.fromJson(i)).toList(),
         error = "";
 

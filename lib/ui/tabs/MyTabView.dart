@@ -1,5 +1,5 @@
 //import 'package:flutter/material.dart';
-//import 'package:flutter_genesis_test/ui/list_view/MyListView.dart';
+//import 'package:flutter_genesis_test/ui/list_view/PostView.dart';
 //
 //class MyTabView extends StatelessWidget {
 //  final String bodyContent;

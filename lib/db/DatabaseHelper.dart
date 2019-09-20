@@ -6,12 +6,12 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
-
   static final columnId = '_id';
 
   DatabaseHelper._privateConstructor();
 
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
+
   // only have a single app-wide reference to the database
   static Database _database;
 
@@ -36,7 +36,6 @@ class DatabaseHelper {
     });
   }
 
-
   // Helper methods
 
   // Inserts a row in the database where each key in the Map is a column name
@@ -45,6 +44,15 @@ class DatabaseHelper {
   Future<int> insert(Map<String, dynamic> row) async {
     Database db = await instance.database;
     return await db.insert(DB_NAME, row);
+  }
+
+  Future<List> insertAll(List<Map<String, dynamic>> listToInsert) async {
+    Database db = await instance.database;
+    var batch = db.batch();
+    listToInsert.forEach((each) {
+      batch.insert(DB_NAME, each);
+    });
+    return await batch.commit();
   }
 
   // All of the rows are returned as a list of maps, where each map is
@@ -58,7 +66,8 @@ class DatabaseHelper {
   // raw SQL commands. This method uses a raw query to give the row count.
   Future<int> queryRowCount() async {
     Database db = await instance.database;
-    return Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $DB_NAME'));
+    return Sqflite.firstIntValue(
+        await db.rawQuery('SELECT COUNT(*) FROM $DB_NAME'));
   }
 
   // We are assuming here that the id column in the map is set. The other
@@ -66,7 +75,8 @@ class DatabaseHelper {
   Future<int> update(Map<String, dynamic> row) async {
     Database db = await instance.database;
     int id = row[columnId];
-    return await db.update(DB_NAME, row, where: '$columnId = ?', whereArgs: [id]);
+    return await db
+        .update(DB_NAME, row, where: '$columnId = ?', whereArgs: [id]);
   }
 
   // Deletes the row specified by the id. The number of affected rows is

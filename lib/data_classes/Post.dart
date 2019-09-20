@@ -1,4 +1,4 @@
-import 'package:flutter_genesis_test/ui/utils/DatabaseHelper.dart';
+import 'package:flutter_genesis_test/db/DatabaseHelper.dart';
 import 'package:flutter_genesis_test/ui/utils/Constants.dart';
 import 'package:sqflite/sqflite.dart';
 
