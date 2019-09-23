@@ -13,6 +13,6 @@ class PostResponse {
         error = "";
 
   PostResponse.withError(String errorValue)
-      : results = List(),
+      : results = null,
         error = errorValue;
 }

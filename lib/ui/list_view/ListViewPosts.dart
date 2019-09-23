@@ -9,7 +9,7 @@ class ListViewPosts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("ListViewPosts Widget build ");
+//    print("ListViewPosts Widget build posts.length is ${posts.length}");
     return Container(
       child: ListView.builder(
           itemCount: posts.length,

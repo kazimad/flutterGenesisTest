@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_genesis_test/data_classes/response/PostResponse.dart';
+import 'package:flutter_genesis_test/ui/utils/handlers/ErrorHandler.dart';
 
-class PostApiProvider{
+class PostApiProvider {
   final String _endpoint = "https://jsonplaceholder.typicode.com/posts";
   Dio _dio;
 
@@ -10,13 +11,16 @@ class PostApiProvider{
     _dio = Dio(options);
     _setupLoggingInterceptor();
   }
+
   Future<PostResponse> getPosts() async {
     try {
       Response response = await _dio.get(_endpoint);
       return PostResponse.fromJson(response.data);
     } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-      return PostResponse.withError("$error");
+      print(
+          "Exception occured: $error  error as DioError.type ${(error as DioError).type}");
+      print("Exception error.runtimeType ${error.runtimeType}");
+      return PostResponse.withError(handleError(error));
     }
   }
 
@@ -35,7 +39,7 @@ class PostApiProvider{
       String responseAsString = response.data.toString();
       if (responseAsString.length > maxCharactersPerLine) {
         int iterations =
-        (responseAsString.length / maxCharactersPerLine).floor();
+            (responseAsString.length / maxCharactersPerLine).floor();
         for (int i = 0; i <= iterations; i++) {
           int endingIndex = i * maxCharactersPerLine + maxCharactersPerLine;
           if (endingIndex > responseAsString.length) {
@@ -51,12 +55,17 @@ class PostApiProvider{
     };
 
     var errorInterceptor = (DioError error) {
-      print("--> ${error.response.statusCode} ${error.response}");
+      try {
+        print("--> ${error.response.statusCode} ${error.response}");
+      } catch (error, stacktrace) {
+        print("--> Unexpected error ocured ${stacktrace}");
+      }
     };
-    _dio..interceptors.add(InterceptorsWrapper(
-        onRequest: (RequestOptions options) => requestInterceptor(options),
-        onResponse: (Response response) => responseInterceptor(response),
-        onError: (DioError dioError) => errorInterceptor(dioError)
-    ));
+    _dio
+      ..interceptors.add(InterceptorsWrapper(
+          onRequest: (RequestOptions options) => requestInterceptor(options),
+          onResponse: (Response response) => responseInterceptor(response)
+//          onError: (DioError dioError) => errorInterceptor(dioError)
+          ));
   }
 }

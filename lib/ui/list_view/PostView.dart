@@ -29,9 +29,11 @@ class _PostViewState extends State<PostView> {
       builder: (context, AsyncSnapshot<Pair> snapshot) {
         if (snapshot.hasData) {
           if (isNotNullAndNotEmpty(snapshot.data.errorParam)) {
-            return _buildErrorWidget(snapshot.data.errorParam);
+            // TODO why it shows 3 times ?
+            showErrorMessage(context, snapshot.data.errorParam);
           }
-          return _buildPostWidget(snapshot.data.expectedResult);
+          List<Post> listPost = snapshot.data.expectedResult;
+          return _buildPostWidget(listPost);
         } else if (snapshot.hasError) {
           return _buildErrorWidget(snapshot.error);
         } else {

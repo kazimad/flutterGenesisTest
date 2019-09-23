@@ -1,9 +1,10 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 
-String handleError(Error error) {
+String handleError(DioError dioError) {
   String errorDescription = "";
-  if (error is DioErrorType) {
-    switch (error as DioErrorType) {
+    switch (dioError.type) {
       case DioErrorType.CANCEL:
         errorDescription = "Request to API server was cancelled";
         break;
@@ -19,14 +20,11 @@ String handleError(Error error) {
         break;
       case DioErrorType.RESPONSE:
         errorDescription =
-            "Received invalid status code: ${(error as DioError).response.statusCode}";
+            "Received invalid status code: ${(dioError as DioError).response.statusCode}";
         break;
       case DioErrorType.SEND_TIMEOUT:
         errorDescription = "Send timeout in connection with API server";
         break;
     }
-  } else {
-    errorDescription = "Unexpected error occured";
-  }
   return errorDescription;
 }

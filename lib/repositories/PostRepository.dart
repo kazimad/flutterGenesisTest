@@ -6,18 +6,17 @@ import 'package:flutter_genesis_test/network/provider/PostApiProvider.dart';
 import 'package:flutter_genesis_test/ui/utils/handlers/ErrorHandler.dart';
 
 class PostRepository {
-  PostApiProvider _apiProvider = PostApiProvider();
+  final PostApiProvider _apiProvider = PostApiProvider();
   final dbHelper = DatabaseHelper.instance;
   String error;
+  PostResponse response;
 
   Future<Pair> getUser() async {
-    PostResponse response;
-    try {
+//    try {
       response = await _apiProvider.getPosts();
-    } catch (error) {
-      this.error = handleError(error);
-    }
-
+//    } catch (responseError) {
+//      this.error = handleError(responseError);
+//    }
     if (response.results != null) {
       await dbHelper.deleteAll();
 
@@ -27,19 +26,16 @@ class PostRepository {
       });
       await dbHelper.insertAll(listToInsert);
     } else {
-      // TODO check do we need error here
+      this.error = response.error;
     }
 
-    dbHelper.queryRowCount().then((value) {
-      print("dbHelper.queryRowCount() ${value}");
-    });
+//    dbHelper.queryRowCount().then((value) {
+//      print("dbHelper.queryRowCount() ${value}");
+//    });
 
-    var result = queryPostsFromDb(dbHelper);
-    if (result == null) {
-      return Pair.withExpectedResult(result);
-    } else {
-      return Pair.withError(error);
-    }
+    var result = await queryPostsFromDb(dbHelper);
+    Pair pairResult = Pair(result, error);
+    return Future<Pair>.value(pairResult);
   }
 
   Future<List<Post>> queryPostsFromDb(DatabaseHelper dbHelper) async {
@@ -50,6 +46,8 @@ class PostRepository {
     queriedList.forEach((element) {
       posts.add(Post.fromJson(element));
     });
+    print("posts is ${posts.length}");
+
     return Future<List<Post>>.value(posts);
   }
 }
