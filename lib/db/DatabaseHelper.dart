@@ -28,10 +28,19 @@ class DatabaseHelper {
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute("CREATE TABLE $DB_NAME ("
+          "adult INTEGER,"
+          "backdrop_path TEXT,"
           "id INTEGER PRIMARY KEY,"
-          "userId INTEGER,"
+          "original_language TEXT,"
+          "original_title TEXT,"
+          "overview TEXT,"
+          "popularity REAL,"
+          "poster_path TEXT,"
+          "release_date TEXT,"
           "title TEXT,"
-          "body TEXT"
+          "video INTEGER,"
+          "vote_average INTEGER,"
+          "vote_count INTEGER"
           ")");
     });
   }

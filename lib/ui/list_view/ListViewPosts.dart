@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_genesis_test/data_classes/Post.dart';
+import 'package:flutter_genesis_test/data_classes/MoviePOJO.dart';
 import 'package:flutter_genesis_test/ui/list_view/ListViewItem.dart';
 
 class ListViewPosts extends StatelessWidget {
-  final List<Post> posts;
+  final List<MoviePOJO> posts;
 
   ListViewPosts({this.posts});
 
@@ -21,11 +21,11 @@ class ListViewPosts extends StatelessWidget {
   }
 }
 
-checkRegularOrHeader(int index, List<Post> data) {
+checkRegularOrHeader(int index, List<MoviePOJO> data) {
   print("ListViewPosts data ${data.length}");
 //  if (index % 3 == 0) {
   return Container(
-    child: RegularItem(post: (data[index])),
+    child: RegularItem(movie: (data[index])),
   );
 //  }
 //  else {

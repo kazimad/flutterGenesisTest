@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_genesis_test/data_classes/response/PostResponse.dart';
+import 'package:flutter_genesis_test/data_classes/response/MovieParseResult.dart';
 import 'package:flutter_genesis_test/ui/utils/handlers/ErrorHandler.dart';
 
 class PostApiProvider {
-  final String _endpoint = "https://jsonplaceholder.typicode.com/posts";
+  // endpoint for posts - delete after
+//  final String _endpoint = "https://jsonplaceholder.typicode.com/posts";
+  final String _endpoint = "https://api.themoviedb.org/3/discover/movie";
   Dio _dio;
 
   PostApiProvider() {
@@ -12,22 +14,32 @@ class PostApiProvider {
     _setupLoggingInterceptor();
   }
 
-  Future<PostResponse> getPosts() async {
+  Future<MovieParceResult> getPosts(String apiKey, String sortBy,
+      String primaryReleaseDateGte, String primaryReleaseDateLte) async {
     try {
-      Response response = await _dio.get(_endpoint);
-      return PostResponse.fromJson(response.data);
+      Response response = await _dio.get(_endpoint, queryParameters: {
+        "api_key": apiKey,
+        "sort_by": sortBy,
+        "primary_release_date.gte": primaryReleaseDateGte,
+        "primary_release_date.lte": primaryReleaseDateLte
+      });
+      return MovieParceResult.fromJson(response.data);
     } catch (error, stacktrace) {
+//      print(
+//          "Exception occured: $error  error as DioError.type ${(error).type}");
       print(
-          "Exception occured: $error  error as DioError.type ${(error as DioError).type}");
-      print("Exception error.runtimeType ${error.runtimeType}");
-      return PostResponse.withError(handleError(error));
+          "Exception occured: $error  error as DioError.type ${(error).toString()}");
+      return MovieParceResult.withError(handleError(error));
     }
   }
 
+// interceptors
   void _setupLoggingInterceptor() {
     int maxCharactersPerLine = 200;
     var requestInterceptor = (Options options) {
-      print("--> ${options.method} ${options.method}");
+      print(
+          "--> ${options.method} ${options.extra.toString()} ${options.headers.toString()} "
+          "${options.responseType.toString()} ${options.contentType.toString()} ${options.validateStatus.toString()} ${options.requestEncoder}");
       print("Content type: ${options.contentType}");
       print("<-- END HTTP");
       return options;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/block/PostBlock.dart';
 import 'package:flutter_genesis_test/data_classes/Pair.dart';
-import 'package:flutter_genesis_test/data_classes/Post.dart';
+import 'package:flutter_genesis_test/data_classes/MoviePOJO.dart';
 import 'package:flutter_genesis_test/db/DatabaseHelper.dart';
 import 'package:flutter_genesis_test/ui/list_view/ListViewPosts.dart';
 import 'package:flutter_genesis_test/ui/utils/Commands.dart';
@@ -32,7 +32,7 @@ class _PostViewState extends State<PostView> {
             // TODO why it shows 3 times ?
             showErrorMessage(context, snapshot.data.errorParam);
           }
-          List<Post> listPost = snapshot.data.expectedResult;
+          List<MoviePOJO> listPost = snapshot.data.expectedResult;
           return _buildPostWidget(listPost);
         } else if (snapshot.hasError) {
           return _buildErrorWidget(snapshot.error);
@@ -61,7 +61,7 @@ class _PostViewState extends State<PostView> {
     ));
   }
 
-  Widget _buildPostWidget(List<Post> posts) {
+  Widget _buildPostWidget(List<MoviePOJO> posts) {
     return ListViewPosts(posts: posts);
   }
 }

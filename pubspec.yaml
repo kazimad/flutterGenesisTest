@@ -25,6 +25,7 @@ dependencies:
   auto_size_text: 2.1.0
   dio: 3.0.0
   rxdart: 0.22.2
+  intl: 0.16.0
 
 
   # The following adds the Cupertino Icons font to your application.

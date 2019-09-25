@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_genesis_test/data_classes/Post.dart';
+import 'package:flutter_genesis_test/data_classes/MoviePOJO.dart';
 import 'package:flutter_genesis_test/ui/utils/Commands.dart';
 
 abstract class ListViewItem {}
@@ -12,14 +12,14 @@ class HeaderItem extends Text implements ListViewItem {
 }
 
 class RegularItem extends StatelessWidget implements ListViewItem {
-  final Post post;
+  final MoviePOJO movie;
   final double imageSize = 100;
   final double margin8 = 8;
   final double elevation = 4;
   final double minFontSize = 12;
   final int maxLines =1;
 
-  const RegularItem({Key key, this.post});
+  const RegularItem({Key key, this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class RegularItem extends StatelessWidget implements ListViewItem {
               Align(
                 alignment: Alignment.bottomLeft,
                 child: Container(
-                  child: Text(post.id.toString()),
+                  child: Text(movie.popularity.toString()),
 //                  child: Text("ss"),
                   margin: EdgeInsets.only(
                       left: (imageSize / 2), top: imageSize + (imageSize / 5)),
@@ -58,9 +58,9 @@ class RegularItem extends StatelessWidget implements ListViewItem {
                     left: imageSize + (margin8 * 2), top: margin8),
                 child: Column(
                   children: <Widget>[
-                    Text(post.title),
+                    Text(movie.originalTitle),
 //                    Text("ssss"),
-                    Text(post.title),
+                    Text(movie.overview),
 //                    Text("qqq"),
                     Divider(
                       color: Colors.grey,
@@ -98,7 +98,7 @@ class RegularItem extends StatelessWidget implements ListViewItem {
                             ),
                             onPressed: () {
                               showErrorMessage(context,
-                                  post.id.toString() + ' - ' + post.title);
+                                  movie.voteCount.toString() + ' - ' + movie.title);
                             },
                           ),
                         )
