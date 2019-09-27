@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/block/PostBlock.dart';
-import 'package:flutter_genesis_test/data_classes/Pair.dart';
-import 'package:flutter_genesis_test/data_classes/MoviePOJO.dart';
+import 'package:flutter_genesis_test/data_classes/pair.dart';
+import 'package:flutter_genesis_test/data_classes/movie_POJO.dart';
 import 'package:flutter_genesis_test/db/DatabaseHelper.dart';
 import 'package:flutter_genesis_test/ui/list_view/ListViewPosts.dart';
 import 'package:flutter_genesis_test/ui/utils/Commands.dart';

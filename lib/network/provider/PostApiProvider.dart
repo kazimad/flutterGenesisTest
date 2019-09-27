@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_genesis_test/data_classes/response/MovieParseResult.dart';
+import 'package:flutter_genesis_test/data_classes/response/movie_parse_result.dart';
 import 'package:flutter_genesis_test/ui/utils/handlers/ErrorHandler.dart';
 
 class PostApiProvider {
@@ -25,11 +25,12 @@ class PostApiProvider {
       });
       return MovieParceResult.fromJson(response.data);
     } catch (error, stacktrace) {
-//      print(
-//          "Exception occured: $error  error as DioError.type ${(error).type}");
-      print(
-          "Exception occured: $error  error as DioError.type ${(error).toString()}");
-      return MovieParceResult.withError(handleError(error));
+      print("${error.toString()}, ${'\n'}stacktrace ${'\n'}$stacktrace");
+      if (error is DioError) {
+        return MovieParceResult.withError(handleError(error));
+      } else {
+        return MovieParceResult.withError(error.toString());
+      }
     }
   }
 

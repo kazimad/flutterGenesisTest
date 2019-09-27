@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_genesis_test/data_classes/MoviePOJO.dart';
+import 'package:flutter_genesis_test/data_classes/movie_POJO.dart';
 import 'package:flutter_genesis_test/ui/utils/Commands.dart';
 
 abstract class ListViewItem {}

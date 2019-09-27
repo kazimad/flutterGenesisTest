@@ -1,3 +1,4 @@
+import 'package:flutter_genesis_test/ui/utils/Commands.dart';
 class MoviePOJO {
   final int id;
   final double popularity;
@@ -64,6 +65,23 @@ class MoviePOJO {
     );
   }
 
+  factory MoviePOJO.fromDbJson(Map<String, dynamic> json) {
+    return MoviePOJO(
+      adult: fromJsonToBool(json['adult']),
+      backdropPath: json['backdrop_path'],
+      id: json['id'],
+      originalLanguage: json['original_language'],
+      originalTitle: json['original_title'],
+      overview: json['overview'],
+      popularity: json['popularity'],
+      posterPath: json['poster_path'],
+      releaseDate: json['release_date'],
+      title: json['title'],
+      video: fromJsonToBool(json['video']),
+      voteAverage: json['vote_average'],
+      voteCount: json['vote_count'],
+    );
+  }
   @override
   String toString() {
     return 'Movie{adult: $adult, backdropPath: $backdropPath, id: $id, originalLanguage: $originalLanguage,'

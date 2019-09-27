@@ -1,4 +1,4 @@
-import 'package:flutter_genesis_test/data_classes/Pair.dart';
+import 'package:flutter_genesis_test/data_classes/pair.dart';
 import 'package:flutter_genesis_test/repositories/PostRepository.dart';
 import 'package:rxdart/rxdart.dart';
 

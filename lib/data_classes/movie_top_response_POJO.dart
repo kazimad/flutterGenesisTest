@@ -1,4 +1,4 @@
-import 'package:flutter_genesis_test/data_classes/MoviePOJO.dart';
+import 'package:flutter_genesis_test/data_classes/movie_POJO.dart';
 
 class MovieTopResponsePOJO {
   final int page;

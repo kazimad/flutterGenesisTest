@@ -23,7 +23,7 @@ bool isNotNullAndNotEmpty(String stringToCheck) {
 
 String getCurrentTimeAndFormat() {
   DateTime now = new DateTime.now();
-  var formatter = new DateFormat(DATE_FORMAT);
+  var formatter = new DateFormat(DATE_FORMAT_FULL);
   DateTime date = new DateTime(now.year, now.month, now.day);
   var formattedDate = formatter.format(date);
   return formattedDate;
@@ -31,8 +31,13 @@ String getCurrentTimeAndFormat() {
 
 String getFutureTimeAndFormat() {
   DateTime now = new DateTime.now();
-  var formatter = new DateFormat(DATE_FORMAT);
+  var formatter = new DateFormat(DATE_FORMAT_FULL);
   DateTime date = new DateTime(now.year, now.month + 3, now.day);
   var formattedDate = formatter.format(date);
   return formattedDate;
+}
+
+bool fromJsonToBool(int toTransform) {
+  var result = toTransform == 1;
+  return result;
 }

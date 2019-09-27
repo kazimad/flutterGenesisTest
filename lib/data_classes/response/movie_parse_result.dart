@@ -1,4 +1,4 @@
-import 'package:flutter_genesis_test/data_classes/MovieTopResponsePOJO.dart';
+import 'package:flutter_genesis_test/data_classes/movie_top_response_POJO.dart';
 
 class MovieParceResult {
   final MovieTopResponsePOJO topResponse;
