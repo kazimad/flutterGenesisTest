@@ -1,5 +1,5 @@
 import 'package:flutter_genesis_test/data_classes/pair.dart';
-import 'package:flutter_genesis_test/repositories/PostRepository.dart';
+import 'package:flutter_genesis_test/repositories/post_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class PostBlock {

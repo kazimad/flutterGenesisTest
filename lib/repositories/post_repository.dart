@@ -1,10 +1,10 @@
 import 'package:flutter_genesis_test/data_classes/movie_POJO.dart';
 import 'package:flutter_genesis_test/data_classes/pair.dart';
 import 'package:flutter_genesis_test/data_classes/response/movie_parse_result.dart';
-import 'package:flutter_genesis_test/db/DatabaseHelper.dart';
-import 'package:flutter_genesis_test/network/provider/PostApiProvider.dart';
-import 'package:flutter_genesis_test/ui/utils/Commands.dart';
-import 'package:flutter_genesis_test/ui/utils/Constants.dart';
+import 'package:flutter_genesis_test/db/database_helper.dart';
+import 'package:flutter_genesis_test/network/provider/post_api_provider.dart';
+import 'package:flutter_genesis_test/ui/utils/commands.dart';
+import 'package:flutter_genesis_test/ui/utils/constants.dart';
 
 class PostRepository {
   final PostApiProvider _apiProvider = PostApiProvider();

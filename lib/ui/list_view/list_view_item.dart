@@ -1,14 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/data_classes/movie_POJO.dart';
-import 'package:flutter_genesis_test/ui/utils/Commands.dart';
+import 'package:flutter_genesis_test/ui/utils/commands.dart';
 
 abstract class ListViewItem {}
 
 class HeaderItem extends Text implements ListViewItem {
-  final String text;
+  final String headerText;
 
-  HeaderItem(this.text) : super(text);
+  HeaderItem(this.headerText) : super(headerText);
 }
 
 class RegularItem extends StatelessWidget implements ListViewItem {
@@ -17,9 +17,9 @@ class RegularItem extends StatelessWidget implements ListViewItem {
   final double margin8 = 8;
   final double elevation = 4;
   final double minFontSize = 12;
-  final int maxLines =1;
+  final int maxLines = 1;
 
-  const RegularItem({Key key, this.movie});
+  const RegularItem({this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,6 @@ class RegularItem extends StatelessWidget implements ListViewItem {
                 alignment: Alignment.bottomLeft,
                 child: Container(
                   child: Text(movie.popularity.toString()),
-//                  child: Text("ss"),
                   margin: EdgeInsets.only(
                       left: (imageSize / 2), top: imageSize + (imageSize / 5)),
                 ),
@@ -59,9 +58,7 @@ class RegularItem extends StatelessWidget implements ListViewItem {
                 child: Column(
                   children: <Widget>[
                     Text(movie.originalTitle),
-//                    Text("ssss"),
                     Text(movie.overview),
-//                    Text("qqq"),
                     Divider(
                       color: Colors.grey,
                     ),
@@ -97,8 +94,11 @@ class RegularItem extends StatelessWidget implements ListViewItem {
                               overflow: TextOverflow.ellipsis,
                             ),
                             onPressed: () {
-                              showErrorMessage(context,
-                                  movie.voteCount.toString() + ' - ' + movie.title);
+                              showErrorMessage(
+                                  context,
+                                  movie.voteCount.toString() +
+                                      ' - ' +
+                                      movie.title);
                             },
                           ),
                         )

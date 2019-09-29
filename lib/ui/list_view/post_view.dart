@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_genesis_test/block/PostBlock.dart';
-import 'package:flutter_genesis_test/data_classes/pair.dart';
+import 'package:flutter_genesis_test/block/post_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_POJO.dart';
-import 'package:flutter_genesis_test/db/DatabaseHelper.dart';
-import 'package:flutter_genesis_test/ui/list_view/ListViewPosts.dart';
-import 'package:flutter_genesis_test/ui/utils/Commands.dart';
+import 'package:flutter_genesis_test/data_classes/pair.dart';
+import 'package:flutter_genesis_test/ui/list_view/list_view_posts.dart';
+import 'package:flutter_genesis_test/ui/utils/commands.dart';
 
 class PostView extends StatefulWidget {
   PostView({Key key}) : super(key: key);
@@ -14,8 +13,6 @@ class PostView extends StatefulWidget {
 }
 
 class _PostViewState extends State<PostView> {
-  final dbHelper = DatabaseHelper.instance;
-
   @override
   void initState() {
     super.initState();

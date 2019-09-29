@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_genesis_test/ui/list_view/PostView.dart';
-import 'package:flutter_genesis_test/ui/tabs/MyTab.dart';
+import 'package:flutter_genesis_test/ui/list_view/post_view.dart';
+import 'package:flutter_genesis_test/ui/tabs/my_tab.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   final double avatarSize = 40;
 
   @override

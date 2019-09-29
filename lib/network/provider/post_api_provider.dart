@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_genesis_test/data_classes/response/movie_parse_result.dart';
-import 'package:flutter_genesis_test/ui/utils/handlers/ErrorHandler.dart';
+import 'package:flutter_genesis_test/ui/utils/handlers/error_handler.dart';
 
 class PostApiProvider {
-  // endpoint for posts - delete after
 //  final String _endpoint = "https://jsonplaceholder.typicode.com/posts";
   final String _endpoint = "https://api.themoviedb.org/3/discover/movie";
   Dio _dio;

@@ -1,4 +1,4 @@
-import 'package:flutter_genesis_test/ui/utils/Commands.dart';
+import 'package:flutter_genesis_test/ui/utils/commands.dart';
 class MoviePOJO {
   final int id;
   final double popularity;
