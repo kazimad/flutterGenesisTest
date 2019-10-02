@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'dart:core';
 
 import 'package:flutter/material.dart';
@@ -15,14 +14,27 @@ class ListViewPosts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 //    print("ListViewPosts Widget build posts.length is ${posts.length}");
+  final widgets = headerOrRegular(posts);
+
     return Container(
+//        child: ListView(
+//      children: <Widget>[
+//        ...headerOrRegular(posts),
+//      ],
+//    )
+//          itemCount: posts.length,
+//          padding: const EdgeInsets.all(15.0),
+//          itemBuilder: (context, position) {
+//            return createList(posts);
+//          }),
       child: ListView.builder(
           itemCount: posts.length,
           padding: const EdgeInsets.all(15.0),
           itemBuilder: (context, position) {
-            return createList(posts);
+//            return createList(posts);
+            return widgets[position];
           }),
-    );
+        );
   }
 }
 
@@ -39,8 +51,8 @@ createList(List<MoviePOJO> data) {
 }
 
 // redo to dart from movieParcer -Repository-sortAndFilterValues
-List<ListViewItem> headerOrRegular(List<MoviePOJO> incommingList) {
-  List<ListViewItem> technical = List<ListViewItem>();
+List<Widget> headerOrRegular(List<MoviePOJO> incommingList) {
+  final technical = <Widget>[];
 
   incommingList.sort((a, b) => a.releaseDate.compareTo(b.releaseDate));
   DateFormat fullDateFormat = DateFormat(DATE_FORMAT_FULL);
@@ -64,42 +76,47 @@ List<ListViewItem> headerOrRegular(List<MoviePOJO> incommingList) {
     }
   });
 
-  //separate values in each collection by dates
-  HashMap<String, List<ListViewItem>> rawHashMap =
-      HashMap<String, List<ListViewItem>>();
-  List<ListViewItem> array;
-  String lastKey;
-  technical.forEach((each) {
-    if (each is HeaderItem) {
-      if (lastKey != null) {
-        rawHashMap[lastKey] = array;
-      }
-      lastKey = each.headerText;
-      array = List();
-    } else {
-      if (array != null && array.isNotEmpty) {
-        array.add(each);
-      }
-    }
-  });
-
-  rawHashMap[lastKey] = array;
-
-  //sort each value list by popularity
-  HashMap<String, List<ListViewItem>> sortedHashMap =
-      HashMap<String, List<ListViewItem>>();
-  rawHashMap.entries.forEach((entry) {
-    sortedHashMap[entry.key] = entry.value..sort();
-  });
-
-  // compose sorted values and headers
-  List<ListViewItem> sortedFilteredResult = List<ListViewItem>();
-  sortedHashMap.entries.forEach((entry) {
-    if (entry.value != null) {
-      sortedFilteredResult.add(HeaderItem(entry.key));
-      sortedFilteredResult.addAll(entry.value);
-    }
-  });
-
-  return sortedFilteredResult;
+  print("technical.length is ${technical.length}");
+//  //separate values in each collection by dates
+//  HashMap<String, List<ListViewItem>> rawHashMap =
+//      HashMap<String, List<ListViewItem>>();
+//  List<ListViewItem> array;
+//  String lastKey;
+//  technical.forEach((each) {
+//    if (each is HeaderItem) {
+//      if (lastKey != null) {
+//        rawHashMap[lastKey] = array;
+//      }
+//      lastKey = each.headerText;
+//      array = List();
+//    } else {
+////      if (array != null && array.isNotEmpty) {
+//        array.add(each);
+////      }
+//    }
+//  });
+//
+//  rawHashMap[lastKey] = array;
+//
+//  //sort each value list by popularity
+//  HashMap<String, List<ListViewItem>> sortedHashMap = HashMap<String, List<ListViewItem>>();
+//  print("rawHashMap length is ${rawHashMap.length}");
+//  rawHashMap.entries.forEach((entry) {
+//    sortedHashMap[entry.key] = entry.value..sort();
+//    print("entry is ${entry.value.length}");
+//
+//  });
+//
+//  // compose sorted values and headers
+//  List<ListViewItem> sortedFilteredResult = List<ListViewItem>();
+//  sortedHashMap.entries.forEach((entry) {
+//    if (entry.value != null) {
+//      sortedFilteredResult.add(HeaderItem(entry.key));
+//      sortedFilteredResult.addAll(entry.value);
+//    }
+//  });
+//
+//  print("sortedFilteredResult.length is ${sortedFilteredResult.length}");
+//  return sortedFilteredResult;
+  return technical;
 }

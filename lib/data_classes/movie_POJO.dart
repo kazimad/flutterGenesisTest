@@ -10,7 +10,8 @@ class MoviePOJO {
   final String originalLanguage;
   final String originalTitle;
   final String title;
-  final int voteAverage;
+  // TODO try too Google it
+//  final double voteAverage;
   final String overview;
   final String releaseDate;
 
@@ -25,7 +26,7 @@ class MoviePOJO {
       this.originalLanguage,
       this.originalTitle,
       this.title,
-      this.voteAverage,
+//      this.voteAverage,
       this.overview,
       this.releaseDate});
 
@@ -42,7 +43,7 @@ class MoviePOJO {
       'release_date': releaseDate,
       'title': title,
       'video': video == true ? 1 : 0,
-      'vote_average': voteAverage,
+//      'vote_average': voteAverage,
       'vote_count': voteCount,
     };
   }
@@ -60,7 +61,7 @@ class MoviePOJO {
       releaseDate: json['release_date'],
       title: json['title'],
       video: json['video'],
-      voteAverage: json['vote_average'],
+//      voteAverage: json['vote_average'],
       voteCount: json['vote_count'],
     );
   }
@@ -78,7 +79,7 @@ class MoviePOJO {
       releaseDate: json['release_date'],
       title: json['title'],
       video: fromJsonToBool(json['video']),
-      voteAverage: json['vote_average'],
+//      voteAverage: json['vote_average'],
       voteCount: json['vote_count'],
     );
   }
@@ -87,6 +88,7 @@ class MoviePOJO {
     return 'Movie{adult: $adult, backdropPath: $backdropPath, id: $id, originalLanguage: $originalLanguage,'
         'originalTitle: $originalTitle,overview: $overview, popularity: $popularity,'
         'posterPath: $posterPath, releaseDate: $releaseDate, title: $title,'
-        'video: $video, voteAverage: $voteAverage, voteCount: $voteCount}';
+//        'video: $video, voteAverage: $voteAverage, voteCount: $voteCount}';
+        'video: $video, voteCount: $voteCount}';
   }
 }
