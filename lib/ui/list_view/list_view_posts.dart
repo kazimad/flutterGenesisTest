@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:core';
 
 import 'package:flutter/material.dart';
@@ -13,46 +14,28 @@ class ListViewPosts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-//    print("ListViewPosts Widget build posts.length is ${posts.length}");
-  final widgets = headerOrRegular(posts);
+    final widgets = headerOrRegular(posts);
 
     return Container(
-//        child: ListView(
-//      children: <Widget>[
-//        ...headerOrRegular(posts),
-//      ],
-//    )
-//          itemCount: posts.length,
-//          padding: const EdgeInsets.all(15.0),
-//          itemBuilder: (context, position) {
-//            return createList(posts);
-//          }),
       child: ListView.builder(
-          itemCount: posts.length,
+          itemCount: widgets.length,
           padding: const EdgeInsets.all(15.0),
           itemBuilder: (context, position) {
-//            return createList(posts);
-            return widgets[position];
+            return widgets[position] as Widget;
           }),
-        );
+    );
   }
 }
 
 createList(List<MoviePOJO> data) {
-  print("ListViewPosts data ${data.length}");
-
   var result = headerOrRegular(data);
-  print("ListViewPosts result ${result.length}");
-
   result.forEach((listItem) {
-    print("ListViewPosts listItem is ${listItem.toString()}");
     return listItem;
   });
 }
 
-// redo to dart from movieParcer -Repository-sortAndFilterValues
-List<Widget> headerOrRegular(List<MoviePOJO> incommingList) {
-  final technical = <Widget>[];
+List<ListViewItem> headerOrRegular(List<MoviePOJO> incommingList) {
+  final technical = <ListViewItem>[];
 
   incommingList.sort((a, b) => a.releaseDate.compareTo(b.releaseDate));
   DateFormat fullDateFormat = DateFormat(DATE_FORMAT_FULL);
@@ -76,47 +59,35 @@ List<Widget> headerOrRegular(List<MoviePOJO> incommingList) {
     }
   });
 
-  print("technical.length is ${technical.length}");
-//  //separate values in each collection by dates
-//  HashMap<String, List<ListViewItem>> rawHashMap =
-//      HashMap<String, List<ListViewItem>>();
-//  List<ListViewItem> array;
-//  String lastKey;
-//  technical.forEach((each) {
-//    if (each is HeaderItem) {
-//      if (lastKey != null) {
-//        rawHashMap[lastKey] = array;
-//      }
-//      lastKey = each.headerText;
-//      array = List();
-//    } else {
-////      if (array != null && array.isNotEmpty) {
-//        array.add(each);
-////      }
-//    }
-//  });
-//
-//  rawHashMap[lastKey] = array;
-//
-//  //sort each value list by popularity
-//  HashMap<String, List<ListViewItem>> sortedHashMap = HashMap<String, List<ListViewItem>>();
-//  print("rawHashMap length is ${rawHashMap.length}");
-//  rawHashMap.entries.forEach((entry) {
-//    sortedHashMap[entry.key] = entry.value..sort();
-//    print("entry is ${entry.value.length}");
-//
-//  });
-//
-//  // compose sorted values and headers
-//  List<ListViewItem> sortedFilteredResult = List<ListViewItem>();
-//  sortedHashMap.entries.forEach((entry) {
-//    if (entry.value != null) {
-//      sortedFilteredResult.add(HeaderItem(entry.key));
-//      sortedFilteredResult.addAll(entry.value);
-//    }
-//  });
-//
-//  print("sortedFilteredResult.length is ${sortedFilteredResult.length}");
-//  return sortedFilteredResult;
-  return technical;
+  //separate values in each collection by dates
+  LinkedHashMap<String, List<ListViewItem>> rawHashMap =
+      LinkedHashMap<String, List<ListViewItem>>();
+  List<ListViewItem> array;
+  String lastKey;
+  technical.forEach((each) {
+    if (each is HeaderItem) {
+      if (lastKey != null) {
+        rawHashMap[lastKey] = array;
+      }
+      lastKey = each.headerText;
+      array = List();
+    } else {
+      array.add(each);
+    }
+  });
+  rawHashMap[lastKey] = array;
+  //sort each value list by popularity
+  rawHashMap.entries.forEach((entry) {
+    entry.value.sort((a, b) => (a as RegularItem)
+        .movie
+        .popularity
+        .compareTo((b as RegularItem).movie.popularity));
+  });
+  // compose sorted values and headers
+  List<ListViewItem> sortedFilteredResult = List<ListViewItem>();
+  rawHashMap.entries.forEach((entry) {
+    sortedFilteredResult.add(HeaderItem(entry.key));
+    sortedFilteredResult.addAll(entry.value);
+  });
+  return sortedFilteredResult;
 }
