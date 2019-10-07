@@ -5,12 +5,12 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DatabaseHelper {
+class DatabaseMovieHelper {
   static final columnId = '_id';
 
-  DatabaseHelper._privateConstructor();
+  DatabaseMovieHelper._privateConstructor();
 
-  static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
+  static final DatabaseMovieHelper instance = DatabaseMovieHelper._privateConstructor();
 
   // only have a single app-wide reference to the database
   static Database _database;
@@ -24,10 +24,10 @@ class DatabaseHelper {
 
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "$DB_NAME.db");
+    String path = join(documentsDirectory.path, "$DB_MOVIE_NAME.db");
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
-      await db.execute("CREATE TABLE $DB_NAME ("
+      await db.execute("CREATE TABLE $DB_MOVIE_NAME ("
           "adult INTEGER,"
           "backdrop_path TEXT,"
           "id INTEGER PRIMARY KEY,"
@@ -40,7 +40,8 @@ class DatabaseHelper {
           "title TEXT,"
           "video INTEGER,"
           "vote_average INTEGER,"
-          "vote_count INTEGER"
+          "vote_count INTEGER, "
+          "is_favorite INTEGER"
           ")");
     });
   }
@@ -52,14 +53,14 @@ class DatabaseHelper {
   // inserted row.
   Future<int> insert(Map<String, dynamic> row) async {
     Database db = await instance.database;
-    return await db.insert(DB_NAME, row);
+    return await db.insert(DB_MOVIE_NAME, row);
   }
 
   Future<List> insertAll(List<Map<String, dynamic>> listToInsert) async {
     Database db = await instance.database;
     var batch = db.batch();
     listToInsert.forEach((each) {
-      batch.insert(DB_NAME, each);
+      batch.insert(DB_MOVIE_NAME, each);
     });
     return await batch.commit();
   }
@@ -68,7 +69,7 @@ class DatabaseHelper {
   // a key-value list of columns.
   Future<List<Map<String, dynamic>>> queryAllRows() async {
     Database db = await instance.database;
-    return await db.query(DB_NAME);
+    return await db.query(DB_MOVIE_NAME);
   }
 
   // All of the methods (insert, query, update, delete) can also be done using
@@ -76,7 +77,7 @@ class DatabaseHelper {
   Future<int> queryRowCount() async {
     Database db = await instance.database;
     return Sqflite.firstIntValue(
-        await db.rawQuery('SELECT COUNT(*) FROM $DB_NAME'));
+        await db.rawQuery('SELECT COUNT(*) FROM $DB_MOVIE_NAME'));
   }
 
   // We are assuming here that the id column in the map is set. The other
@@ -85,18 +86,18 @@ class DatabaseHelper {
     Database db = await instance.database;
     int id = row[columnId];
     return await db
-        .update(DB_NAME, row, where: '$columnId = ?', whereArgs: [id]);
+        .update(DB_MOVIE_NAME, row, where: '$columnId = ?', whereArgs: [id]);
   }
 
   // Deletes the row specified by the id. The number of affected rows is
   // returned. This should be 1 as long as the row exists.
   Future<int> delete(int id) async {
     Database db = await instance.database;
-    return await db.delete(DB_NAME, where: '$columnId = ?', whereArgs: [id]);
+    return await db.delete(DB_MOVIE_NAME, where: '$columnId = ?', whereArgs: [id]);
   }
 
   Future<int> deleteAll() async {
     Database db = await instance.database;
-    return await db.rawDelete("Delete from $DB_NAME");
+    return await db.rawDelete("Delete from $DB_MOVIE_NAME");
   }
 }

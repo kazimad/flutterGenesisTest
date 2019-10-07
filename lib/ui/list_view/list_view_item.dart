@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_genesis_test/data_classes/movie_POJO.dart';
+import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
 
 abstract class ListViewItem {}
@@ -11,15 +12,25 @@ class HeaderItem extends Text implements ListViewItem {
   HeaderItem(this.headerText) : super(headerText);
 }
 
-class RegularItem extends StatelessWidget implements ListViewItem {
-  final MoviePOJO movie;
+class RegularItem extends StatefulWidget implements ListViewItem {
+  final MovieInner movie;
+
+  const RegularItem({this.movie});
+
+  @override
+  _RegularItemState createState() => _RegularItemState(movie: movie);
+}
+
+class _RegularItemState extends State<RegularItem> {
+  final MovieInner movie;
+
   final double imageSize = 100;
   final double margin8 = 8;
   final double elevation = 4;
   final double minFontSize = 12;
   final int maxLines = 1;
 
-  const RegularItem({this.movie});
+  _RegularItemState({this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +47,14 @@ class RegularItem extends StatelessWidget implements ListViewItem {
                 child: Padding(
                   padding: EdgeInsets.all(margin8),
                   child: Container(
-                    child: Image.asset(
-                      'assets/images/no_img.png',
-                      width: imageSize,
-                      height: imageSize,
+                    width: imageSize,
+                    height: imageSize,
+                    child: CachedNetworkImage(
+                      imageUrl: "http://via.placeholder.com/350x150",
+                      placeholder: (context, url) =>
+                          new CircularProgressIndicator(),
+                      errorWidget: (context, url, error) =>
+                          new Icon(Icons.error),
                     ),
                   ),
                 ),
@@ -70,7 +85,7 @@ class RegularItem extends StatelessWidget implements ListViewItem {
                           flex: 2,
                           child: MaterialButton(
                             child: AutoSizeText(
-                              "add to favorite".toUpperCase(),
+                              properText(movie),
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.green),
@@ -78,7 +93,11 @@ class RegularItem extends StatelessWidget implements ListViewItem {
                               maxLines: maxLines,
                               overflow: TextOverflow.ellipsis,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                movie.isFavorite = !movie.isFavorite;
+                              });
+                            },
                           ),
                         ),
                         Flexible(
@@ -112,5 +131,13 @@ class RegularItem extends StatelessWidget implements ListViewItem {
         ),
       ),
     );
+  }
+
+  String properText(MovieInner movieInner) {
+    if (movieInner.isFavorite) {
+      return "Remove from favorite".toUpperCase();
+    } else {
+      return "Add  favorite".toUpperCase();
+    }
   }
 }

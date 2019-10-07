@@ -2,13 +2,13 @@ import 'dart:collection';
 import 'dart:core';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_genesis_test/data_classes/movie_POJO.dart';
+import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/ui/list_view/list_view_item.dart';
 import 'package:flutter_genesis_test/ui/utils/constants.dart';
 import 'package:intl/intl.dart';
 
 class ListViewPosts extends StatelessWidget {
-  final List<MoviePOJO> posts;
+  final List<MovieInner> posts;
 
   ListViewPosts({this.posts});
 
@@ -27,14 +27,14 @@ class ListViewPosts extends StatelessWidget {
   }
 }
 
-createList(List<MoviePOJO> data) {
+createList(List<MovieInner> data) {
   var result = headerOrRegular(data);
   result.forEach((listItem) {
     return listItem;
   });
 }
 
-List<ListViewItem> headerOrRegular(List<MoviePOJO> incommingList) {
+List<ListViewItem> headerOrRegular(List<MovieInner> incommingList) {
   final technical = <ListViewItem>[];
 
   incommingList.sort((a, b) => a.releaseDate.compareTo(b.releaseDate));

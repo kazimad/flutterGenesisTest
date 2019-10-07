@@ -1,14 +1,14 @@
-import 'package:flutter_genesis_test/data_classes/movie_POJO.dart';
+import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/data_classes/pair.dart';
 import 'package:flutter_genesis_test/data_classes/response/movie_parse_result.dart';
-import 'package:flutter_genesis_test/db/database_helper.dart';
 import 'package:flutter_genesis_test/network/provider/post_api_provider.dart';
+import 'package:flutter_genesis_test/persistance/db_movie_helper.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
 import 'package:flutter_genesis_test/ui/utils/constants.dart';
 
 class PostRepository {
   final PostApiProvider _apiProvider = PostApiProvider();
-  final dbHelper = DatabaseHelper.instance;
+  final dbHelper = DatabaseMovieHelper.instance;
   String error;
   MovieParceResult response;
 
@@ -24,7 +24,7 @@ class PostRepository {
 
       List<Map<String, dynamic>> listToInsert = List<Map<String, dynamic>>();
       response.topResponse.movies.forEach((each) {
-        listToInsert.add(each.toMap());
+        listToInsert.add(MovieInner.fromMoviePOJO(each).toMap());
       });
       await dbHelper.insertAll(listToInsert);
     } else {
@@ -40,16 +40,17 @@ class PostRepository {
     return Future<Pair>.value(pairResult);
   }
 
-  Future<List<MoviePOJO>> queryPostsFromDb(DatabaseHelper dbHelper) async {
-    List<MoviePOJO> posts = new List();
+  Future<List<MovieInner>> queryPostsFromDb(
+      DatabaseMovieHelper dbHelper) async {
+    List<MovieInner> posts = [];
     var queriedList = await dbHelper.queryAllRows();
     print("queriedList is ${queriedList.length}");
 
     queriedList.forEach((element) {
-      posts.add(MoviePOJO.fromDbJson(element));
+      posts.add(MovieInner.fromDbJson(element));
     });
     print("posts is ${posts.length}");
 
-    return Future<List<MoviePOJO>>.value(posts);
+    return Future<List<MovieInner>>.value(posts);
   }
 }
