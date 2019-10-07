@@ -67,7 +67,7 @@ class MovieInner {
         video: fromJsonToBool(json['video']),
 //      voteAverage: json['vote_average'],
         voteCount: json['vote_count'],
-        isFavorite: json['is_favorite']);
+        isFavorite: fromJsonToBool(json['is_favorite']));
   }
 
   factory MovieInner.fromMoviePOJO(MoviePOJO moviePOJO){

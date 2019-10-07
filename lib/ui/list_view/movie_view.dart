@@ -5,14 +5,14 @@ import 'package:flutter_genesis_test/data_classes/pair.dart';
 import 'package:flutter_genesis_test/ui/list_view/list_view_posts.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
 
-class PostView extends StatefulWidget {
-  PostView({Key key}) : super(key: key);
+class MovieView extends StatefulWidget {
+  MovieView({Key key}) : super(key: key);
 
   @override
-  _PostViewState createState() => _PostViewState();
+  _MovieViewState createState() => _MovieViewState();
 }
 
-class _PostViewState extends State<PostView> {
+class _MovieViewState extends State<MovieView> {
   @override
   void initState() {
     super.initState();

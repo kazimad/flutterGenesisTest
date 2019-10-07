@@ -1,13 +1,12 @@
 import 'package:flutter_genesis_test/data_classes/pair.dart';
-import 'package:flutter_genesis_test/repositories/movies_repository.dart';
+import 'package:flutter_genesis_test/repositories/favorite_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
-class PostBlock {
-  final MovieRepository _repository = MovieRepository();
+class FavoriteBlock {
   final BehaviorSubject<Pair> _subject = BehaviorSubject<Pair>();
 
-  getPosts() async {
-    Pair response = await _repository.getMovies();
+  getFavorites() async {
+    Pair response = await getAllFavorite();
     _subject.sink.add(response);
   }
 
@@ -17,5 +16,4 @@ class PostBlock {
 
   BehaviorSubject<Pair> get subject => _subject;
 }
-
-final bloc = PostBlock();
+final bloc = FavoriteBlock();

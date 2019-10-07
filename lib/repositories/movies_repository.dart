@@ -6,15 +6,15 @@ import 'package:flutter_genesis_test/persistance/db_movie_helper.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
 import 'package:flutter_genesis_test/ui/utils/constants.dart';
 
-class PostRepository {
-  final PostApiProvider _apiProvider = PostApiProvider();
+class MovieRepository {
+  final MovieApiProvider _apiProvider = MovieApiProvider();
   final dbHelper = DatabaseMovieHelper.instance;
   String error;
   MovieParceResult response;
 
-  Future<Pair> getUser() async {
+  Future<Pair> getMovies() async {
 //    try {
-    response = await _apiProvider.getPosts(API_KEY, API_SORT_BY,
+    response = await _apiProvider.getMovies(API_KEY, API_SORT_BY,
         getCurrentTimeAndFormat(), getFutureTimeAndFormat());
 //    } catch (responseError) {
 //      this.error = handleError(responseError);
@@ -35,22 +35,23 @@ class PostRepository {
 //      print("dbHelper.queryRowCount() ${value}");
 //    });
 
-    var result = await queryPostsFromDb(dbHelper);
+    var result = await queryMoviesFromDb(dbHelper);
     Pair pairResult = Pair(result, error);
     return Future<Pair>.value(pairResult);
   }
 
-  Future<List<MovieInner>> queryPostsFromDb(
+  Future<List<MovieInner>> queryMoviesFromDb(
       DatabaseMovieHelper dbHelper) async {
-    List<MovieInner> posts = [];
+    List<MovieInner> movies = [];
     var queriedList = await dbHelper.queryAllRows();
     print("queriedList is ${queriedList.length}");
 
     queriedList.forEach((element) {
-      posts.add(MovieInner.fromDbJson(element));
+      movies.add(MovieInner.fromDbJson(element));
     });
-    print("posts is ${posts.length}");
+    print("movies is ${movies.length}");
 
-    return Future<List<MovieInner>>.value(posts);
+    return Future<List<MovieInner>>.value(movies);
   }
+
 }

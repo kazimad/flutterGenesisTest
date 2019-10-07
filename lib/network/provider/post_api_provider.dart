@@ -2,18 +2,18 @@ import 'package:dio/dio.dart';
 import 'package:flutter_genesis_test/data_classes/response/movie_parse_result.dart';
 import 'package:flutter_genesis_test/ui/utils/handlers/error_handler.dart';
 
-class PostApiProvider {
+class MovieApiProvider {
 //  final String _endpoint = "https://jsonplaceholder.typicode.com/posts";
   final String _endpoint = "https://api.themoviedb.org/3/discover/movie";
   Dio _dio;
 
-  PostApiProvider() {
+  MovieApiProvider() {
     BaseOptions options = BaseOptions(receiveTimeout: 5000, sendTimeout: 5000);
     _dio = Dio(options);
     _setupLoggingInterceptor();
   }
 
-  Future<MovieParceResult> getPosts(String apiKey, String sortBy,
+  Future<MovieParceResult> getMovies(String apiKey, String sortBy,
       String primaryReleaseDateGte, String primaryReleaseDateLte) async {
     try {
       Response response = await _dio.get(_endpoint, queryParameters: {

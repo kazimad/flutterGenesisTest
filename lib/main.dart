@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_genesis_test/ui/list_view/post_view.dart';
+import 'package:flutter_genesis_test/ui/list_view/movie_view.dart';
 import 'package:flutter_genesis_test/ui/tabs/my_tab.dart';
 
 void main() => runApp(MyApp());
@@ -48,11 +48,11 @@ class MyApp extends StatelessWidget {
             ),
             body: TabBarView(
               children: <Widget>[
-                PostView(
+                MovieView(
                   key: PageStorageKey("bodyContent1"),
 //                  bodyContent: "bodyContent1",
                 ),
-                PostView(
+                MovieView(
                   key: PageStorageKey("bodyContent2"),
 //                    bodyContent: "bodyContent2"
                 ),

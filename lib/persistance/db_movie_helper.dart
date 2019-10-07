@@ -10,7 +10,8 @@ class DatabaseMovieHelper {
 
   DatabaseMovieHelper._privateConstructor();
 
-  static final DatabaseMovieHelper instance = DatabaseMovieHelper._privateConstructor();
+  static final DatabaseMovieHelper instance =
+      DatabaseMovieHelper._privateConstructor();
 
   // only have a single app-wide reference to the database
   static Database _database;
@@ -72,6 +73,13 @@ class DatabaseMovieHelper {
     return await db.query(DB_MOVIE_NAME);
   }
 
+  Future<Map<String, dynamic>> queryMoviesWithId(int moviesId) async {
+    Database db = await instance.database;
+    var res =
+        await db.query(DB_MOVIE_NAME, where: "id = ?", whereArgs: [moviesId]);
+    return res.isNotEmpty ? res.first : null;
+  }
+
   // All of the methods (insert, query, update, delete) can also be done using
   // raw SQL commands. This method uses a raw query to give the row count.
   Future<int> queryRowCount() async {
@@ -93,7 +101,8 @@ class DatabaseMovieHelper {
   // returned. This should be 1 as long as the row exists.
   Future<int> delete(int id) async {
     Database db = await instance.database;
-    return await db.delete(DB_MOVIE_NAME, where: '$columnId = ?', whereArgs: [id]);
+    return await db
+        .delete(DB_MOVIE_NAME, where: '$columnId = ?', whereArgs: [id]);
   }
 
   Future<int> deleteAll() async {
