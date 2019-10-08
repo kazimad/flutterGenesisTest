@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/block/post_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/data_classes/pair.dart';
-import 'package:flutter_genesis_test/ui/list_view/list_view_posts.dart';
+import 'package:flutter_genesis_test/ui/list_view/list_view_movies.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
 
 class MovieView extends StatefulWidget {
@@ -16,13 +16,13 @@ class _MovieViewState extends State<MovieView> {
   @override
   void initState() {
     super.initState();
-    bloc.getPosts();
+    movieBloc.getPosts();
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Pair>(
-      stream: bloc.subject.stream,
+      stream: movieBloc.subject.stream,
       builder: (context, AsyncSnapshot<Pair> snapshot) {
         if (snapshot.hasData) {
           if (isNotNullAndNotEmpty(snapshot.data.errorParam)) {
@@ -30,7 +30,11 @@ class _MovieViewState extends State<MovieView> {
             showErrorMessage(context, snapshot.data.errorParam);
           }
           List<MovieInner> listPost = snapshot.data.expectedResult;
-          return _buildPostWidget(listPost);
+          if (listPost != null && listPost.length > 0) {
+            return _buildListWidget(listPost);
+          } else {
+            return _buildErrorWidget("No Movies yet");
+          }
         } else if (snapshot.hasError) {
           return _buildErrorWidget(snapshot.error);
         } else {
@@ -53,12 +57,12 @@ class _MovieViewState extends State<MovieView> {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Error occured: $error"),
+        Text("$error"),
       ],
     ));
   }
 
-  Widget _buildPostWidget(List<MovieInner> posts) {
-    return ListViewPosts(posts: posts);
+  Widget _buildListWidget(List<MovieInner> posts) {
+    return ListViewMovies(posts: posts);
   }
 }

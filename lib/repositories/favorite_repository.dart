@@ -7,16 +7,15 @@ import 'package:flutter_genesis_test/ui/utils/commands.dart';
 import 'package:flutter_genesis_test/ui/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<Pair> getAllFavorite() async {
+Future<Pair> queryAllFavoritesFromStorage() async {
   String error;
   List<MovieInner> queriedMovies;
 
   var sharedPreferences = await SharedPreferences.getInstance();
   var preferencesArray = sharedPreferences.getString(FAVORITE_KEY_NAME);
   if (isNotNullAndNotEmpty(preferencesArray)) {
-    List<int> favoriteList = json.decode(preferencesArray);
-    queriedMovies =
-        await queryMoviesFromDbById(DatabaseMovieHelper.instance, favoriteList);
+    List<dynamic> favoriteList = json.decode(preferencesArray);
+    queriedMovies = await queryMoviesFromDbById(DatabaseMovieHelper.instance, favoriteList);
   } else {
     error = "No Favorites";
   }
@@ -24,11 +23,8 @@ Future<Pair> getAllFavorite() async {
   return Future<Pair>.value(pairResult);
 }
 
-Future<List<MovieInner>> queryMoviesFromDbById(
-    DatabaseMovieHelper dbHelper, List<int> favoritesList) async {
+Future<List<MovieInner>> queryMoviesFromDbById(DatabaseMovieHelper dbHelper, List<dynamic> favoritesList) async {
   List<MovieInner> movies = [];
-  favoritesList.forEach((each) async {
-    movies.add(MovieInner.fromDbJson(await dbHelper.queryMoviesWithId(each)));
-  });
+  movies.add(MovieInner.fromDbJson(await dbHelper.queryMoviesWithId(favoritesList)));
   return Future<List<MovieInner>>.value(movies);
 }

@@ -73,10 +73,10 @@ class DatabaseMovieHelper {
     return await db.query(DB_MOVIE_NAME);
   }
 
-  Future<Map<String, dynamic>> queryMoviesWithId(int moviesId) async {
+  // todo do it mass - query
+  Future<Map<String, dynamic>> queryMoviesWithId(List<dynamic> moviesIds) async {
     Database db = await instance.database;
-    var res =
-        await db.query(DB_MOVIE_NAME, where: "id = ?", whereArgs: [moviesId]);
+    var res = await db.query(DB_MOVIE_NAME, where: "id = ?", whereArgs: moviesIds);
     return res.isNotEmpty ? res.first : null;
   }
 

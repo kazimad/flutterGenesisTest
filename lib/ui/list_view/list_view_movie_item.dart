@@ -1,18 +1,19 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_genesis_test/block/favorite_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
 
-abstract class ListViewItem {}
+abstract class ListViewMovieItem {}
 
-class HeaderItem extends Text implements ListViewItem {
+class HeaderItem extends Text implements ListViewMovieItem {
   final String headerText;
 
   HeaderItem(this.headerText) : super(headerText);
 }
 
-class RegularItem extends StatefulWidget implements ListViewItem {
+class RegularItem extends StatefulWidget implements ListViewMovieItem {
   final MovieInner movie;
 
   const RegularItem({this.movie});
@@ -28,10 +29,6 @@ class _RegularItemState extends State<RegularItem> {
   final double margin8 = 8;
   final double elevation = 4;
   final double minFontSize = 12;
-  final int maxLines = 1;
-
-  _RegularItemState({this.movie});
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -95,6 +92,7 @@ class _RegularItemState extends State<RegularItem> {
                             ),
                             onPressed: () {
                               setState(() {
+                                movie.isFavorite? favoriteBloc.removeFromFavorite(movie.id): favoriteBloc.addToFavorites(movie.id);
                                 movie.isFavorite = !movie.isFavorite;
                               });
                             },
@@ -132,6 +130,10 @@ class _RegularItemState extends State<RegularItem> {
       ),
     );
   }
+
+  final int maxLines = 1;
+
+  _RegularItemState({this.movie});
 
   String properText(MovieInner movieInner) {
     if (movieInner.isFavorite) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_genesis_test/ui/list_view/movie_view.dart';
+import 'package:flutter_genesis_test/ui/list_view/favorite_view_container.dart';
+import 'package:flutter_genesis_test/ui/list_view/movie_view_container.dart';
 import 'package:flutter_genesis_test/ui/tabs/my_tab.dart';
 
 void main() => runApp(MyApp());
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
                   key: PageStorageKey("bodyContent1"),
 //                  bodyContent: "bodyContent1",
                 ),
-                MovieView(
+                FavoriteView(
                   key: PageStorageKey("bodyContent2"),
 //                    bodyContent: "bodyContent2"
                 ),

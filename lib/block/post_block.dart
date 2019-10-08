@@ -18,4 +18,4 @@ class PostBlock {
   BehaviorSubject<Pair> get subject => _subject;
 }
 
-final bloc = PostBlock();
+final movieBloc = PostBlock();

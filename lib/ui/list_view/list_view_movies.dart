@@ -3,14 +3,14 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
-import 'package:flutter_genesis_test/ui/list_view/list_view_item.dart';
+import 'package:flutter_genesis_test/ui/list_view/list_view_movie_item.dart';
 import 'package:flutter_genesis_test/ui/utils/constants.dart';
 import 'package:intl/intl.dart';
 
-class ListViewPosts extends StatelessWidget {
+class ListViewMovies extends StatelessWidget {
   final List<MovieInner> posts;
 
-  ListViewPosts({this.posts});
+  ListViewMovies({this.posts});
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +34,8 @@ createList(List<MovieInner> data) {
   });
 }
 
-List<ListViewItem> headerOrRegular(List<MovieInner> incommingList) {
-  final technical = <ListViewItem>[];
+List<ListViewMovieItem> headerOrRegular(List<MovieInner> incommingList) {
+  final technical = <ListViewMovieItem>[];
 
   incommingList.sort((a, b) => a.releaseDate.compareTo(b.releaseDate));
   DateFormat fullDateFormat = DateFormat(DATE_FORMAT_FULL);
@@ -60,9 +60,9 @@ List<ListViewItem> headerOrRegular(List<MovieInner> incommingList) {
   });
 
   //separate values in each collection by dates
-  LinkedHashMap<String, List<ListViewItem>> rawHashMap =
-      LinkedHashMap<String, List<ListViewItem>>();
-  List<ListViewItem> array;
+  LinkedHashMap<String, List<ListViewMovieItem>> rawHashMap =
+      LinkedHashMap<String, List<ListViewMovieItem>>();
+  List<ListViewMovieItem> array;
   String lastKey;
   technical.forEach((each) {
     if (each is HeaderItem) {
@@ -84,7 +84,7 @@ List<ListViewItem> headerOrRegular(List<MovieInner> incommingList) {
         .compareTo((b as RegularItem).movie.popularity));
   });
   // compose sorted values and headers
-  List<ListViewItem> sortedFilteredResult = List<ListViewItem>();
+  List<ListViewMovieItem> sortedFilteredResult = List<ListViewMovieItem>();
   rawHashMap.entries.forEach((entry) {
     sortedFilteredResult.add(HeaderItem(entry.key));
     sortedFilteredResult.addAll(entry.value);
