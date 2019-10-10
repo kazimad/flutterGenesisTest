@@ -19,27 +19,30 @@ Future _workWithSharedPreferences(int value, bool wouldWeAdd) async {
   var sharedPreferences = await SharedPreferences.getInstance();
   var preferencesArray = sharedPreferences.getString(FAVORITE_KEY_NAME);
   if (isNotNullAndNotEmpty(preferencesArray)) {
-    List<int> favoriteArray = json.decode(preferencesArray);
-    if (!favoriteArray.contains(value)) {
-      if (wouldWeAdd) {
+    List<dynamic> favoriteArray = json.decode(preferencesArray);
+    if (wouldWeAdd) {
+      if (!favoriteArray.contains(value)) {
         favoriteArray.add(value);
-      } else {
-        favoriteArray.remove(value);
+        saveSharedPrefs(favoriteArray, sharedPreferences);
       }
+    } else {
+      favoriteArray.remove(value);
+      saveSharedPrefs(favoriteArray, sharedPreferences);
     }
-    var favoriteArrayJson = json.encode(favoriteArray);
-    sharedPreferences.setString(FAVORITE_KEY_NAME, favoriteArrayJson);
   } else {
-    var favoriteArray = <int>[];
+    var favoriteArray = <dynamic>[];
     favoriteArray.add(value);
     if (wouldWeAdd) {
-      var favoriteArrayJson = json.encode(favoriteArray);
-      sharedPreferences.setString(FAVORITE_KEY_NAME, favoriteArrayJson);
+      saveSharedPrefs(favoriteArray, sharedPreferences);
     }
   }
 }
 
-Future<Pair> getAllFavorites(){
-  return queryAllFavoritesFromStorage();
+void saveSharedPrefs(List favoriteArray, SharedPreferences sharedPreferences) {
+  var favoriteArrayJson = json.encode(favoriteArray);
+  sharedPreferences.setString(FAVORITE_KEY_NAME, favoriteArrayJson);
+}
 
+Future<Pair> getAllFavorites() {
+  return queryAllFavoritesFromStorage();
 }

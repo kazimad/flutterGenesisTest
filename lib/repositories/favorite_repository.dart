@@ -25,6 +25,12 @@ Future<Pair> queryAllFavoritesFromStorage() async {
 
 Future<List<MovieInner>> queryMoviesFromDbById(DatabaseMovieHelper dbHelper, List<dynamic> favoritesList) async {
   List<MovieInner> movies = [];
-  movies.add(MovieInner.fromDbJson(await dbHelper.queryMoviesWithId(favoritesList)));
+  if (favoritesList != null && favoritesList.length > 0) {
+    var queriedFavorites = await dbHelper.queryMoviesWithId(favoritesList);
+    queriedFavorites.forEach((each) {
+      print("myLog each $each");
+      movies.add(MovieInner.fromDbJson(each));
+    });
+  }
   return Future<List<MovieInner>>.value(movies);
 }

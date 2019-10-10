@@ -15,6 +15,9 @@ class PostBlock {
     _subject.close();
   }
 
+  updateMovie(){
+    // TODO add save updated movie is favorite
+  }
   BehaviorSubject<Pair> get subject => _subject;
 }
 

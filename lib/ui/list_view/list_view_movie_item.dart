@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/block/favorite_block.dart';
+import 'package:flutter_genesis_test/block/post_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
 
@@ -29,6 +30,7 @@ class _RegularItemState extends State<RegularItem> {
   final double margin8 = 8;
   final double elevation = 4;
   final double minFontSize = 12;
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -48,10 +50,8 @@ class _RegularItemState extends State<RegularItem> {
                     height: imageSize,
                     child: CachedNetworkImage(
                       imageUrl: "http://via.placeholder.com/350x150",
-                      placeholder: (context, url) =>
-                          new CircularProgressIndicator(),
-                      errorWidget: (context, url, error) =>
-                          new Icon(Icons.error),
+                      placeholder: (context, url) => new CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => new Icon(Icons.error),
                     ),
                   ),
                 ),
@@ -60,13 +60,11 @@ class _RegularItemState extends State<RegularItem> {
                 alignment: Alignment.bottomLeft,
                 child: Container(
                   child: Text(movie.popularity.toString()),
-                  margin: EdgeInsets.only(
-                      left: (imageSize / 2), top: imageSize + (imageSize / 5)),
+                  margin: EdgeInsets.only(left: (imageSize / 2), top: imageSize + (imageSize / 5)),
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(
-                    left: imageSize + (margin8 * 2), top: margin8),
+                margin: EdgeInsets.only(left: imageSize + (margin8 * 2), top: margin8),
                 child: Column(
                   children: <Widget>[
                     Text(movie.originalTitle),
@@ -83,17 +81,18 @@ class _RegularItemState extends State<RegularItem> {
                           child: MaterialButton(
                             child: AutoSizeText(
                               properText(movie),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green),
+                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
                               minFontSize: minFontSize,
                               maxLines: maxLines,
                               overflow: TextOverflow.ellipsis,
                             ),
                             onPressed: () {
                               setState(() {
-                                movie.isFavorite? favoriteBloc.removeFromFavorite(movie.id): favoriteBloc.addToFavorites(movie.id);
+                                print("myLog movie.isFavorite is ${movie.isFavorite}");
+                                movie.isFavorite ? favoriteBloc.removeFromFavorites(movie.id) : favoriteBloc.addToFavorites(movie.id);
                                 movie.isFavorite = !movie.isFavorite;
+                                // TODO add save updated movie is favorite
+                                movieBloc.updateMovie();
                               });
                             },
                           ),
@@ -103,19 +102,13 @@ class _RegularItemState extends State<RegularItem> {
                           child: MaterialButton(
                             child: AutoSizeText(
                               "share".toUpperCase(),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green),
+                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
                               minFontSize: minFontSize,
                               maxLines: maxLines,
                               overflow: TextOverflow.ellipsis,
                             ),
                             onPressed: () {
-                              showErrorMessage(
-                                  context,
-                                  movie.voteCount.toString() +
-                                      ' - ' +
-                                      movie.title);
+                              showErrorMessage(context, movie.voteCount.toString() + ' - ' + movie.title);
                             },
                           ),
                         )
