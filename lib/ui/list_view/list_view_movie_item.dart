@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/block/favorite_block.dart';
-import 'package:flutter_genesis_test/block/post_block.dart';
+import 'package:flutter_genesis_test/block/movie_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
 
@@ -67,7 +67,8 @@ class _RegularItemState extends State<RegularItem> {
                 margin: EdgeInsets.only(left: imageSize + (margin8 * 2), top: margin8),
                 child: Column(
                   children: <Widget>[
-                    Text(movie.originalTitle),
+//                    Text(movie.originalTitle),
+                    Text(movie.id.toString() + " " + movie.isFavorite.toString()),
                     Text(movie.overview),
                     Divider(
                       color: Colors.grey,
@@ -88,11 +89,11 @@ class _RegularItemState extends State<RegularItem> {
                             ),
                             onPressed: () {
                               setState(() {
-                                print("myLog movie.isFavorite is ${movie.isFavorite}");
                                 movie.isFavorite ? favoriteBloc.removeFromFavorites(movie.id) : favoriteBloc.addToFavorites(movie.id);
                                 movie.isFavorite = !movie.isFavorite;
-                                // TODO add save updated movie is favorite
-                                movieBloc.updateMovie();
+                                movieBloc.updateMovie(movie);
+                                print("myLog movieBloc.updateMovie movie.id ${movie.id}");
+                                favoriteBloc.getFavorites();
                               });
                             },
                           ),

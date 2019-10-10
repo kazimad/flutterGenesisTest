@@ -1,12 +1,13 @@
+import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/data_classes/pair.dart';
 import 'package:flutter_genesis_test/repositories/movies_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
-class PostBlock {
+class MovieBlock {
   final MovieRepository _repository = MovieRepository();
   final BehaviorSubject<Pair> _subject = BehaviorSubject<Pair>();
 
-  getPosts() async {
+  getMovies() async {
     Pair response = await _repository.getMovies();
     _subject.sink.add(response);
   }
@@ -15,10 +16,10 @@ class PostBlock {
     _subject.close();
   }
 
-  updateMovie(){
-    // TODO add save updated movie is favorite
+  updateMovie(MovieInner innerMovie) {
+   _repository.updateMovie(innerMovie);
   }
   BehaviorSubject<Pair> get subject => _subject;
 }
 
-final movieBloc = PostBlock();
+final movieBloc = MovieBlock();

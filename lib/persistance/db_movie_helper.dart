@@ -9,7 +9,7 @@ class DatabaseMovieHelper {
   DatabaseMovieHelper._privateConstructor();
 
   static Database _database;
-  static final columnId = '_id';
+  static final columnId = 'id';
   static final DatabaseMovieHelper instance = DatabaseMovieHelper._privateConstructor();
 
   Future<Database> get database async {

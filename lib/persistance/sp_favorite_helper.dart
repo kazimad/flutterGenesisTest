@@ -46,3 +46,7 @@ void saveSharedPrefs(List favoriteArray, SharedPreferences sharedPreferences) {
 Future<Pair> getAllFavorites() {
   return queryAllFavoritesFromStorage();
 }
+
+Future<List<dynamic>> getAllFavoriteIds(){
+  return getFavoriteIdsList();
+}

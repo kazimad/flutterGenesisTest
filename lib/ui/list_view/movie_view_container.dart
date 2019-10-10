@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_genesis_test/block/post_block.dart';
+import 'package:flutter_genesis_test/block/movie_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/data_classes/pair.dart';
 import 'package:flutter_genesis_test/ui/list_view/list_view_movies.dart';
@@ -16,7 +16,8 @@ class _MovieViewState extends State<MovieView> {
   @override
   void initState() {
     super.initState();
-    movieBloc.getPosts();
+    movieBloc.getMovies();
+    print("myLog movie_list_view_container initState() ");
   }
 
   @override
