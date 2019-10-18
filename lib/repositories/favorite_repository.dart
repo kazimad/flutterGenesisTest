@@ -15,6 +15,11 @@ Future<Pair> queryAllFavoritesFromStorage() async {
   } else {
     error = "No Favorites";
   }
+
+//  print("queryAllFavoritesFromStorage");
+//  queriedMovies.forEach((each) {
+//    print("queryAllFavoritesFromStorage queriedMovies is ${each.id}");
+//  });
   Pair pairResult = Pair(queriedMovies, error);
   return Future<Pair>.value(pairResult);
 }
@@ -31,7 +36,7 @@ Future<List<MovieInner>> queryMoviesFromDbById(DatabaseMovieHelper dbHelper, Lis
   if (favoritesList != null && favoritesList.length > 0) {
     var queriedFavorites = await dbHelper.queryMoviesWithId(favoritesList);
     queriedFavorites.forEach((each) {
-      print("myLog each $each");
+//      print("myLog each $each");
       movies.add(MovieInner.fromDbJson(each));
     });
   }

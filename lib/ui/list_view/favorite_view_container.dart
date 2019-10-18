@@ -17,6 +17,8 @@ class FavoriteState extends State<FavoriteView> {
   void initState() {
     super.initState();
     favoriteBloc.getFavorites();
+    print("myLog favorite_list_view_container initState() ");
+
   }
 
   @override
@@ -29,9 +31,12 @@ class FavoriteState extends State<FavoriteView> {
             // TODO why it shows 3 times ?
             showErrorMessage(context, snapshot.data.errorParam);
           }
-          List<MovieInner> listPost = snapshot.data.expectedResult;
-          if (listPost != null && listPost.length > 0) {
-            return _buildListWidget(listPost);
+          List<MovieInner> listFavorites = snapshot.data.expectedResult;
+          if (listFavorites != null && listFavorites.length > 0) {
+            listFavorites.forEach((each){
+              print("FavoriteState each.id is ${each.id}, each.isFavorite ${each.isFavorite}");
+            });
+            return _buildListWidget(listFavorites);
           } else {
             return _buildErrorWidget("No Favorites yet");
           }
@@ -62,7 +67,7 @@ class FavoriteState extends State<FavoriteView> {
     ));
   }
 
-  Widget _buildListWidget(List<MovieInner> posts) {
-    return ListViewMovies(posts: posts);
+  Widget _buildListWidget(List<MovieInner> movies) {
+    return ListViewMovies(movies: movies);
   }
 }

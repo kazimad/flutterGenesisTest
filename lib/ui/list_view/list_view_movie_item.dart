@@ -5,8 +5,10 @@ import 'package:flutter_genesis_test/block/favorite_block.dart';
 import 'package:flutter_genesis_test/block/movie_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
+import 'package:share/share.dart';
 
-abstract class ListViewMovieItem {}
+abstract class ListViewMovieItem {
+}
 
 class HeaderItem extends Text implements ListViewMovieItem {
   final String headerText;
@@ -19,6 +21,7 @@ class RegularItem extends StatefulWidget implements ListViewMovieItem {
 
   const RegularItem({this.movie});
 
+
   @override
   _RegularItemState createState() => _RegularItemState(movie: movie);
 }
@@ -30,6 +33,13 @@ class _RegularItemState extends State<RegularItem> {
   final double margin8 = 8;
   final double elevation = 4;
   final double minFontSize = 12;
+
+  @override
+  void initState() {
+    super.initState();
+    //TODO find out why it is doesnt called after new data in stream comes. In case when we switch to movies tab 
+    print("_RegularItemState is movie.id ${movie.id}, movie.isFavorite ${movie.isFavorite}");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +103,7 @@ class _RegularItemState extends State<RegularItem> {
                                 movie.isFavorite = !movie.isFavorite;
                                 movieBloc.updateMovie(movie);
                                 print("myLog movieBloc.updateMovie movie.id ${movie.id}");
-                                favoriteBloc.getFavorites();
+//                                favoriteBloc.getFavorites();
                               });
                             },
                           ),
@@ -109,6 +119,7 @@ class _RegularItemState extends State<RegularItem> {
                               overflow: TextOverflow.ellipsis,
                             ),
                             onPressed: () {
+                              doShare(movie);
                               showErrorMessage(context, movie.voteCount.toString() + ' - ' + movie.title);
                             },
                           ),
@@ -131,9 +142,15 @@ class _RegularItemState extends State<RegularItem> {
 
   String properText(MovieInner movieInner) {
     if (movieInner.isFavorite) {
+      print("propper text is Remove from favorite , movieInner.isFavorite is ${movieInner.isFavorite}, movieInner.id ${movieInner.id}");
       return "Remove from favorite".toUpperCase();
     } else {
+      print("propper text is Add  favorite , movieInner.isFavorite is ${movieInner.isFavorite}, movieInner.id ${movieInner.id}");
       return "Add  favorite".toUpperCase();
     }
+  }
+
+  void doShare(MovieInner movieToShare){
+    Share.share("movie's id is ${movieToShare.id}, title is ${movieToShare.title}, overview is ${movieToShare.overview}");
   }
 }

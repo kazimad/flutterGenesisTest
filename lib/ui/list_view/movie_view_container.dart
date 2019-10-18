@@ -30,9 +30,12 @@ class _MovieViewState extends State<MovieView> {
             // TODO why it shows 3 times ?
             showErrorMessage(context, snapshot.data.errorParam);
           }
-          List<MovieInner> listPost = snapshot.data.expectedResult;
-          if (listPost != null && listPost.length > 0) {
-            return _buildListWidget(listPost);
+          List<MovieInner> listMovies = snapshot.data.expectedResult;
+          if (listMovies != null && listMovies.length > 0) {
+            listMovies.forEach((each){
+              print("MovieViewState each.id is ${each.id}, each.isFavorite ${each.isFavorite}");
+            });
+            return _buildListWidget(listMovies);
           } else {
             return _buildErrorWidget("No Movies yet");
           }
@@ -63,7 +66,10 @@ class _MovieViewState extends State<MovieView> {
     ));
   }
 
-  Widget _buildListWidget(List<MovieInner> posts) {
-    return ListViewMovies(posts: posts);
+  Widget _buildListWidget(List<MovieInner> movies) {
+//    movies.forEach((each) {
+//      print("MovieViewContainer movies.forEach ${each.id}, each.isFavorite ${each.isFavorite}");
+//    });
+    return ListViewMovies(movies: movies);
   }
 }

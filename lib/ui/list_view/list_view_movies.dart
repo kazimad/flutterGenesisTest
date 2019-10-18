@@ -8,13 +8,17 @@ import 'package:flutter_genesis_test/ui/utils/constants.dart';
 import 'package:intl/intl.dart';
 
 class ListViewMovies extends StatelessWidget {
-  final List<MovieInner> posts;
+  final List<MovieInner> movies;
 
-  ListViewMovies({this.posts});
+  ListViewMovies({this.movies});
 
   @override
   Widget build(BuildContext context) {
-    final widgets = headerOrRegular(posts);
+    print("movies.length is ${movies.length}");
+//    movies.forEach((each) {
+//      print("ListViewMovies adapter ${each.id}, each.isFavorite ${each.isFavorite}");
+//    });
+    final widgets = headerOrRegular(movies);
 
     return Container(
       child: ListView.builder(
@@ -60,8 +64,7 @@ List<ListViewMovieItem> headerOrRegular(List<MovieInner> incommingList) {
   });
 
   //separate values in each collection by dates
-  LinkedHashMap<String, List<ListViewMovieItem>> rawHashMap =
-      LinkedHashMap<String, List<ListViewMovieItem>>();
+  LinkedHashMap<String, List<ListViewMovieItem>> rawHashMap = LinkedHashMap<String, List<ListViewMovieItem>>();
   List<ListViewMovieItem> array;
   String lastKey;
   technical.forEach((each) {
@@ -78,10 +81,7 @@ List<ListViewMovieItem> headerOrRegular(List<MovieInner> incommingList) {
   rawHashMap[lastKey] = array;
   //sort each value list by popularity
   rawHashMap.entries.forEach((entry) {
-    entry.value.sort((a, b) => (a as RegularItem)
-        .movie
-        .popularity
-        .compareTo((b as RegularItem).movie.popularity));
+    entry.value.sort((a, b) => (a as RegularItem).movie.popularity.compareTo((b as RegularItem).movie.popularity));
   });
   // compose sorted values and headers
   List<ListViewMovieItem> sortedFilteredResult = List<ListViewMovieItem>();

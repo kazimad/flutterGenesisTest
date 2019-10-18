@@ -4,11 +4,11 @@ import 'package:flutter_genesis_test/repositories/movies_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MovieBlock {
-  final MovieRepository _repository = MovieRepository();
+  final MovieRepository _movieRepository = MovieRepository();
   final BehaviorSubject<Pair> _subject = BehaviorSubject<Pair>();
 
   getMovies() async {
-    Pair response = await _repository.getMovies();
+    Pair response = await _movieRepository.getMovies();
     _subject.sink.add(response);
   }
 
@@ -17,8 +17,10 @@ class MovieBlock {
   }
 
   updateMovie(MovieInner innerMovie) {
-   _repository.updateMovie(innerMovie);
+   _movieRepository.updateMovie(innerMovie);
   }
+
+
   BehaviorSubject<Pair> get subject => _subject;
 }
 
