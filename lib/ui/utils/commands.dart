@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:intl/intl.dart';
+import 'package:share/share.dart';
 
 import 'constants.dart';
 
@@ -40,4 +42,17 @@ String getFutureTimeAndFormat() {
 bool fromJsonToBool(int toTransform) {
   var result = toTransform == 1;
   return result;
+}
+
+String properText(MovieInner movieInner) {
+  if (movieInner.isFavorite) {
+    return "Remove from favorite".toUpperCase();
+  } else {
+    return "Add  favorite".toUpperCase();
+  }
+}
+
+void doShare(MovieInner movieToShare) {
+  Share.share(
+      "movie's id is ${movieToShare.id}, title is ${movieToShare.title}, overview is ${movieToShare.overview}");
 }

@@ -18,7 +18,6 @@ class FavoriteState extends State<FavoriteView> {
     super.initState();
     favoriteBloc.getFavorites();
     print("myLog favorite_list_view_container initState() ");
-
   }
 
   @override
@@ -33,8 +32,9 @@ class FavoriteState extends State<FavoriteView> {
           }
           List<MovieInner> listFavorites = snapshot.data.expectedResult;
           if (listFavorites != null && listFavorites.length > 0) {
-            listFavorites.forEach((each){
-              print("FavoriteState each.id is ${each.id}, each.isFavorite ${each.isFavorite}");
+            listFavorites.forEach((each) {
+              print(
+                  "FavoriteState each.id is ${each.id}, each.isFavorite ${each.isFavorite}");
             });
             return _buildListWidget(listFavorites);
           } else {

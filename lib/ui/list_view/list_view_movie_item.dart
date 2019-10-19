@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/block/favorite_block.dart';
 import 'package:flutter_genesis_test/block/movie_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
+import 'package:flutter_genesis_test/ui/movie_details_screen.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
-import 'package:share/share.dart';
 
-abstract class ListViewMovieItem {
-}
+abstract class ListViewMovieItem {}
 
 class HeaderItem extends Text implements ListViewMovieItem {
   final String headerText;
@@ -21,7 +20,6 @@ class RegularItem extends StatefulWidget implements ListViewMovieItem {
 
   const RegularItem({this.movie});
 
-
   @override
   _RegularItemState createState() => _RegularItemState(movie: movie);
 }
@@ -33,12 +31,14 @@ class _RegularItemState extends State<RegularItem> {
   final double margin8 = 8;
   final double elevation = 4;
   final double minFontSize = 12;
+  final int maxLines = 1;
 
   @override
   void initState() {
     super.initState();
-    //TODO find out why it is doesnt called after new data in stream comes. In case when we switch to movies tab 
-    print("_RegularItemState is movie.id ${movie.id}, movie.isFavorite ${movie.isFavorite}");
+    //TODO find out why it is doesnt called after new data in stream comes. In case when we switch to movies tab
+    print(
+        "_RegularItemState is movie.id ${movie.id}, movie.isFavorite ${movie.isFavorite}");
   }
 
   @override
@@ -47,110 +47,122 @@ class _RegularItemState extends State<RegularItem> {
     return Container(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Card(
-          elevation: 4,
-          child: Stack(
-            children: <Widget>[
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: EdgeInsets.all(margin8),
-                  child: Container(
-                    width: imageSize,
-                    height: imageSize,
-                    child: CachedNetworkImage(
-                      imageUrl: "http://via.placeholder.com/350x150",
-                      placeholder: (context, url) => new CircularProgressIndicator(),
-                      errorWidget: (context, url, error) => new Icon(Icons.error),
+        child: GestureDetector(
+          child: Card(
+            elevation: 4,
+            child: Stack(
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: EdgeInsets.all(margin8),
+                    child: Container(
+                      width: imageSize,
+                      height: imageSize,
+                      child: CachedNetworkImage(
+                        imageUrl: "http://via.placeholder.com/350x150",
+                        placeholder: (context, url) =>
+                            new CircularProgressIndicator(),
+                        errorWidget: (context, url, error) =>
+                            new Icon(Icons.error),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Container(
-                  child: Text(movie.popularity.toString()),
-                  margin: EdgeInsets.only(left: (imageSize / 2), top: imageSize + (imageSize / 5)),
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Container(
+                    child: Text(movie.popularity.toString()),
+                    margin: EdgeInsets.only(
+                        left: (imageSize / 2),
+                        top: imageSize + (imageSize / 5)),
+                  ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: imageSize + (margin8 * 2), top: margin8),
-                child: Column(
-                  children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(
+                      left: imageSize + (margin8 * 2), top: margin8),
+                  child: Column(
+                    children: <Widget>[
 //                    Text(movie.originalTitle),
-                    Text(movie.id.toString() + " " + movie.isFavorite.toString()),
-                    Text(movie.overview),
-                    Divider(
-                      color: Colors.grey,
-                    ),
-                    // TODO change to FlexBox
+                      Text(movie.id.toString() +
+                          " " +
+                          movie.isFavorite.toString()),
+                      Text(movie.overview),
+                      Divider(
+                        color: Colors.grey,
+                      ),
+                      // TODO change to FlexBox
 
-                    Row(
-                      children: <Widget>[
-                        Flexible(
-                          flex: 2,
-                          child: MaterialButton(
-                            child: AutoSizeText(
-                              properText(movie),
-                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-                              minFontSize: minFontSize,
-                              maxLines: maxLines,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                movie.isFavorite ? favoriteBloc.removeFromFavorites(movie.id) : favoriteBloc.addToFavorites(movie.id);
-                                movie.isFavorite = !movie.isFavorite;
-                                movieBloc.updateMovie(movie);
-                                print("myLog movieBloc.updateMovie movie.id ${movie.id}");
+                      Row(
+                        children: <Widget>[
+                          Flexible(
+                            flex: 2,
+                            child: MaterialButton(
+                              child: AutoSizeText(
+                                properText(movie),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green),
+                                minFontSize: minFontSize,
+                                maxLines: maxLines,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  movie.isFavorite
+                                      ? favoriteBloc
+                                          .removeFromFavorites(movie.id)
+                                      : favoriteBloc.addToFavorites(movie.id);
+                                  movie.isFavorite = !movie.isFavorite;
+                                  movieBloc.updateMovie(movie);
+                                  print(
+                                      "myLog movieBloc.updateMovie movie.id ${movie.id}");
 //                                favoriteBloc.getFavorites();
-                              });
-                            },
-                          ),
-                        ),
-                        Flexible(
-                          flex: 1,
-                          child: MaterialButton(
-                            child: AutoSizeText(
-                              "share".toUpperCase(),
-                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-                              minFontSize: minFontSize,
-                              maxLines: maxLines,
-                              overflow: TextOverflow.ellipsis,
+                                });
+                              },
                             ),
-                            onPressed: () {
-                              doShare(movie);
-                              showErrorMessage(context, movie.voteCount.toString() + ' - ' + movie.title);
-                            },
                           ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              )
-            ],
+                          Flexible(
+                            flex: 1,
+                            child: MaterialButton(
+                              child: AutoSizeText(
+                                "share".toUpperCase(),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green),
+                                minFontSize: minFontSize,
+                                maxLines: maxLines,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              onPressed: () {
+                                doShare(movie);
+                                showErrorMessage(
+                                    context,
+                                    movie.voteCount.toString() +
+                                        ' - ' +
+                                        movie.title);
+                              },
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MovieDetails(movieToDetail: movie))
+            );
+          },
         ),
       ),
     );
   }
 
-  final int maxLines = 1;
-
   _RegularItemState({this.movie});
-
-  String properText(MovieInner movieInner) {
-    if (movieInner.isFavorite) {
-      print("propper text is Remove from favorite , movieInner.isFavorite is ${movieInner.isFavorite}, movieInner.id ${movieInner.id}");
-      return "Remove from favorite".toUpperCase();
-    } else {
-      print("propper text is Add  favorite , movieInner.isFavorite is ${movieInner.isFavorite}, movieInner.id ${movieInner.id}");
-      return "Add  favorite".toUpperCase();
-    }
-  }
-
-  void doShare(MovieInner movieToShare){
-    Share.share("movie's id is ${movieToShare.id}, title is ${movieToShare.title}, overview is ${movieToShare.overview}");
-  }
 }
