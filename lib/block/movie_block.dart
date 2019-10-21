@@ -24,4 +24,4 @@ class MovieBlock {
   BehaviorSubject<Pair> get subject => _subject;
 }
 
-final movieBloc = MovieBlock();
+final movieBloc =  MovieBlock();

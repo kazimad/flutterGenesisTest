@@ -32,9 +32,9 @@ class _MovieViewState extends State<MovieView> {
           }
           List<MovieInner> listMovies = snapshot.data.expectedResult;
           if (listMovies != null && listMovies.length > 0) {
-            listMovies.forEach((each){
-              print("MovieViewState each.id is ${each.id}, each.isFavorite ${each.isFavorite}");
-            });
+//            listMovies.forEach((each){
+//              print("MovieViewState each.id is ${each.id}, each.isFavorite ${each.isFavorite}");
+//            });
             return _buildListWidget(listMovies);
           } else {
             return _buildErrorWidget("No Movies yet");
@@ -70,6 +70,6 @@ class _MovieViewState extends State<MovieView> {
 //    movies.forEach((each) {
 //      print("MovieViewContainer movies.forEach ${each.id}, each.isFavorite ${each.isFavorite}");
 //    });
-    return ListViewMovies(movies: movies);
+    return ListViewMovies(movies: movies, key: UniqueKey());
   }
 }

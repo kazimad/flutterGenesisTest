@@ -32,10 +32,10 @@ class FavoriteState extends State<FavoriteView> {
           }
           List<MovieInner> listFavorites = snapshot.data.expectedResult;
           if (listFavorites != null && listFavorites.length > 0) {
-            listFavorites.forEach((each) {
-              print(
-                  "FavoriteState each.id is ${each.id}, each.isFavorite ${each.isFavorite}");
-            });
+//            listFavorites.forEach((each) {
+//              print(
+//                  "FavoriteState each.id is ${each.id}, each.isFavorite ${each.isFavorite}");
+//            });
             return _buildListWidget(listFavorites);
           } else {
             return _buildErrorWidget("No Favorites yet");
@@ -68,6 +68,6 @@ class FavoriteState extends State<FavoriteView> {
   }
 
   Widget _buildListWidget(List<MovieInner> movies) {
-    return ListViewMovies(movies: movies);
+    return ListViewMovies(movies: movies, key: UniqueKey());
   }
 }

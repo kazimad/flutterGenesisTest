@@ -27,9 +27,6 @@ class MovieRepository {
 
       response.topResponse.movies.forEach((each) {
         var innerMovieItem = MovieInner.fromMoviePOJO(each);
-//        print("allFavoritesIds is $allFavoritesIds");
-//        print("allFavoritesIds.contains(innerMovieItem.id) is ${allFavoritesIds != null ? allFavoritesIds.contains(innerMovieItem.id) : null}");
-//        print("innerMovieItem.id is ${innerMovieItem.id},innerMovieItem.isFavorite is ${innerMovieItem.isFavorite}");
         if (allFavoritesIds != null && allFavoritesIds.contains(innerMovieItem.id)) {
           innerMovieItem.isFavorite = true;
         }

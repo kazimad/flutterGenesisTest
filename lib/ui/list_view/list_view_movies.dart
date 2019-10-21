@@ -9,8 +9,8 @@ import 'package:intl/intl.dart';
 
 class ListViewMovies extends StatelessWidget {
   final List<MovieInner> movies;
-
-  ListViewMovies({this.movies});
+  final Key key;
+  ListViewMovies({this.movies, this.key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ List<ListViewMovieItem> headerOrRegular(List<MovieInner> incommingList) {
     var month = dateFull.month;
     if (month != currentMonth) {
       technical.add(HeaderItem(dateShort));
-      technical.add(RegularItem(movie: it));
+      technical.add(RegularItem(movie: it, ));
       currentMonth = month;
     } else {
       technical.add(RegularItem(movie: it));

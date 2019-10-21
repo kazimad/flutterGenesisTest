@@ -16,7 +16,7 @@ class _State extends State<FacebookLoginScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Click button to back to Main Page'),
+            Text('Click button to go to Main Page'),
             RaisedButton(
               textColor: Colors.white,
               color: Colors.green,

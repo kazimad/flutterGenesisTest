@@ -48,7 +48,7 @@ String properText(MovieInner movieInner) {
   if (movieInner.isFavorite) {
     return "Remove from favorite".toUpperCase();
   } else {
-    return "Add  favorite".toUpperCase();
+    return "Add to favorite".toUpperCase();
   }
 }
 

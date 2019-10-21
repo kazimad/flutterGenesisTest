@@ -18,7 +18,7 @@ class HeaderItem extends Text implements ListViewMovieItem {
 class RegularItem extends StatefulWidget implements ListViewMovieItem {
   final MovieInner movie;
 
-  const RegularItem({this.movie});
+  const RegularItem({this.movie, Key key}) : super(key: key);
 
   @override
   _RegularItemState createState() => _RegularItemState(movie: movie);
@@ -28,17 +28,17 @@ class _RegularItemState extends State<RegularItem> {
   final MovieInner movie;
 
   final double imageSize = 100;
-  final double margin8 = 8;
+  final double margin8 = 8.0;
   final double elevation = 4;
-  final double minFontSize = 12;
-  final int maxLines = 1;
+  final double minFontSize = 6;
+  final int maxLinesButton = 1;
+  final int maxLinesText = 3;
 
   @override
   void initState() {
     super.initState();
     //TODO find out why it is doesnt called after new data in stream comes. In case when we switch to movies tab
-    print(
-        "_RegularItemState is movie.id ${movie.id}, movie.isFavorite ${movie.isFavorite}");
+    print("_RegularItemState is movie.id ${movie.id}, movie.isFavorite ${movie.isFavorite}");
   }
 
   @override
@@ -50,119 +50,99 @@ class _RegularItemState extends State<RegularItem> {
         child: GestureDetector(
           child: Card(
             elevation: 4,
-            child: Stack(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: EdgeInsets.all(margin8),
-                    child: Container(
-                      width: imageSize,
-                      height: imageSize,
-                      child: CachedNetworkImage(
-                        imageUrl: "http://via.placeholder.com/350x150",
-                        placeholder: (context, url) =>
-                            new CircularProgressIndicator(),
-                        errorWidget: (context, url, error) =>
-                            new Icon(Icons.error),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: EdgeInsets.all(margin8),
+                        child: Container(
+                          width: imageSize,
+                          height: imageSize,
+                          child: CachedNetworkImage(
+                            imageUrl: "http://via.placeholder.com/350x150",
+                            placeholder: (context, url) => new CircularProgressIndicator(),
+                            errorWidget: (context, url, error) => new Icon(Icons.error),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Container(
-                    child: Text(movie.popularity.toString()),
-                    margin: EdgeInsets.only(
-                        left: (imageSize / 2),
-                        top: imageSize + (imageSize / 5)),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(
-                      left: imageSize + (margin8 * 2), top: margin8),
-                  child: Column(
-                    children: <Widget>[
-//                    Text(movie.originalTitle),
-                      Text(movie.id.toString() +
-                          " " +
-                          movie.isFavorite.toString()),
-                      Text(movie.overview),
-                      Divider(
-                        color: Colors.grey,
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Container(
+                        child: Text(movie.popularity.toString()),
+//                    margin: EdgeInsets.only(left: (imageSize / 2), top: imageSize + (imageSize / 5)),
                       ),
-                      // TODO change to FlexBox
-
-                      Row(
-                        children: <Widget>[
-                          Flexible(
-                            flex: 2,
-                            child: MaterialButton(
-                              child: AutoSizeText(
-                                properText(movie),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green),
-                                minFontSize: minFontSize,
-                                maxLines: maxLines,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  movie.isFavorite
-                                      ? favoriteBloc
-                                          .removeFromFavorites(movie.id)
-                                      : favoriteBloc.addToFavorites(movie.id);
-                                  movie.isFavorite = !movie.isFavorite;
-                                  movieBloc.updateMovie(movie);
-                                  print(
-                                      "myLog movieBloc.updateMovie movie.id ${movie.id}");
+                    ),
+                  ],
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(movie.id.toString() + " " + movie.isFavorite.toString(), style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(movie.overview, maxLines: maxLinesText, overflow: TextOverflow.ellipsis),
+                    Divider(
+                      color: Colors.grey,
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Flexible(
+                          fit: FlexFit.loose,
+                          child: MaterialButton(
+                            padding: EdgeInsets.only(left: 0),
+                            child: AutoSizeText(
+                              properText(movie),
+                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+                              minFontSize: minFontSize,
+                              maxLines: maxLinesButton,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                movie.isFavorite ? favoriteBloc.removeFromFavorites(movie.id) : favoriteBloc.addToFavorites(movie.id);
+                                movie.isFavorite = !movie.isFavorite;
+                                movieBloc.updateMovie(movie);
+                                print("myLog movieBloc.updateMovie movie.id ${movie.id}");
 //                                favoriteBloc.getFavorites();
-                                });
-                              },
-                            ),
+                              });
+                            },
                           ),
-                          Flexible(
-                            flex: 1,
-                            child: MaterialButton(
-                              child: AutoSizeText(
-                                "share".toUpperCase(),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green),
-                                minFontSize: minFontSize,
-                                maxLines: maxLines,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              onPressed: () {
-                                doShare(movie);
-                                showErrorMessage(
-                                    context,
-                                    movie.voteCount.toString() +
-                                        ' - ' +
-                                        movie.title);
-                              },
+                        ),
+                        Flexible(
+                          fit: FlexFit.loose,
+                          child: MaterialButton(
+                            child: AutoSizeText(
+                              "share".toUpperCase(),
+                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+                              minFontSize: minFontSize,
+                              maxLines: maxLinesButton,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                )
+                            onPressed: () {
+                              doShare(movie);
+                              showErrorMessage(context, movie.voteCount.toString() + ' - ' + movie.title);
+                            },
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ],
             ),
           ),
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => MovieDetails(movieToDetail: movie))
-            );
+            Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetails(movieToDetail: movie)));
           },
         ),
       ),
     );
   }
 
-  _RegularItemState({this.movie});
+  _RegularItemState({this.movie, key: "regular"});
 }
