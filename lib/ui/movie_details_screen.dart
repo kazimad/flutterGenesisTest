@@ -6,6 +6,7 @@ import 'package:flutter_genesis_test/block/favorite_block.dart';
 import 'package:flutter_genesis_test/block/movie_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
+import 'package:flutter_genesis_test/ui/utils/constants.dart';
 
 class MovieDetails extends StatefulWidget {
   final MovieInner movieToDetail;
@@ -18,8 +19,8 @@ class MovieDetails extends StatefulWidget {
 
 class _State extends State<MovieDetails> {
   final double imageSize = 200;
-  final double margin8 = 8;
   final double minFontSize = 12;
+  final int maxLinesButton = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -31,87 +32,96 @@ class _State extends State<MovieDetails> {
       body: Center(
         child: Column(
           children: <Widget>[
-            Container(
-              width: imageSize,
-              height: imageSize,
-              child: CachedNetworkImage(
-                imageUrl: "http://via.placeholder.com/350x150",
-                placeholder: (context, url) => new CircularProgressIndicator(),
-                errorWidget: (context, url, error) => new Icon(Icons.error),
-              ),
-            ),
-            Container(
-              child: Text(widget.movieToDetail.popularity.toString()),
-            ),
-            Container(
-              child: Column(
-                children: <Widget>[
-//                    Text(movie.originalTitle),
-                  Text(widget.movieToDetail.id.toString() +
-                      " " +
-                      widget.movieToDetail.isFavorite.toString()),
-                  Text(widget.movieToDetail.overview),
-                  Divider(
-                    color: Colors.grey,
-                  ),
-                  // TODO change to FlexBox
-
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        flex: 2,
-                        child: MaterialButton(
-                          child: AutoSizeText(
-                            properText(widget.movieToDetail),
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.green),
-                            minFontSize: minFontSize,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              widget.movieToDetail.isFavorite
-                                  ? favoriteBloc.removeFromFavorites(
-                                      widget.movieToDetail.id)
-                                  : favoriteBloc
-                                      .addToFavorites(widget.movieToDetail.id);
-                              widget.movieToDetail.isFavorite =
-                                  !widget.movieToDetail.isFavorite;
-                              movieBloc.updateMovie(widget.movieToDetail);
-                              print(
-                                  "myLog movieBloc.updateMovie movie.id ${widget.movieToDetail.id}");
-//                                favoriteBloc.getFavorites();
-                            });
-                          },
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(right: margin8, left: margin8, bottom: margin8),
+                  child: Hero(
+                    tag: HERO_BASE_KEY+  widget.movieToDetail.id.toString(),
+                    child: Container(
+                      width: imageSize,
+                      height: imageSize,
+                      child: Container(
+                        margin: EdgeInsets.only(top: margin8),
+                        child: CachedNetworkImage(
+                          imageUrl: BASE_IMAGE_LINK + widget.movieToDetail.posterPath,
+                          placeholder: (context, url) => new CircularProgressIndicator(),
+                          errorWidget: (context, url, error) => new Icon(Icons.error),
                         ),
                       ),
-                      Flexible(
-                        flex: 1,
-                        child: MaterialButton(
-                          child: AutoSizeText(
-                            "share".toUpperCase(),
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.green),
-                            minFontSize: minFontSize,
-                            overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.only(top: margin8),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Container(
+                        margin: EdgeInsets.only(top: margin8),
+                        child: Text(widget.movieToDetail.title, style: TextStyle(fontWeight: FontWeight.bold))),
+                    Container(
+                        child: Padding(
+                      padding: EdgeInsets.all(margin8),
+                      child: Text(widget.movieToDetail.overview),
+                    )),
+                    Divider(
+                      color: Colors.grey,
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Flexible(
+                          fit: FlexFit.loose,
+                          child: MaterialButton(
+                            padding: EdgeInsets.only(left: 0),
+                            child: AutoSizeText(
+                              properText(widget.movieToDetail),
+                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+                              minFontSize: minFontSize,
+                              maxLines: maxLinesButton,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                widget.movieToDetail.isFavorite
+                                    ? favoriteBloc.removeFromFavorites(widget.movieToDetail.id)
+                                    : favoriteBloc.addToFavorites(widget.movieToDetail.id);
+                                widget.movieToDetail.isFavorite = !widget.movieToDetail.isFavorite;
+                                movieBloc.updateMovie(widget.movieToDetail);
+                                print("myLog movieBloc.updateMovie movie.id ${widget.movieToDetail.id}");
+//                                favoriteBloc.getFavorites();
+                              });
+                            },
                           ),
-                          onPressed: () {
-                            doShare(widget.movieToDetail);
-                            showErrorMessage(
-                                context,
-                                widget.movieToDetail.voteCount.toString() +
-                                    ' - ' +
-                                    widget.movieToDetail.title);
-                          },
                         ),
-                      )
-                    ],
-                  )
-                ],
+                        Flexible(
+                          fit: FlexFit.loose,
+                          child: MaterialButton(
+                            child: AutoSizeText(
+                              "share".toUpperCase(),
+                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+                              minFontSize: minFontSize,
+                              maxLines: maxLinesButton,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            onPressed: () {
+                              doShare(widget.movieToDetail);
+                              showErrorMessage(context, widget.movieToDetail.voteCount.toString() + ' - ' + widget.movieToDetail.title);
+                            },
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),

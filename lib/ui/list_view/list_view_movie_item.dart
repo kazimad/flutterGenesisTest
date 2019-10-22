@@ -6,6 +6,7 @@ import 'package:flutter_genesis_test/block/movie_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/ui/movie_details_screen.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
+import 'package:flutter_genesis_test/ui/utils/constants.dart';
 
 abstract class ListViewMovieItem {}
 
@@ -28,22 +29,13 @@ class _RegularItemState extends State<RegularItem> {
   final MovieInner movie;
 
   final double imageSize = 100;
-  final double margin8 = 8.0;
   final double elevation = 4;
   final double minFontSize = 6;
   final int maxLinesButton = 1;
   final int maxLinesText = 3;
 
   @override
-  void initState() {
-    super.initState();
-    //TODO find out why it is doesnt called after new data in stream comes. In case when we switch to movies tab
-    print("_RegularItemState is movie.id ${movie.id}, movie.isFavorite ${movie.isFavorite}");
-  }
-
-  @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -56,82 +48,89 @@ class _RegularItemState extends State<RegularItem> {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: EdgeInsets.all(margin8),
+                    Padding(
+                      padding: EdgeInsets.only(right: margin8, left: margin8, bottom: margin8),
+                      child: Hero(
+                        tag: HERO_BASE_KEY + movie.id.toString(),
                         child: Container(
                           width: imageSize,
                           height: imageSize,
                           child: CachedNetworkImage(
-                            imageUrl: "http://via.placeholder.com/350x150",
+                            imageUrl: BASE_IMAGE_LINK + movie.posterPath,
                             placeholder: (context, url) => new CircularProgressIndicator(),
                             errorWidget: (context, url, error) => new Icon(Icons.error),
                           ),
                         ),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Container(
-                        child: Text(movie.popularity.toString()),
-//                    margin: EdgeInsets.only(left: (imageSize / 2), top: imageSize + (imageSize / 5)),
-                      ),
+                    Container(
+                      child: Text(movie.popularity.toString()),
                     ),
                   ],
                 ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text(movie.id.toString() + " " + movie.isFavorite.toString(), style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text(movie.overview, maxLines: maxLinesText, overflow: TextOverflow.ellipsis),
-                    Divider(
-                      color: Colors.grey,
-                    ),
-                    Row(
+                Flexible(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: margin8),
+                    child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Flexible(
-                          fit: FlexFit.loose,
-                          child: MaterialButton(
-                            padding: EdgeInsets.only(left: 0),
-                            child: AutoSizeText(
-                              properText(movie),
-                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-                              minFontSize: minFontSize,
-                              maxLines: maxLinesButton,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                movie.isFavorite ? favoriteBloc.removeFromFavorites(movie.id) : favoriteBloc.addToFavorites(movie.id);
-                                movie.isFavorite = !movie.isFavorite;
-                                movieBloc.updateMovie(movie);
-                                print("myLog movieBloc.updateMovie movie.id ${movie.id}");
-//                                favoriteBloc.getFavorites();
-                              });
-                            },
-                          ),
+                        Container(
+                            margin: EdgeInsets.only(top: margin8),
+//                            child: Text(movie.id.toString() + " " + movie.isFavorite.toString(), style: TextStyle(fontWeight: FontWeight.bold))),
+                            child: Text(movie.title, style: TextStyle(fontWeight: FontWeight.bold))),
+                        Container(
+                            margin: EdgeInsets.only(top: margin8),
+                            child: Text(movie.overview, maxLines: maxLinesText, overflow: TextOverflow.ellipsis)),
+                        Divider(
+                          color: Colors.grey,
                         ),
-                        Flexible(
-                          fit: FlexFit.loose,
-                          child: MaterialButton(
-                            child: AutoSizeText(
-                              "share".toUpperCase(),
-                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-                              minFontSize: minFontSize,
-                              maxLines: maxLinesButton,
-                              overflow: TextOverflow.ellipsis,
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Flexible(
+                              fit: FlexFit.loose,
+                              child: MaterialButton(
+                                padding: EdgeInsets.only(left: 0),
+                                child: AutoSizeText(
+                                  properText(movie),
+                                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+                                  minFontSize: minFontSize,
+                                  maxLines: maxLinesButton,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    movie.isFavorite ? favoriteBloc.removeFromFavorites(movie.id) : favoriteBloc.addToFavorites(movie.id);
+                                    movie.isFavorite = !movie.isFavorite;
+                                    movieBloc.updateMovie(movie);
+                                    print("myLog movieBloc.updateMovie movie.id ${movie.id}");
+//                                favoriteBloc.getFavorites();
+                                  });
+                                },
+                              ),
                             ),
-                            onPressed: () {
-                              doShare(movie);
-                              showErrorMessage(context, movie.voteCount.toString() + ' - ' + movie.title);
-                            },
-                          ),
+                            Flexible(
+                              fit: FlexFit.loose,
+                              child: MaterialButton(
+                                child: AutoSizeText(
+                                  "share".toUpperCase(),
+                                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+                                  minFontSize: minFontSize,
+                                  maxLines: maxLinesButton,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                onPressed: () {
+                                  doShare(movie);
+                                  showErrorMessage(context, movie.voteCount.toString() + ' - ' + movie.title);
+                                },
+                              ),
+                            )
+                          ],
                         )
                       ],
-                    )
-                  ],
+                    ),
+                  ),
                 ),
               ],
             ),
