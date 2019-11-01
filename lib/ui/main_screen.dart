@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/ui/tabs/my_tab.dart';
@@ -6,6 +7,10 @@ import 'list_view/favorite_view_container.dart';
 import 'list_view/movie_view_container.dart';
 
 class MainScreen extends StatefulWidget {
+  final dynamic profileImageToLoad;
+
+  MainScreen(this.profileImageToLoad);
+
   @override
   _State createState() => _State();
 }
@@ -27,21 +32,22 @@ class _State extends State<MainScreen> {
             children: [
               Spacer(flex: 1),
               Container(
-                width: avatarSize,
-                height: avatarSize,
-                decoration: new BoxDecoration(
-                  color: const Color(0xff7c94b6),
-                  image: new DecorationImage(
-                    image: AssetImage('assets/images/no_img.png'),
-                    fit: BoxFit.cover,
+                  width: avatarSize,
+                  height: avatarSize,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 1,
+                    ),
                   ),
-                  borderRadius: new BorderRadius.all(new Radius.circular(50.0)),
-                  border: new Border.all(
-                    color: Colors.white,
-                    width: 4.0,
-                  ),
-                ),
-              ),
+                  child: ClipOval(
+                    child: CachedNetworkImage(
+                      imageUrl: widget.profileImageToLoad['picture']['data']['url'],
+                      placeholder: (context, url) => new CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => new Icon(Icons.error),
+                    ),
+                  )),
             ],
           ),
           bottom: TabBar(

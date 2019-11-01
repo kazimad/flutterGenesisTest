@@ -3,7 +3,6 @@ import 'package:flutter_genesis_test/data_classes/response/movie_parse_result.da
 import 'package:flutter_genesis_test/ui/utils/handlers/error_handler.dart';
 
 class MovieApiProvider {
-//  final String _endpoint = "https://jsonplaceholder.typicode.com/posts";
   final String _endpoint = "https://api.themoviedb.org/3/discover/movie";
   Dio _dio;
 
