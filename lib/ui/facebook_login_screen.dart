@@ -1,19 +1,25 @@
-import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
-import 'package:http/http.dart' as http;
 
 import 'main_screen.dart';
 
 class FacebookLoginScreen extends StatefulWidget {
+  final FacebookLogin facebookLogin = new FacebookLogin();
+
   @override
   _State createState() => _State();
 }
 
 class _State extends State<FacebookLoginScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _checkIsUserLoggedIn();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,18 +42,23 @@ class _State extends State<FacebookLoginScreen> {
     );
   }
 
+  _checkIsUserLoggedIn() async {
+    bool isLoggedIn = await widget.facebookLogin.isLoggedIn;
+    print("myLog _checkIsUserLoggedIn $isLoggedIn");
+    print("myLog _checkIsUserLoggedIn currentAccessToken ${await widget.facebookLogin.currentAccessToken}");
+    if (isLoggedIn) {
+      FacebookAccessToken facebookAccessToken = await widget.facebookLogin.currentAccessToken;
+      _navigateToNextScreen(facebookAccessToken.token);
+    }
+  }
+
   _facebookLogin(BuildContext context) async {
-    final FacebookLogin facebookLogin = new FacebookLogin();
-    final result = await facebookLogin.logIn(['email']);
+    final result = await widget.facebookLogin.logIn(['email']);
 
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
-        showErrorMessage(context, "facebook login ok - ${result.accessToken.token}");
-        var graphResponse = await http.get(
-            'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email,picture.height(200)&access_token=${result.accessToken.token}');
-
-        var profile = json.decode(graphResponse.body);
-        _navigateToNextScreen(profile);
+        print("FacebookLogin is logged in");
+        _navigateToNextScreen(result.accessToken.token);
         break;
       case FacebookLoginStatus.cancelledByUser:
         showErrorMessage(context, "facebook login cancelled");
@@ -58,7 +69,7 @@ class _State extends State<FacebookLoginScreen> {
     }
   }
 
-  _navigateToNextScreen(dynamic avatarToLoadString) {
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainScreen(avatarToLoadString)));
+  _navigateToNextScreen(String token) {
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainScreen(token)));
   }
 }
