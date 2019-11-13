@@ -27,14 +27,10 @@ class _MovieViewState extends State<MovieView> {
       builder: (context, AsyncSnapshot<Pair> snapshot) {
         if (snapshot.hasData) {
           if (isNotNullAndNotEmpty(snapshot.data.errorParam)) {
-            // TODO why it shows 3 times ?
             showErrorMessage(context, snapshot.data.errorParam);
           }
           List<MovieInner> listMovies = snapshot.data.expectedResult;
           if (listMovies != null && listMovies.length > 0) {
-//            listMovies.forEach((each){
-//              print("MovieViewState each.id is ${each.id}, each.isFavorite ${each.isFavorite}");
-//            });
             return _buildListWidget(listMovies);
           } else {
             return _buildErrorWidget("No Movies yet");
@@ -51,10 +47,11 @@ class _MovieViewState extends State<MovieView> {
   Widget _buildLoadingWidget() {
     return Center(
         child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [Text("Loading data from API..."), CircularProgressIndicator()],
-    ));
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Text("Loading data from API..."), CircularProgressIndicator()],
+        ));
   }
+
 
   Widget _buildErrorWidget(String error) {
     return Center(
@@ -66,10 +63,28 @@ class _MovieViewState extends State<MovieView> {
     ));
   }
 
+
+//  Widget _buildErrorWidget(String error) {
+//    return RefreshIndicator(
+//      child: Center(
+//          child: Column(
+//            mainAxisAlignment: MainAxisAlignment.center,
+//            children: [
+//              Text("$error"),
+//            ],
+//          )),
+//      onRefresh: movieBloc.getMovies(),
+//    );
+//  }
+
+//  Widget _buildListWidget(List<MovieInner> movies) {
+//    return ListViewMovies(movies: movies, key: UniqueKey());
+//  }
+
   Widget _buildListWidget(List<MovieInner> movies) {
-//    movies.forEach((each) {
-//      print("MovieViewContainer movies.forEach ${each.id}, each.isFavorite ${each.isFavorite}");
-//    });
-    return ListViewMovies(movies: movies, key: UniqueKey());
+    return RefreshIndicator(
+      child: ListViewMovies(movies: movies, key: UniqueKey()),
+      onRefresh: ()=>movieBloc.getMovies(),
+    );
   }
 }
