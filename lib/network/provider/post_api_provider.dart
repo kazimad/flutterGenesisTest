@@ -74,8 +74,8 @@ class MovieApiProvider {
     };
     _dio
       ..interceptors.add(InterceptorsWrapper(
-//          onRequest: (RequestOptions options) => requestInterceptor(options),
-//          onResponse: (Response response) => responseInterceptor(response)
+          onRequest: (RequestOptions options) => requestInterceptor(options),
+          onResponse: (Response response) => responseInterceptor(response)
 //          onError: (DioError dioError) => errorInterceptor(dioError)
           ));
   }

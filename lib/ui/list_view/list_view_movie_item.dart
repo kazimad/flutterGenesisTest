@@ -56,7 +56,7 @@ class _RegularItemState extends State<RegularItem> {
                           width: imageSize,
                           height: imageSize,
                           child: CachedNetworkImage(
-                            imageUrl: BASE_IMAGE_LINK + movie.posterPath,
+                            imageUrl: _validatePosterPath(movie),
                             placeholder: (context, url) => new CircularProgressIndicator(),
                             errorWidget: (context, url, error) => new Icon(Icons.error),
                           ),
@@ -76,7 +76,6 @@ class _RegularItemState extends State<RegularItem> {
                       children: <Widget>[
                         Container(
                             margin: EdgeInsets.only(top: margin8),
-//                            child: Text(movie.id.toString() + " " + movie.isFavorite.toString(), style: TextStyle(fontWeight: FontWeight.bold))),
                             child: Text(movie.title, style: TextStyle(fontWeight: FontWeight.bold))),
                         Container(
                             margin: EdgeInsets.only(top: margin8),
@@ -144,4 +143,12 @@ class _RegularItemState extends State<RegularItem> {
   }
 
   _RegularItemState({this.movie, key: "regular"});
+}
+
+String _validatePosterPath(MovieInner movie) {
+  if (movie.posterPath != null) {
+    return BASE_IMAGE_LINK + movie.posterPath;
+  } else {
+    return "";
+  }
 }

@@ -14,10 +14,6 @@ class ListViewMovies extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("movies.length is ${movies.length}");
-//    movies.forEach((each) {
-//      print("ListViewMovies adapter ${each.id}, each.isFavorite ${each.isFavorite}");
-//    });
     final widgets = headerOrRegular(movies);
 
     return Container(
