@@ -18,8 +18,9 @@ class HeaderItem extends Text implements ListViewMovieItem {
 
 class RegularItem extends StatefulWidget implements ListViewMovieItem {
   final MovieInner movie;
+  final SourceTab source;
 
-  const RegularItem({this.movie, Key key}) : super(key: key);
+  const RegularItem({this.movie, this.source, Key key}) : super(key: key);
 
   @override
   _RegularItemState createState() => _RegularItemState(movie: movie);
@@ -74,9 +75,7 @@ class _RegularItemState extends State<RegularItem> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Container(
-                            margin: EdgeInsets.only(top: margin8),
-                            child: Text(movie.title, style: TextStyle(fontWeight: FontWeight.bold))),
+                        Container(margin: EdgeInsets.only(top: margin8), child: Text(movie.title, style: TextStyle(fontWeight: FontWeight.bold))),
                         Container(
                             margin: EdgeInsets.only(top: margin8),
                             child: Text(movie.overview, maxLines: maxLinesText, overflow: TextOverflow.ellipsis)),
@@ -103,8 +102,9 @@ class _RegularItemState extends State<RegularItem> {
                                     movie.isFavorite ? favoriteBloc.removeFromFavorites(movie.id) : favoriteBloc.addToFavorites(movie.id);
                                     movie.isFavorite = !movie.isFavorite;
                                     movieBloc.updateMovie(movie);
-                                    print("myLog movieBloc.updateMovie movie.id ${movie.id}");
-//                                favoriteBloc.getFavorites();
+                                    if (widget.source == SourceTab.favorite) {
+                                      favoriteBloc.getFavorites();
+                                    }
                                   });
                                 },
                               ),
@@ -152,3 +152,5 @@ String _validatePosterPath(MovieInner movie) {
     return "";
   }
 }
+
+enum SourceTab { movies, favorite }

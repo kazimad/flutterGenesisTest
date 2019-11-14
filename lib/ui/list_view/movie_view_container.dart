@@ -3,6 +3,7 @@ import 'package:flutter_genesis_test/block/movie_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/data_classes/pair.dart';
 import 'package:flutter_genesis_test/ui/list_view/list_view_movies.dart';
+import 'package:flutter_genesis_test/ui/list_view/list_view_movie_item.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
 
 class MovieView extends StatefulWidget {
@@ -17,7 +18,6 @@ class _MovieViewState extends State<MovieView> {
   void initState() {
     super.initState();
     movieBloc.getMovies();
-    print("myLog movie_list_view_container initState() ");
   }
 
   @override
@@ -63,27 +63,9 @@ class _MovieViewState extends State<MovieView> {
     ));
   }
 
-
-//  Widget _buildErrorWidget(String error) {
-//    return RefreshIndicator(
-//      child: Center(
-//          child: Column(
-//            mainAxisAlignment: MainAxisAlignment.center,
-//            children: [
-//              Text("$error"),
-//            ],
-//          )),
-//      onRefresh: movieBloc.getMovies(),
-//    );
-//  }
-
-//  Widget _buildListWidget(List<MovieInner> movies) {
-//    return ListViewMovies(movies: movies, key: UniqueKey());
-//  }
-
   Widget _buildListWidget(List<MovieInner> movies) {
     return RefreshIndicator(
-      child: ListViewMovies(movies: movies, key: UniqueKey()),
+      child: ListViewMovies(movies: movies, source: SourceTab.movies, key: UniqueKey()),
       onRefresh: ()=>movieBloc.getMovies(),
     );
   }

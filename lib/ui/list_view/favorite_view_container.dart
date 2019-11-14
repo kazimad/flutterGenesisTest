@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/block/favorite_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/data_classes/pair.dart';
+import 'package:flutter_genesis_test/ui/list_view/list_view_movie_item.dart';
 import 'package:flutter_genesis_test/ui/list_view/list_view_movies.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
 
@@ -27,15 +28,10 @@ class FavoriteState extends State<FavoriteView> {
       builder: (context, AsyncSnapshot<Pair> snapshot) {
         if (snapshot.hasData) {
           if (isNotNullAndNotEmpty(snapshot.data.errorParam)) {
-            // TODO why it shows 3 times ?
             showErrorMessage(context, snapshot.data.errorParam);
           }
           List<MovieInner> listFavorites = snapshot.data.expectedResult;
           if (listFavorites != null && listFavorites.length > 0) {
-//            listFavorites.forEach((each) {
-//              print(
-//                  "FavoriteState each.id is ${each.id}, each.isFavorite ${each.isFavorite}");
-//            });
             return _buildListWidget(listFavorites);
           } else {
             return _buildErrorWidget("No Favorites yet");
@@ -68,6 +64,6 @@ class FavoriteState extends State<FavoriteView> {
   }
 
   Widget _buildListWidget(List<MovieInner> movies) {
-    return ListViewMovies(movies: movies, key: UniqueKey());
+    return ListViewMovies(movies: movies, source: SourceTab.favorite, key: UniqueKey());
   }
 }

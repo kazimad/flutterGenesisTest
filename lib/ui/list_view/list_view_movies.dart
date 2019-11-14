@@ -10,11 +10,13 @@ import 'package:intl/intl.dart';
 class ListViewMovies extends StatelessWidget {
   final List<MovieInner> movies;
   final Key key;
-  ListViewMovies({this.movies, this.key}) : super(key: key);
+  final SourceTab source;
+
+  ListViewMovies({this.movies, this.source, this.key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final widgets = headerOrRegular(movies);
+    final widgets = headerOrRegular(movies, source);
 
     return Container(
       child: ListView.builder(
@@ -27,17 +29,17 @@ class ListViewMovies extends StatelessWidget {
   }
 }
 
-createList(List<MovieInner> data) {
-  var result = headerOrRegular(data);
-  result.forEach((listItem) {
-    return listItem;
-  });
-}
+//createList(List<MovieInner> data, source) {
+//  var result = headerOrRegular(data, source);
+//  result.forEach((listItem) {
+//    return listItem;
+//  });
+//}
 
-List<ListViewMovieItem> headerOrRegular(List<MovieInner> incommingList) {
+List<ListViewMovieItem> headerOrRegular(List<MovieInner> incomingList, SourceTab source) {
   final technical = <ListViewMovieItem>[];
 
-  incommingList.sort((a, b) => a.releaseDate.compareTo(b.releaseDate));
+  incomingList.sort((a, b) => a.releaseDate.compareTo(b.releaseDate));
   DateFormat fullDateFormat = DateFormat(DATE_FORMAT_FULL);
   DateFormat shortDateFormat = DateFormat(DATE_FORMAT_SHORT);
   int currentMonth = -1;
@@ -45,17 +47,17 @@ List<ListViewMovieItem> headerOrRegular(List<MovieInner> incommingList) {
   // separate by month
   // list is already sortedBy release month
 
-  incommingList.forEach((it) {
+  incomingList.forEach((it) {
     var releaseDate = it.releaseDate;
     var dateFull = fullDateFormat.parse(releaseDate);
     var dateShort = shortDateFormat.format(dateFull);
     var month = dateFull.month;
     if (month != currentMonth) {
       technical.add(HeaderItem(dateShort));
-      technical.add(RegularItem(movie: it, ));
+      technical.add(RegularItem(movie: it, source: source));
       currentMonth = month;
     } else {
-      technical.add(RegularItem(movie: it));
+      technical.add(RegularItem(movie: it, source: source));
     }
   });
 
