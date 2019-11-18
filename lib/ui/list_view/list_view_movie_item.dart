@@ -111,18 +111,20 @@ class _RegularItemState extends State<RegularItem> {
                             ),
                             Flexible(
                               fit: FlexFit.loose,
-                              child: MaterialButton(
-                                child: AutoSizeText(
-                                  "share".toUpperCase(),
-                                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-                                  minFontSize: minFontSize,
-                                  maxLines: maxLinesButton,
-                                  overflow: TextOverflow.ellipsis,
+                              child: Builder(
+                                builder: (ctx) => MaterialButton(
+                                  child: AutoSizeText(
+                                    "share".toUpperCase(),
+                                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+                                    minFontSize: minFontSize,
+                                    maxLines: maxLinesButton,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  onPressed: () {
+                                    doShare(movie);
+                                    showErrorMessage(ctx, movie.voteCount.toString() + ' - ' + movie.title);
+                                  },
                                 ),
-                                onPressed: () {
-                                  doShare(movie);
-                                  showErrorMessage(context, movie.voteCount.toString() + ' - ' + movie.title);
-                                },
                               ),
                             )
                           ],
