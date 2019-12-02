@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/block/movie_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/data_classes/pair.dart';
-import 'package:flutter_genesis_test/ui/list_view/list_view_movies.dart';
 import 'package:flutter_genesis_test/ui/list_view/list_view_movie_item.dart';
+import 'package:flutter_genesis_test/ui/list_view/list_view_movies.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
 
 class MovieView extends StatefulWidget {
@@ -33,40 +33,21 @@ class _MovieViewState extends State<MovieView> {
           if (listMovies != null && listMovies.length > 0) {
             return _buildListWidget(listMovies);
           } else {
-            return _buildErrorWidget("No Movies yet");
+            return buildErrorWidget("No Movies yet");
           }
         } else if (snapshot.hasError) {
-          return _buildErrorWidget(snapshot.error);
+          return buildErrorWidget(snapshot.error);
         } else {
-          return _buildLoadingWidget();
+          return buildLoadingWidget();
         }
       },
     );
   }
 
-  Widget _buildLoadingWidget() {
-    return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text("Loading data from API..."), CircularProgressIndicator()],
-        ));
-  }
-
-
-  Widget _buildErrorWidget(String error) {
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("$error"),
-      ],
-    ));
-  }
-
   Widget _buildListWidget(List<MovieInner> movies) {
     return RefreshIndicator(
       child: ListViewMovies(movies: movies, source: SourceTab.movies, key: UniqueKey()),
-      onRefresh: ()=>movieBloc.getMovies(),
+      onRefresh: () => movieBloc.getMovies(),
     );
   }
 }

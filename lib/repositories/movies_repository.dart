@@ -45,13 +45,9 @@ class MovieRepository {
   Future<List<MovieInner>> queryMoviesFromDb(DatabaseMovieHelper dbHelper) async {
     List<MovieInner> movies = [];
     var queriedList = await dbHelper.queryAllRows();
-    print("queriedList is ${queriedList.length}");
-
     queriedList.forEach((element) {
       movies.add(MovieInner.fromDbJson(element));
     });
-    print("movies is ${movies.length}");
-
     return Future<List<MovieInner>>.value(movies);
   }
 

@@ -29,13 +29,6 @@ class ListViewMovies extends StatelessWidget {
   }
 }
 
-//createList(List<MovieInner> data, source) {
-//  var result = headerOrRegular(data, source);
-//  result.forEach((listItem) {
-//    return listItem;
-//  });
-//}
-
 List<ListViewMovieItem> headerOrRegular(List<MovieInner> incomingList, SourceTab source) {
   final technical = <ListViewMovieItem>[];
 
@@ -43,9 +36,6 @@ List<ListViewMovieItem> headerOrRegular(List<MovieInner> incomingList, SourceTab
   DateFormat fullDateFormat = DateFormat(DATE_FORMAT_FULL);
   DateFormat shortDateFormat = DateFormat(DATE_FORMAT_SHORT);
   int currentMonth = -1;
-
-  // separate by month
-  // list is already sortedBy release month
 
   incomingList.forEach((it) {
     var releaseDate = it.releaseDate;

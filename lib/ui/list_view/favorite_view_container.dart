@@ -34,33 +34,15 @@ class FavoriteState extends State<FavoriteView> {
           if (listFavorites != null && listFavorites.length > 0) {
             return _buildListWidget(listFavorites);
           } else {
-            return _buildErrorWidget("No Favorites yet");
+            return buildErrorWidget("No Favorites yet");
           }
         } else if (snapshot.hasError) {
-          return _buildErrorWidget(snapshot.error);
+          return buildErrorWidget(snapshot.error);
         } else {
-          return _buildLoadingWidget();
+          return buildLoadingWidget();
         }
       },
     );
-  }
-
-  Widget _buildLoadingWidget() {
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [Text("Loading data from API..."), CircularProgressIndicator()],
-    ));
-  }
-
-  Widget _buildErrorWidget(String error) {
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("$error"),
-      ],
-    ));
   }
 
   Widget _buildListWidget(List<MovieInner> movies) {

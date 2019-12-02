@@ -1,7 +1,7 @@
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
 
 // need to add in this pojo field isFavorite
-class MoviePOJO {
+class MovieApi {
   final int id;
   final double popularity;
   final int voteCount;
@@ -12,12 +12,10 @@ class MoviePOJO {
   final String originalLanguage;
   final String originalTitle;
   final String title;
-  // TODO try too Google it
-//  final double voteAverage;
   final String overview;
   final String releaseDate;
 
-  MoviePOJO(
+  MovieApi(
       {this.id,
       this.popularity,
       this.voteCount,
@@ -32,8 +30,8 @@ class MoviePOJO {
       this.overview,
       this.releaseDate});
 
-  factory MoviePOJO.fromJson(Map<String, dynamic> json) {
-    return MoviePOJO(
+  factory MovieApi.fromJson(Map<String, dynamic> json) {
+    return MovieApi(
       adult: json['adult'],
       backdropPath: json['backdrop_path'],
       id: json['id'],

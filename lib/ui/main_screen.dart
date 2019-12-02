@@ -29,38 +29,35 @@ class _State extends State<MainScreen> {
       initialIndex: 0,
       child: Scaffold(
         appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Spacer(flex: 1),
-              Container(
-                width: avatarSize,
-                height: avatarSize,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 1,
-                  ),
-                ),
-                child: ClipOval(
-                  child: FutureBuilder(
-                    future: _getProfile(widget.token),
-                    builder: (c, s) {
-                      if (s.hasData) {
-                        return CachedNetworkImage(
-                          imageUrl: s.data['picture']['data']['url'],
-                          placeholder: (context, url) =>  CircularProgressIndicator(),
-                          errorWidget: (context, url, error) =>  Icon(Icons.error),
-                        );
-                      }
-                      return CircularProgressIndicator();
-                    },
-                  ),
+          title: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Spacer(flex: 1),
+            Container(
+              width: avatarSize,
+              height: avatarSize,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Colors.white,
+                  width: 1,
                 ),
               ),
-            ],
-          ),
+              child: ClipOval(
+                child: FutureBuilder(
+                  future: _getProfile(widget.token),
+                  builder: (c, s) {
+                    if (s.hasData) {
+                      return CachedNetworkImage(
+                        imageUrl: s.data['picture']['data']['url'],
+                        placeholder: (context, url) => CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      );
+                    }
+                    return CircularProgressIndicator();
+                  },
+                ),
+              ),
+            ),
+          ]),
           bottom: TabBar(
             tabs: [MyTab("films"), MyTab("favorites")],
           ),
@@ -69,11 +66,9 @@ class _State extends State<MainScreen> {
           children: <Widget>[
             MovieView(
               key: PageStorageKey("bodyContent1"),
-//                  bodyContent: "bodyContent1",
             ),
             FavoriteView(
               key: PageStorageKey("bodyContent2"),
-//                    bodyContent: "bodyContent2"
             ),
           ],
         ),

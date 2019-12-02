@@ -56,3 +56,21 @@ void doShare(MovieInner movieToShare) {
   Share.share(
       "movie's id is ${movieToShare.id}, title is ${movieToShare.title}, overview is ${movieToShare.overview}");
 }
+
+Widget buildLoadingWidget() {
+  return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Text("Loading data from API..."), CircularProgressIndicator()],
+      ));
+}
+
+Widget buildErrorWidget(String error) {
+  return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("$error"),
+        ],
+      ));
+}

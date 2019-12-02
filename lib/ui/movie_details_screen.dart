@@ -94,8 +94,6 @@ class _State extends State<MovieDetails> {
                                     : favoriteBloc.addToFavorites(widget.movieToDetail.id);
                                 widget.movieToDetail.isFavorite = !widget.movieToDetail.isFavorite;
                                 movieBloc.updateMovie(widget.movieToDetail);
-                                print("myLog movieBloc.updateMovie movie.id ${widget.movieToDetail.id}");
-//                                favoriteBloc.getFavorites();
                               });
                             },
                           ),

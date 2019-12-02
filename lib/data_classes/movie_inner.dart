@@ -1,4 +1,4 @@
-import 'package:flutter_genesis_test/data_classes/movie_POJO.dart';
+import 'package:flutter_genesis_test/data_classes/movie_api.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
 
 class MovieInner {
@@ -12,8 +12,6 @@ class MovieInner {
   final String originalLanguage;
   final String originalTitle;
   final String title;
-  // TODO try too Google it
-//  final double voteAverage;
   final String overview;
   final String releaseDate;
   bool isFavorite;
@@ -28,7 +26,6 @@ class MovieInner {
     this.originalLanguage,
     this.originalTitle,
     this.title,
-//      this.voteAverage,
     this.overview,
     this.releaseDate,
     this.isFavorite});
@@ -46,7 +43,6 @@ class MovieInner {
       'release_date': releaseDate,
       'title': title,
       'video': video == true ? 1 : 0,
-//      'vote_average': voteAverage,
       'vote_count': voteCount,
       'is_favorite': isFavorite == true ? 1 : 0
     };
@@ -70,7 +66,7 @@ class MovieInner {
         isFavorite: fromJsonToBool(json['is_favorite']));
   }
 
-  factory MovieInner.fromMoviePOJO(MoviePOJO moviePOJO){
+  factory MovieInner.fromMoviePOJO(MovieApi moviePOJO){
     return MovieInner(
         id: moviePOJO.id,
         popularity: moviePOJO.popularity,
@@ -84,7 +80,6 @@ class MovieInner {
         title : moviePOJO.title,
         overview: moviePOJO.overview,
         releaseDate : moviePOJO.releaseDate,
-//        voteAverage : moviePOJO.voteAverage,
         isFavorite: false);
   }
 
@@ -93,7 +88,6 @@ class MovieInner {
     return 'MovieInner{adult: $adult, backdropPath: $backdropPath, id: $id, originalLanguage: $originalLanguage,'
         'originalTitle: $originalTitle,overview: $overview, popularity: $popularity,'
         'posterPath: $posterPath, releaseDate: $releaseDate, title: $title,'
-//        'video: $video, voteAverage: $voteAverage, voteCount: $voteCount}';
         'video: $video, voteCount: $voteCount, is_favorite: $isFavorite';
   }
 }

@@ -7,7 +7,6 @@ class MyTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Padding(
       padding: EdgeInsets.all(16),
       child: Text(tabName.toUpperCase()),
