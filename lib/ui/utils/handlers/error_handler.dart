@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_genesis_test/generated/i18n.dart';
 
 String handleError(DioError dioError) {
   String errorDescription = "";
   switch (dioError.type) {
     case DioErrorType.CANCEL:
-      errorDescription = "Request to API server was cancelled";
+      errorDescription = S.of(context).request_to_api_server_was_cancelled;
       break;
     case DioErrorType.CONNECT_TIMEOUT:
       errorDescription = "Connection timeout with API server";

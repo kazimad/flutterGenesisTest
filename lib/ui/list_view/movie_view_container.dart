@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/block/movie_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/data_classes/pair.dart';
+import 'package:flutter_genesis_test/generated/i18n.dart';
 import 'package:flutter_genesis_test/ui/list_view/list_view_movie_item.dart';
 import 'package:flutter_genesis_test/ui/list_view/list_view_movies.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
@@ -33,7 +34,7 @@ class _MovieViewState extends State<MovieView> {
           if (listMovies != null && listMovies.length > 0) {
             return _buildListWidget(listMovies);
           } else {
-            return buildErrorWidget("No Movies yet");
+            return buildErrorWidget(S.of(context).no_movies_yet);
           }
         } else if (snapshot.hasError) {
           return buildErrorWidget(snapshot.error);

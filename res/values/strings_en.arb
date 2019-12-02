@@ -1,0 +1,13 @@
+{
+  "films": "Films",
+  "favorites": "Favorites",
+  "share": "share",
+  "click_button_to_go_to_main_page": "Click button to go to main page",
+  "facebook_login": "Facebook login",
+  "remove_from_favorite": "remove from favorite",
+  "add_to_favorite": "add to favorite",
+  "loading_data_from_api": "Loading data from API...",
+  "request_to_api_server_was_cancelled": "Request to API server was cancelled",
+  "no_movies_yet": "No movies yet",
+  "no_favorites_yet": "No favorites yet"
+}

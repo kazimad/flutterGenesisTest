@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:flutter_genesis_test/generated/i18n.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
 
 import 'main_screen.dart';
@@ -28,12 +29,12 @@ class _State extends State<FacebookLoginScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Click button to go to Main Page'),
+            Text(S.of(context).click_button_to_go_to_main_page),
             Builder(
               builder: (ctx) => RaisedButton(
                 textColor: Colors.white,
                 color: Colors.green,
-                child: Text('Facebook login'),
+                child: Text(S.of(context).facebook_login),
                 onPressed: () {
                   _facebookLogin(ctx);
                 },

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/block/favorite_block.dart';
 import 'package:flutter_genesis_test/block/movie_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
+import 'package:flutter_genesis_test/generated/i18n.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
 import 'package:flutter_genesis_test/ui/utils/constants.dart';
 
@@ -102,7 +103,7 @@ class _State extends State<MovieDetails> {
                           fit: FlexFit.loose,
                           child: MaterialButton(
                             child: AutoSizeText(
-                              "share".toUpperCase(),
+                              S.of(context).share.toUpperCase(),
                               style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
                               minFontSize: minFontSize,
                               maxLines: maxLinesButton,

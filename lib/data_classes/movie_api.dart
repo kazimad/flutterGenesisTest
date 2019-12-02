@@ -26,7 +26,6 @@ class MovieApi {
       this.originalLanguage,
       this.originalTitle,
       this.title,
-//      this.voteAverage,
       this.overview,
       this.releaseDate});
 
@@ -43,7 +42,6 @@ class MovieApi {
       releaseDate: json['release_date'],
       title: json['title'],
       video: json['video'],
-//      voteAverage: json['vote_average'],
       voteCount: json['vote_count'],
     );
   }

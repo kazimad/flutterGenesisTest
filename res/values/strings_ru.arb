@@ -1,0 +1,13 @@
+{
+  "films": "Фильмы",
+  "favorites": "Любимые",
+  "share": "поделиться",
+  "click_button_to_go_to_main_page": "Нажмите на кнопку для продолжения",
+  "facebook_login": "Войти через Facebook",
+  "remove_from_favorite": "убрать из любимых",
+  "add_to_favorite": "добавить в любимые",
+  "loading_data_from_api": "Загрузка данных из API...",
+  "request_to_api_server_was_cancelled": "Запрос к API был отменен",
+  "no_movies_yet": "Нет фильмов пока",
+  "no_favorites_yet": "Нет любимых пока"
+}

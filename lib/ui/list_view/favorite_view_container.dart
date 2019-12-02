@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/block/favorite_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/data_classes/pair.dart';
+import 'package:flutter_genesis_test/generated/i18n.dart';
 import 'package:flutter_genesis_test/ui/list_view/list_view_movie_item.dart';
 import 'package:flutter_genesis_test/ui/list_view/list_view_movies.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
@@ -18,7 +19,6 @@ class FavoriteState extends State<FavoriteView> {
   void initState() {
     super.initState();
     favoriteBloc.getFavorites();
-    print("myLog favorite_list_view_container initState() ");
   }
 
   @override
@@ -34,7 +34,7 @@ class FavoriteState extends State<FavoriteView> {
           if (listFavorites != null && listFavorites.length > 0) {
             return _buildListWidget(listFavorites);
           } else {
-            return buildErrorWidget("No Favorites yet");
+            return buildErrorWidget(S.of(context).no_favorites_yet);
           }
         } else if (snapshot.hasError) {
           return buildErrorWidget(snapshot.error);

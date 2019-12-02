@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_genesis_test/generated/i18n.dart';
 import 'package:http/http.dart' as http;
 
 import 'list_view/favorite_view_container.dart';
@@ -59,7 +60,7 @@ class _State extends State<MainScreen> {
             ),
           ]),
           bottom: TabBar(
-            tabs: [MyTab("films"), MyTab("favorites")],
+            tabs: [MyTab(S.of(context).films), MyTab(S.of(context).favorites)],
           ),
         ),
         body: TabBarView(

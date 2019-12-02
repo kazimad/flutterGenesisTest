@@ -61,7 +61,6 @@ class MovieInner {
         releaseDate: json['release_date'],
         title: json['title'],
         video: fromJsonToBool(json['video']),
-//      voteAverage: json['vote_average'],
         voteCount: json['vote_count'],
         isFavorite: fromJsonToBool(json['is_favorite']));
   }

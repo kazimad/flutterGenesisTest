@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
+import 'package:flutter_genesis_test/generated/i18n.dart';
 import 'package:intl/intl.dart';
 import 'package:share/share.dart';
 
@@ -46,9 +47,9 @@ bool fromJsonToBool(int toTransform) {
 
 String properText(MovieInner movieInner) {
   if (movieInner.isFavorite) {
-    return "Remove from favorite".toUpperCase();
+    return S.of(context).remove_from_favorite.toUpperCase();
   } else {
-    return "Add to favorite".toUpperCase();
+    return S.of(context).add_to_favorite.toUpperCase();
   }
 }
 
@@ -61,7 +62,7 @@ Widget buildLoadingWidget() {
   return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text("Loading data from API..."), CircularProgressIndicator()],
+        children: [Text(S.of(context).loading_data_from_api), CircularProgressIndicator()],
       ));
 }
 
