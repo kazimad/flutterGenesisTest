@@ -92,7 +92,7 @@ class _RegularItemState extends State<RegularItem> {
                               child: MaterialButton(
                                 padding: EdgeInsets.only(left: 0),
                                 child: AutoSizeText(
-                                  properText(movie),
+                                  properText(movie, context),
                                   style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
                                   minFontSize: minFontSize,
                                   maxLines: maxLinesButton,

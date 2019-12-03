@@ -39,7 +39,7 @@ class _MovieViewState extends State<MovieView> {
         } else if (snapshot.hasError) {
           return buildErrorWidget(snapshot.error);
         } else {
-          return buildLoadingWidget();
+          return buildLoadingWidget(context);
         }
       },
     );

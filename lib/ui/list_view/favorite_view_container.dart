@@ -39,7 +39,7 @@ class FavoriteState extends State<FavoriteView> {
         } else if (snapshot.hasError) {
           return buildErrorWidget(snapshot.error);
         } else {
-          return buildLoadingWidget();
+          return buildLoadingWidget(context);
         }
       },
     );

@@ -45,7 +45,7 @@ bool fromJsonToBool(int toTransform) {
   return result;
 }
 
-String properText(MovieInner movieInner) {
+String properText(MovieInner movieInner, BuildContext context) {
   if (movieInner.isFavorite) {
     return S.of(context).remove_from_favorite.toUpperCase();
   } else {
@@ -58,7 +58,7 @@ void doShare(MovieInner movieToShare) {
       "movie's id is ${movieToShare.id}, title is ${movieToShare.title}, overview is ${movieToShare.overview}");
 }
 
-Widget buildLoadingWidget() {
+Widget buildLoadingWidget(BuildContext context) {
   return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

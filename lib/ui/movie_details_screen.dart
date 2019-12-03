@@ -39,7 +39,7 @@ class _State extends State<MovieDetails> {
                 Padding(
                   padding: EdgeInsets.only(right: margin8, left: margin8, bottom: margin8),
                   child: Hero(
-                    tag: HERO_BASE_KEY+  widget.movieToDetail.id.toString(),
+                    tag: HERO_BASE_KEY + widget.movieToDetail.id.toString(),
                     child: Container(
                       width: imageSize,
                       height: imageSize,
@@ -82,7 +82,7 @@ class _State extends State<MovieDetails> {
                           child: MaterialButton(
                             padding: EdgeInsets.only(left: 0),
                             child: AutoSizeText(
-                              properText(widget.movieToDetail),
+                              properText(widget.movieToDetail, context),
                               style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
                               minFontSize: minFontSize,
                               maxLines: maxLinesButton,
