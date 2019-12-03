@@ -75,3 +75,11 @@ Widget buildErrorWidget(String error) {
         ],
       ));
 }
+
+String validatePosterPath(MovieInner movie) {
+  if (movie.posterPath != null) {
+    return BASE_IMAGE_LINK + movie.posterPath;
+  } else {
+    return "";
+  }
+}

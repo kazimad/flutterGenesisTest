@@ -58,7 +58,7 @@ class _RegularItemState extends State<RegularItem> {
                           width: imageSize,
                           height: imageSize,
                           child: CachedNetworkImage(
-                            imageUrl: _validatePosterPath(movie),
+                            imageUrl: validatePosterPath(movie),
                             placeholder: (context, url) => new CircularProgressIndicator(),
                             errorWidget: (context, url, error) => new Icon(Icons.error),
                           ),
@@ -146,14 +146,6 @@ class _RegularItemState extends State<RegularItem> {
   }
 
   _RegularItemState({this.movie, key: "regular"});
-}
-
-String _validatePosterPath(MovieInner movie) {
-  if (movie.posterPath != null) {
-    return BASE_IMAGE_LINK + movie.posterPath;
-  } else {
-    return "";
-  }
 }
 
 enum SourceTab { movies, favorite }

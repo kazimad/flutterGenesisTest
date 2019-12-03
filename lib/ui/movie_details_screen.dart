@@ -31,33 +31,33 @@ class _State extends State<MovieDetails> {
         backgroundColor: Colors.green,
       ),
       body: Center(
-        child: Column(
-          children: <Widget>[
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(right: margin8, left: margin8, bottom: margin8),
-                  child: Hero(
-                    tag: HERO_BASE_KEY + widget.movieToDetail.id.toString(),
-                    child: Container(
-                      width: imageSize,
-                      height: imageSize,
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(right: margin8, left: margin8, bottom: margin8),
+                    child: Hero(
+                      tag: HERO_BASE_KEY + widget.movieToDetail.id.toString(),
                       child: Container(
-                        margin: EdgeInsets.only(top: margin8),
-                        child: CachedNetworkImage(
-                          imageUrl: BASE_IMAGE_LINK + widget.movieToDetail.posterPath,
-                          placeholder: (context, url) => new CircularProgressIndicator(),
-                          errorWidget: (context, url, error) => new Icon(Icons.error),
+                        width: imageSize,
+                        height: imageSize,
+                        child: Container(
+                          margin: EdgeInsets.only(top: margin8),
+                          child: CachedNetworkImage(
+                            imageUrl: validatePosterPath(widget.movieToDetail),
+                            placeholder: (context, url) => new CircularProgressIndicator(),
+                            errorWidget: (context, url, error) => new Icon(Icons.error),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            Flexible(
-              child: Padding(
+                ],
+              ),
+              Padding(
                 padding: EdgeInsets.only(top: margin8),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -120,8 +120,8 @@ class _State extends State<MovieDetails> {
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
