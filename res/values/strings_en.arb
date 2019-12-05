@@ -9,5 +9,8 @@
   "loading_data_from_api": "Loading data from API...",
   "request_to_api_server_was_cancelled": "Request to API server was cancelled",
   "no_movies_yet": "No movies yet",
-  "no_favorites_yet": "No favorites yet"
+  "no_favorites_yet": "No favorites yet",
+  "facebook_login_cancelled": "Facebook login cancelled",
+  "some_error_with_facebook_login": "some error with Facebook Login",
+  "facebook_login_cancelled_with_error_result": "Facebook login cancelled with error result"
 }

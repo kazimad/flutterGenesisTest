@@ -27,8 +27,8 @@ class _MovieViewState extends State<MovieView> {
       stream: movieBloc.subject.stream,
       builder: (context, AsyncSnapshot<Pair> snapshot) {
         if (snapshot.hasData) {
-          if (isNotNullAndNotEmpty(snapshot.data.errorParam)) {
-            showErrorMessage(context, snapshot.data.errorParam);
+          if (snapshot.data.exception != null) {
+            showErrorMessage(context, snapshot.data.exception);
           }
           List<MovieInner> listMovies = snapshot.data.expectedResult;
           if (listMovies != null && listMovies.length > 0) {

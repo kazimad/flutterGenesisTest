@@ -24,6 +24,8 @@ class S implements WidgetsLocalizations {
   String get add_to_favorite => "add to favorite";
   String get click_button_to_go_to_main_page => "Click button to go to main page";
   String get facebook_login => "Facebook login";
+  String get facebook_login_cancelled => "Facebook login cancelled";
+  String get facebook_login_cancelled_with_error_result => "Facebook login cancelled with error result";
   String get favorites => "Favorites";
   String get films => "Films";
   String get loading_data_from_api => "Loading data from API...";
@@ -32,6 +34,7 @@ class S implements WidgetsLocalizations {
   String get remove_from_favorite => "remove from favorite";
   String get request_to_api_server_was_cancelled => "Request to API server was cancelled";
   String get share => "share";
+  String get some_error_with_facebook_login => "some error with Facebook Login";
 }
 
 class $ru extends S {
@@ -43,23 +46,29 @@ class $ru extends S {
   @override
   String get favorites => "Любимые";
   @override
-  String get request_to_api_server_was_cancelled => "Запрос к API был отменен";
-  @override
   String get films => "Фильмы";
   @override
   String get add_to_favorite => "добавить в любимые";
   @override
   String get no_favorites_yet => "Нет любимых пока";
   @override
+  String get facebook_login_cancelled_with_error_result => "вход через Facebook отменен из-за ошибки";
+  @override
+  String get facebook_login => "Войти через Facebook";
+  @override
+  String get facebook_login_cancelled => "вход через Facebook отменен";
+  @override
+  String get loading_data_from_api => "Загрузка данных из API...";
+  @override
+  String get request_to_api_server_was_cancelled => "Запрос к API был отменен";
+  @override
   String get click_button_to_go_to_main_page => "Нажмите на кнопку для продолжения";
+  @override
+  String get some_error_with_facebook_login => "возникла ошибка при входе через Facebook";
   @override
   String get remove_from_favorite => "убрать из любимых";
   @override
   String get share => "поделиться";
-  @override
-  String get facebook_login => "Войти через Facebook";
-  @override
-  String get loading_data_from_api => "Загрузка данных из API...";
   @override
   String get no_movies_yet => "Нет фильмов пока";
 }

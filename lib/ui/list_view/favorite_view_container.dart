@@ -27,8 +27,8 @@ class FavoriteState extends State<FavoriteView> {
       stream: favoriteBloc.subject.stream,
       builder: (context, AsyncSnapshot<Pair> snapshot) {
         if (snapshot.hasData) {
-          if (isNotNullAndNotEmpty(snapshot.data.errorParam)) {
-            showErrorMessage(context, snapshot.data.errorParam);
+          if (snapshot.data.exception != null) {
+            showErrorMessage(context, snapshot.data.exception);
           }
           List<MovieInner> listFavorites = snapshot.data.expectedResult;
           if (listFavorites != null && listFavorites.length > 0) {

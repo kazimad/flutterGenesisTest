@@ -1,14 +1,14 @@
 class Pair {
   dynamic expectedResult;
-  String errorParam;
+  Exception exception;
 
-  Pair(this.expectedResult, this.errorParam);
+  Pair(this.expectedResult, this.exception);
 
   Pair.withExpectedResult(dynamic expectedResult)
       : expectedResult = expectedResult,
-        errorParam = null;
+        exception = null;
 
-  Pair.withError(String errorValue)
+  Pair.withError(Exception exceptionValue)
       : expectedResult = null,
-        errorParam = errorValue;
+        exception = exceptionValue;
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
+import 'package:flutter_genesis_test/ui/utils/handlers/error_handler.dart';
 import 'package:intl/intl.dart';
 import 'package:share/share.dart';
 
@@ -8,10 +9,10 @@ import 'constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-Future<void> showErrorMessage(BuildContext context, String whatToShow) async {
+Future<void> showErrorMessage(BuildContext context, Exception exception) async {
   await Future<void>.microtask(() {
     Scaffold.of(context).showSnackBar(
-      SnackBar(content: Text(whatToShow)),
+      SnackBar(content: Text(handleError(exception))),
     );
   });
 }

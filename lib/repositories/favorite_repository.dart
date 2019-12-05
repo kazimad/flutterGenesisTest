@@ -7,13 +7,13 @@ import 'package:flutter_genesis_test/ui/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<Pair> queryAllFavoritesFromStorage() async {
-  String error;
+  Exception error;
   List<MovieInner> queriedMovies;
   List<dynamic> favoriteIdList = await getFavoriteIdsList();
   if (favoriteIdList != null && favoriteIdList.length > 0) {
     queriedMovies = await queryMoviesFromDbById(DatabaseMovieHelper.instance, favoriteIdList);
   } else {
-    error = "No Favorites";
+    error = Exception("No Favorites");
   }
 
   Pair pairResult = Pair(queriedMovies, error);

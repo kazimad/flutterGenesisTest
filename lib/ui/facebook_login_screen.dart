@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:flutter_genesis_test/exception/custom_exception.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
 
@@ -60,13 +61,13 @@ class _State extends State<FacebookLoginScreen> {
         _navigateToNextScreen(result.accessToken.token);
         break;
       case FacebookLoginStatus.cancelledByUser:
-        showErrorMessage(context, "facebook login cancelled");
+        showErrorMessage(context, CustomException(S.of(context).facebook_login_cancelled));
         break;
       case FacebookLoginStatus.error:
-        showErrorMessage(context, "facebook login cancelled with error ${result.errorMessage}");
+        showErrorMessage(context, CustomException((S.of(context).facebook_login_cancelled_with_error_result) + result.errorMessage));
         break;
       default:
-        showErrorMessage(context, "some error with facebookLogin");
+        showErrorMessage(context, CustomException(S.of(context).some_error_with_facebook_login));
     }
   }
 

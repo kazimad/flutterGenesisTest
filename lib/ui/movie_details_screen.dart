@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/block/favorite_block.dart';
 import 'package:flutter_genesis_test/block/movie_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
+import 'package:flutter_genesis_test/exception/custom_exception.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
 import 'package:flutter_genesis_test/ui/utils/commands.dart';
 import 'package:flutter_genesis_test/ui/utils/constants.dart';
@@ -137,7 +138,7 @@ class _MovieDescriptionState extends State<MovieDescription> {
                   ),
                   onPressed: () {
                     doShare(widget.movieToDetail);
-                    showErrorMessage(context, widget.movieToDetail.voteCount.toString() + ' - ' + widget.movieToDetail.title);
+                    showErrorMessage(context, CustomException(widget.movieToDetail.voteCount.toString() + ' - ' + widget.movieToDetail.title));
                   },
                 ),
               )

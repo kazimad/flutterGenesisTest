@@ -10,15 +10,15 @@ import 'package:flutter_genesis_test/ui/utils/constants.dart';
 class MovieRepository {
   final MovieApiProvider _apiProvider = MovieApiProvider();
   final dbHelper = DatabaseMovieHelper.instance;
-  String error;
+  Exception exception;
   MovieParceResult response;
 
   Future<Pair> getMovies() async {
-//    try {
-    response = await _apiProvider.getMovies(API_KEY, API_SORT_BY, getCurrentTimeAndFormat(), getFutureTimeAndFormat());
-//    } catch (responseError) {
-//      this.error = handleError(responseError);
-//    }
+    try {
+      response = await _apiProvider.getMovies(API_KEY, API_SORT_BY, getCurrentTimeAndFormat(), getFutureTimeAndFormat());
+    } catch (responseError) {
+      this.exception = responseError;
+    }
     if (response.topResponse != null) {
       await dbHelper.deleteAll();
       List<Map<String, dynamic>> listToInsert = [];
@@ -34,11 +34,11 @@ class MovieRepository {
       });
       await dbHelper.insertAll(listToInsert);
     } else {
-      this.error = response.error;
+      this.exception = response.error;
     }
 
     var result = await queryMoviesFromDb(dbHelper);
-    Pair pairResult = Pair(result, error);
+    Pair pairResult = Pair(result, exception);
     return Future<Pair>.value(pairResult);
   }
 

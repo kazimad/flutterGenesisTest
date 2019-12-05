@@ -9,5 +9,8 @@
   "loading_data_from_api": "Загрузка данных из API...",
   "request_to_api_server_was_cancelled": "Запрос к API был отменен",
   "no_movies_yet": "Нет фильмов пока",
-  "no_favorites_yet": "Нет любимых пока"
+  "no_favorites_yet": "Нет любимых пока",
+  "facebook_login_cancelled": "вход через Facebook отменен",
+  "some_error_with_facebook_login": "возникла ошибка при входе через Facebook",
+  "facebook_login_cancelled_with_error_result": "вход через Facebook отменен из-за ошибки"
 }
