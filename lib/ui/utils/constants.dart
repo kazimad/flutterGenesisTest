@@ -14,3 +14,9 @@ const API_SORT_BY = "release_date.asc";
 
 //margins
 const double margin8 = 8;
+
+//constants
+final double movieCardElevation = 4;
+final double movieCardMinFontSize = 6;
+final int movieCardMaxLinesButton = 1;
+final int movieCardMaxLinesText = 3;

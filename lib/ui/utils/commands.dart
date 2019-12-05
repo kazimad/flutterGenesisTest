@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:share/share.dart';
 
 import 'constants.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 Future<void> showErrorMessage(BuildContext context, String whatToShow) async {
   await Future<void>.microtask(() {
@@ -82,4 +84,11 @@ String validatePosterPath(MovieInner movie) {
   } else {
     return "";
   }
+}
+
+Future<dynamic> getProfile(String accessToken) async {
+  var graphResponse =
+  await http.get('https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email,picture.height(200)&access_token=$accessToken');
+  var profile = json.decode(graphResponse.body);
+  return profile;
 }

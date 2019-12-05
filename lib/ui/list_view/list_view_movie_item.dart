@@ -17,122 +17,27 @@ class HeaderItem extends Text implements ListViewMovieItem {
   HeaderItem(this.headerText) : super(headerText);
 }
 
-class RegularItem extends StatefulWidget implements ListViewMovieItem {
+class RegularItem extends StatelessWidget implements ListViewMovieItem {
   final MovieInner movie;
   final SourceTab source;
 
   const RegularItem({this.movie, this.source, Key key}) : super(key: key);
 
   @override
-  _RegularItemState createState() => _RegularItemState(movie: movie);
-}
-
-class _RegularItemState extends State<RegularItem> {
-  final MovieInner movie;
-
-  final double imageSize = 100;
-  final double elevation = 4;
-  final double minFontSize = 6;
-  final int maxLinesButton = 1;
-  final int maxLinesText = 3;
-
-  @override
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(margin8),
         child: GestureDetector(
           child: Card(
-            elevation: 4,
+            elevation: movieCardElevation,
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(right: margin8, left: margin8, bottom: margin8),
-                      child: Hero(
-                        tag: HERO_BASE_KEY + movie.id.toString(),
-                        child: Container(
-                          width: imageSize,
-                          height: imageSize,
-                          child: CachedNetworkImage(
-                            imageUrl: validatePosterPath(movie),
-                            placeholder: (context, url) => new CircularProgressIndicator(),
-                            errorWidget: (context, url, error) => new Icon(Icons.error),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      child: Text(movie.popularity.toString()),
-                    ),
-                  ],
-                ),
-                Flexible(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: margin8),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Container(margin: EdgeInsets.only(top: margin8), child: Text(movie.title, style: TextStyle(fontWeight: FontWeight.bold))),
-                        Container(
-                            margin: EdgeInsets.only(top: margin8),
-                            child: Text(movie.overview, maxLines: maxLinesText, overflow: TextOverflow.ellipsis)),
-                        Divider(
-                          color: Colors.grey,
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Flexible(
-                              fit: FlexFit.loose,
-                              child: MaterialButton(
-                                padding: EdgeInsets.only(left: 0),
-                                child: AutoSizeText(
-                                  properText(movie, context),
-                                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-                                  minFontSize: minFontSize,
-                                  maxLines: maxLinesButton,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    movie.isFavorite ? favoriteBloc.removeFromFavorites(movie.id) : favoriteBloc.addToFavorites(movie.id);
-                                    movie.isFavorite = !movie.isFavorite;
-                                    movieBloc.updateMovie(movie);
-                                    if (widget.source == SourceTab.favorite) {
-                                      favoriteBloc.getFavorites();
-                                    }
-                                  });
-                                },
-                              ),
-                            ),
-                            Flexible(
-                              fit: FlexFit.loose,
-                              child: Builder(
-                                builder: (ctx) => MaterialButton(
-                                  child: AutoSizeText(
-                                    S.of(context).share.toUpperCase(),
-                                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-                                    minFontSize: minFontSize,
-                                    maxLines: maxLinesButton,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  onPressed: () {
-                                    doShare(movie);
-                                    showErrorMessage(ctx, movie.voteCount.toString() + ' - ' + movie.title);
-                                  },
-                                ),
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
+                ImageAndRating(movie: movie,),
+                Description(
+                  movie: movie,
+                  source: source,
                 ),
               ],
             ),
@@ -144,8 +49,121 @@ class _RegularItemState extends State<RegularItem> {
       ),
     );
   }
+}
 
-  _RegularItemState({this.movie, key: "regular"});
+class ImageAndRating extends StatelessWidget {
+  final MovieInner movie;
+  final double imageSize = 100;
+
+  ImageAndRating({this.movie});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(right: margin8, left: margin8, bottom: margin8),
+          child: Hero(
+            tag: HERO_BASE_KEY + movie.id.toString(),
+            child: Container(
+              width: imageSize,
+              height: imageSize,
+              child: CachedNetworkImage(
+                imageUrl: validatePosterPath(movie),
+                placeholder: (context, url) => new CircularProgressIndicator(),
+                errorWidget: (context, url, error) => new Icon(Icons.error),
+              ),
+            ),
+          ),
+        ),
+        Container(
+          child: Text(movie.popularity.toString()),
+        ),
+      ],
+    );
+  }
+}
+
+class Description extends StatefulWidget {
+  final MovieInner movie;
+  final SourceTab source;
+
+  Description({this.movie, this.source});
+
+  @override
+  _DescriptionState createState() => _DescriptionState();
+}
+
+class _DescriptionState extends State<Description> {
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: Padding(
+        padding: EdgeInsets.only(top: margin8),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Container(margin: EdgeInsets.only(top: margin8), child: Text(widget.movie.title, style: TextStyle(fontWeight: FontWeight.bold))),
+            Container(
+                margin: EdgeInsets.only(top: margin8),
+                child: Text(widget.movie.overview, maxLines: movieCardMaxLinesText, overflow: TextOverflow.ellipsis)),
+            Divider(
+              color: Colors.grey,
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: MaterialButton(
+                    padding: EdgeInsets.only(left: 0),
+                    child: AutoSizeText(
+                      properText(widget.movie, context),
+                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+                      minFontSize: movieCardMinFontSize,
+                      maxLines: movieCardMaxLinesButton,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        widget.movie.isFavorite ? favoriteBloc.removeFromFavorites(widget.movie.id) : favoriteBloc.addToFavorites(widget.movie.id);
+                        widget.movie.isFavorite = !widget.movie.isFavorite;
+                        movieBloc.updateMovie(widget.movie);
+                        if (widget.source == SourceTab.favorite) {
+                          favoriteBloc.getFavorites();
+                        }
+                      });
+                    },
+                  ),
+                ),
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: Builder(
+                    builder: (ctx) => MaterialButton(
+                      child: AutoSizeText(
+                        S.of(context).share.toUpperCase(),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+                        minFontSize: movieCardMinFontSize,
+                        maxLines: movieCardMaxLinesButton,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      onPressed: () {
+                        doShare(widget.movie);
+                        showErrorMessage(ctx, widget.movie.voteCount.toString() + ' - ' + widget.movie.title);
+                      },
+                    ),
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 enum SourceTab { movies, favorite }
+

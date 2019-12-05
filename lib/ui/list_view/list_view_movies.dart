@@ -44,10 +44,10 @@ List<ListViewMovieItem> headerOrRegular(List<MovieInner> incomingList, SourceTab
     var month = dateFull.month;
     if (month != currentMonth) {
       technical.add(HeaderItem(dateShort));
-      technical.add(RegularItem(movie: it, source: source));
+      technical.add(RegularItem(movie: it, source: source, key: Key("regular")));
       currentMonth = month;
     } else {
-      technical.add(RegularItem(movie: it, source: source));
+      technical.add(RegularItem(movie: it, source: source, key: Key("regular")));
     }
   });
 

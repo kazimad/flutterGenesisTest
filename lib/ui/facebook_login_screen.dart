@@ -6,7 +6,6 @@ import 'package:flutter_genesis_test/ui/utils/commands.dart';
 
 import 'main_screen.dart';
 
-//final scaffoldKey =  GlobalKey();
 class FacebookLoginScreen extends StatefulWidget {
   final FacebookLogin facebookLogin = new FacebookLogin();
 
@@ -24,7 +23,6 @@ class _State extends State<FacebookLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-//      key: scaffoldKey,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
