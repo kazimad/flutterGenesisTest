@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/block/favorite_block.dart';
 import 'package:flutter_genesis_test/block/movie_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
-import 'package:flutter_genesis_test/exception/custom_exception.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
-import 'package:flutter_genesis_test/ui/utils/commands.dart';
+import 'package:flutter_genesis_test/ui/utils/commands/commands_api.dart';
+import 'package:flutter_genesis_test/ui/utils/commands/commands_logic_and_interactions.dart';
+import 'package:flutter_genesis_test/ui/utils/commands/commands_ui.dart';
 import 'package:flutter_genesis_test/ui/utils/constants.dart';
 
 class MovieDetails extends StatelessWidget {
@@ -26,8 +27,8 @@ class MovieDetails extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              MovieImage(),
-              MovieDescription(),
+              MovieImage(movieToDetail: movieToDetail),
+              MovieDescription(movieToDetail: movieToDetail),
             ],
           ),
         ),
@@ -40,7 +41,7 @@ class MovieImage extends StatelessWidget {
   final double imageSize = 200;
   final MovieInner movieToDetail;
 
-  MovieImage({this.movieToDetail});
+  MovieImage({@required this.movieToDetail});
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +74,7 @@ class MovieImage extends StatelessWidget {
 class MovieDescription extends StatefulWidget {
   final MovieInner movieToDetail;
 
-  MovieDescription({this.movieToDetail});
+  MovieDescription({@required this.movieToDetail});
 
   @override
   _MovieDescriptionState createState() => _MovieDescriptionState();
@@ -138,7 +139,6 @@ class _MovieDescriptionState extends State<MovieDescription> {
                   ),
                   onPressed: () {
                     doShare(widget.movieToDetail);
-                    showErrorMessage(context, CustomException(widget.movieToDetail.voteCount.toString() + ' - ' + widget.movieToDetail.title));
                   },
                 ),
               )

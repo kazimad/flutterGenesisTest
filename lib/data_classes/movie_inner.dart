@@ -1,5 +1,5 @@
 import 'package:flutter_genesis_test/data_classes/movie_api.dart';
-import 'package:flutter_genesis_test/ui/utils/commands.dart';
+import 'package:flutter_genesis_test/ui/utils/commands/commands_logic_and_interactions.dart';
 
 class MovieInner {
   final int id;
@@ -16,19 +16,20 @@ class MovieInner {
   final String releaseDate;
   bool isFavorite;
 
-  MovieInner({this.id,
-    this.popularity,
-    this.voteCount,
-    this.video,
-    this.posterPath,
-    this.adult,
-    this.backdropPath,
-    this.originalLanguage,
-    this.originalTitle,
-    this.title,
-    this.overview,
-    this.releaseDate,
-    this.isFavorite});
+  MovieInner(
+      {this.id,
+      this.popularity,
+      this.voteCount,
+      this.video,
+      this.posterPath,
+      this.adult,
+      this.backdropPath,
+      this.originalLanguage,
+      this.originalTitle,
+      this.title,
+      this.overview,
+      this.releaseDate,
+      this.isFavorite});
 
   Map<String, dynamic> toMap() {
     return {
@@ -65,7 +66,7 @@ class MovieInner {
         isFavorite: fromJsonToBool(json['is_favorite']));
   }
 
-  factory MovieInner.fromMoviePOJO(MovieApi moviePOJO){
+  factory MovieInner.fromMoviePOJO(MovieApi moviePOJO) {
     return MovieInner(
         id: moviePOJO.id,
         popularity: moviePOJO.popularity,
@@ -74,11 +75,11 @@ class MovieInner {
         posterPath: moviePOJO.posterPath,
         adult: moviePOJO.adult,
         backdropPath: moviePOJO.backdropPath,
-        originalLanguage : moviePOJO.originalLanguage,
-        originalTitle : moviePOJO.originalTitle,
-        title : moviePOJO.title,
+        originalLanguage: moviePOJO.originalLanguage,
+        originalTitle: moviePOJO.originalTitle,
+        title: moviePOJO.title,
         overview: moviePOJO.overview,
-        releaseDate : moviePOJO.releaseDate,
+        releaseDate: moviePOJO.releaseDate,
         isFavorite: false);
   }
 

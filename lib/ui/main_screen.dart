@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
-import 'package:flutter_genesis_test/ui/utils/commands.dart';
+import 'package:flutter_genesis_test/ui/utils/commands/commands_api.dart';
 
 import 'list_view/favorite_view_container.dart';
 import 'list_view/movie_view_container.dart';

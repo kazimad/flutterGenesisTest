@@ -7,7 +7,9 @@ import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/exception/custom_exception.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
 import 'package:flutter_genesis_test/ui/movie_details_screen.dart';
-import 'package:flutter_genesis_test/ui/utils/commands.dart';
+import 'package:flutter_genesis_test/ui/utils/commands/commands_api.dart';
+import 'package:flutter_genesis_test/ui/utils/commands/commands_logic_and_interactions.dart';
+import 'package:flutter_genesis_test/ui/utils/commands/commands_ui.dart';
 import 'package:flutter_genesis_test/ui/utils/constants.dart';
 
 abstract class ListViewMovieItem {}
@@ -35,7 +37,9 @@ class RegularItem extends StatelessWidget implements ListViewMovieItem {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                ImageAndRating(movie: movie,),
+                ImageAndRating(
+                  movie: movie,
+                ),
                 Description(
                   movie: movie,
                   source: source,
@@ -152,7 +156,6 @@ class _DescriptionState extends State<Description> {
                       ),
                       onPressed: () {
                         doShare(widget.movie);
-                        showErrorMessage(ctx, CustomException(widget.movie.voteCount.toString() + ' - ' + widget.movie.title));
                       },
                     ),
                   ),
@@ -167,4 +170,3 @@ class _DescriptionState extends State<Description> {
 }
 
 enum SourceTab { movies, favorite }
-

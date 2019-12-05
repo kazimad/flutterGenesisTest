@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_genesis_test/data_classes/pair.dart';
 import 'package:flutter_genesis_test/repositories/favorite_repository.dart';
-import 'package:flutter_genesis_test/ui/utils/commands.dart';
+import 'package:flutter_genesis_test/ui/utils/commands/commands_logic_and_interactions.dart';
 import 'package:flutter_genesis_test/ui/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -47,6 +47,6 @@ Future<Pair> getAllFavorites() {
   return queryAllFavoritesFromStorage();
 }
 
-Future<List<dynamic>> getAllFavoriteIds(){
+Future<List<dynamic>> getAllFavoriteIds() {
   return getFavoriteIdsList();
 }

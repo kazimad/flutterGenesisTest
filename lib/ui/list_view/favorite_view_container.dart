@@ -5,7 +5,7 @@ import 'package:flutter_genesis_test/data_classes/pair.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
 import 'package:flutter_genesis_test/ui/list_view/list_view_movie_item.dart';
 import 'package:flutter_genesis_test/ui/list_view/list_view_movies.dart';
-import 'package:flutter_genesis_test/ui/utils/commands.dart';
+import 'package:flutter_genesis_test/ui/utils/commands/commands_ui.dart';
 
 class FavoriteView extends StatefulWidget {
   FavoriteView({Key key}) : super(key: key);
