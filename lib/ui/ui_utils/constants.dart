@@ -15,5 +15,5 @@ const API_SORT_BY = "release_date.asc";
 //constants
 final double movieCardElevation = 4;
 final double movieCardMinFontSize = 6;
-final int movieCardMaxLinesButton = 1;
+final int movieCardMaxLinesButton = 2;
 final int movieCardMaxLinesText = 3;

@@ -45,10 +45,11 @@ class _ListItemDescriptionWidgetState extends State<ListItemDescriptionWidget> {
                   child: MaterialButton(
                     child: AutoSizeText(
                       validateTextAddOrRemove(widget.movie, context),
-                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green,),
                       minFontSize: movieCardMinFontSize,
                       maxLines: movieCardMaxLinesButton,
                       overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
                     ),
                     onPressed: () {
                       _onAddToFavoriteClick();
@@ -58,18 +59,22 @@ class _ListItemDescriptionWidgetState extends State<ListItemDescriptionWidget> {
                 Flexible(
                   fit: FlexFit.loose,
                   child: Builder(
-                    builder: (ctx) => MaterialButton(
-                      child: AutoSizeText(
-                        S.of(context).share.toUpperCase(),
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-                        minFontSize: movieCardMinFontSize,
-                        maxLines: movieCardMaxLinesButton,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      onPressed: () {
-                        doShare(widget.movie);
-                      },
-                    ),
+                    builder: (ctx) =>
+                        MaterialButton(
+                          child: AutoSizeText(
+                            S
+                                .of(context)
+                                .share
+                                .toUpperCase(),
+                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+                            minFontSize: movieCardMinFontSize,
+                            maxLines: movieCardMaxLinesButton,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          onPressed: () {
+                            doShare(widget.movie);
+                          },
+                        ),
                   ),
                 )
               ],
