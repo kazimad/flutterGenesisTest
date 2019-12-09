@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
-import 'package:flutter_genesis_test/ui/list_view_widgets/favorite_widget.dart';
-import 'package:flutter_genesis_test/ui/list_view_widgets/movie_widget.dart';
+import 'package:flutter_genesis_test/ui/tab_widget/favorite_tab_widget.dart';
+import 'package:flutter_genesis_test/ui/tab_widget/movie_tab_widget.dart';
 import 'package:flutter_genesis_test/ui/utils/commands/commands_api.dart';
 
 class MainScreen extends StatefulWidget {
@@ -41,10 +41,10 @@ class _State extends State<MainScreen> {
         },
         body: TabBarView(
           children: <Widget>[
-            MovieWidget(
+            MovieTabWidget(
               key: PageStorageKey("bodyContent1"),
             ),
-            FavoriteWidget(
+            FavoriteTabWidget(
               key: PageStorageKey("bodyContent2"),
             ),
           ],

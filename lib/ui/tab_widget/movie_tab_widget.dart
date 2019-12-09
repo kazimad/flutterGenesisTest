@@ -7,14 +7,14 @@ import 'package:flutter_genesis_test/ui/list_view_widgets/list_movies_widget.dar
 import 'package:flutter_genesis_test/ui/list_view_widgets/source_tab.dart';
 import 'package:flutter_genesis_test/ui/utils/commands/commands_ui.dart';
 
-class MovieWidget extends StatefulWidget {
-  MovieWidget({Key key}) : super(key: key);
+class MovieTabWidget extends StatefulWidget {
+  MovieTabWidget({Key key}) : super(key: key);
 
   @override
-  _MovieWidgetState createState() => _MovieWidgetState();
+  _MovieTabWidgetState createState() => _MovieTabWidgetState();
 }
 
-class _MovieWidgetState extends State<MovieWidget> {
+class _MovieTabWidgetState extends State<MovieTabWidget> {
   @override
   void initState() {
     super.initState();

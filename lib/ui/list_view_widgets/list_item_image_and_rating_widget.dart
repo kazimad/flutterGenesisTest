@@ -5,11 +5,11 @@ import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/ui/utils/commands/commands_api.dart';
 import 'package:flutter_genesis_test/ui/utils/constants.dart';
 
-class ImageAndRatingWidget extends StatelessWidget {
+class ListItemImageAndRatingWidget extends StatelessWidget {
   final MovieInner movie;
   final double imageSize = 100;
 
-  ImageAndRatingWidget({this.movie});
+  ListItemImageAndRatingWidget({this.movie});
 
   @override
   Widget build(BuildContext context) {

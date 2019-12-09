@@ -7,14 +7,14 @@ import 'package:flutter_genesis_test/ui/list_view_widgets/list_movies_widget.dar
 import 'package:flutter_genesis_test/ui/list_view_widgets/source_tab.dart';
 import 'package:flutter_genesis_test/ui/utils/commands/commands_ui.dart';
 
-class FavoriteWidget extends StatefulWidget {
-  FavoriteWidget({Key key}) : super(key: key);
+class FavoriteTabWidget extends StatefulWidget {
+  FavoriteTabWidget({Key key}) : super(key: key);
 
   @override
   FavoriteState createState() => FavoriteState();
 }
 
-class FavoriteState extends State<FavoriteWidget> {
+class FavoriteState extends State<FavoriteTabWidget> {
   @override
   void initState() {
     super.initState();

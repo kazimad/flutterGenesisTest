@@ -10,17 +10,17 @@ import 'package:flutter_genesis_test/ui/utils/commands/commands_logic_and_intera
 import 'package:flutter_genesis_test/ui/utils/commands/commands_ui.dart';
 import 'package:flutter_genesis_test/ui/utils/constants.dart';
 
-class DescriptionWidget extends StatefulWidget {
+class ListItemDescriptionWidget extends StatefulWidget {
   final MovieInner movie;
   final SourceTab source;
 
-  DescriptionWidget({this.movie, this.source});
+  ListItemDescriptionWidget({this.movie, this.source});
 
   @override
-  _DescriptionWidgetState createState() => _DescriptionWidgetState();
+  _ListItemDescriptionWidgetState createState() => _ListItemDescriptionWidgetState();
 }
 
-class _DescriptionWidgetState extends State<DescriptionWidget> {
+class _ListItemDescriptionWidgetState extends State<ListItemDescriptionWidget> {
   @override
   Widget build(BuildContext context) {
     return Flexible(

@@ -4,8 +4,8 @@ import 'package:flutter_genesis_test/ui/list_view_widgets/source_tab.dart';
 import 'package:flutter_genesis_test/ui/screens/movie_details_screen.dart';
 import 'package:flutter_genesis_test/ui/utils/constants.dart';
 
-import 'description_widget.dart';
-import 'image_and_rating_widget.dart';
+import 'list_item_description_widget.dart';
+import 'list_item_image_and_rating_widget.dart';
 
 abstract class ListViewMovieItemWidget extends Widget {}
 
@@ -32,10 +32,10 @@ class RegularItemWidget extends StatelessWidget implements ListViewMovieItemWidg
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                ImageAndRatingWidget(
+                ListItemImageAndRatingWidget(
                   movie: movie,
                 ),
-                DescriptionWidget(
+                ListItemDescriptionWidget(
                   movie: movie,
                   source: source,
                 ),
@@ -43,7 +43,7 @@ class RegularItemWidget extends StatelessWidget implements ListViewMovieItemWidg
             ),
           ),
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => MovieDetails(movieToDetail: movie)));
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => MovieDetailsScreen(movieToDetail: movie)));
           },
         ),
       ),
