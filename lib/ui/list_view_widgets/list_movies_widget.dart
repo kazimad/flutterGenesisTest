@@ -4,6 +4,7 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/ui/list_view_widgets/list_item_widget.dart';
+import 'package:flutter_genesis_test/ui/list_view_widgets/source_tab.dart';
 import 'package:flutter_genesis_test/ui/utils/constants.dart';
 import 'package:intl/intl.dart';
 
@@ -12,7 +13,7 @@ class ListViewMoviesWidget extends StatelessWidget {
   final Key key;
   final SourceTab source;
 
-  ListViewMoviesWidget({this.movies, this.source, this.key}) : super(key: key);
+  ListViewMoviesWidget({this.movies, this.source, this.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +45,10 @@ List<ListViewMovieItemWidget> headerOrRegular(List<MovieInner> incomingList, Sou
     var month = dateFull.month;
     if (month != currentMonth) {
       technical.add(HeaderItemWidget(dateShort));
-      technical.add(RegularItemWidget(movie: it, source: source, key: Key("regular")));
+      technical.add(RegularItemWidget(movie: it, source: source));
       currentMonth = month;
     } else {
-      technical.add(RegularItemWidget(movie: it, source: source, key: Key("regular")));
+      technical.add(RegularItemWidget(movie: it, source: source));
     }
   });
 
