@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
-import 'package:flutter_genesis_test/ui/facebook_login_screen.dart';
+import 'package:flutter_genesis_test/ui/screens/facebook_login_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  final double avatarSize = 40;
 
   @override
   Widget build(BuildContext context) {

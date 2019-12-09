@@ -2,10 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
+import 'package:flutter_genesis_test/ui/list_view_widgets/favorite_widget.dart';
+import 'package:flutter_genesis_test/ui/list_view_widgets/movie_widget.dart';
 import 'package:flutter_genesis_test/ui/utils/commands/commands_api.dart';
-
-import 'list_view/favorite_view_container.dart';
-import 'list_view/movie_view_container.dart';
 
 class MainScreen extends StatefulWidget {
   final String token;
@@ -42,10 +41,10 @@ class _State extends State<MainScreen> {
         },
         body: TabBarView(
           children: <Widget>[
-            MovieView(
+            MovieWidget(
               key: PageStorageKey("bodyContent1"),
             ),
-            FavoriteView(
+            FavoriteWidget(
               key: PageStorageKey("bodyContent2"),
             ),
           ],

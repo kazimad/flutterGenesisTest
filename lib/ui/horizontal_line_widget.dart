@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class DrawHorizontalLine extends CustomPainter {
+class HorizontalLineWidget extends CustomPainter {
   Paint _paint;
 
-  DrawHorizontalLine() {
+  HorizontalLineWidget() {
     _paint = Paint()
       ..color = Colors.grey
       ..strokeWidth = 1

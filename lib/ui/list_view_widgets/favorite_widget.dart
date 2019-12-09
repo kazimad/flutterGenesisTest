@@ -1,40 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_genesis_test/block/movie_block.dart';
+import 'package:flutter_genesis_test/block/favorite_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/data_classes/pair.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
-import 'package:flutter_genesis_test/ui/list_view/list_view_movie_item.dart';
-import 'package:flutter_genesis_test/ui/list_view/list_view_movies.dart';
+import 'package:flutter_genesis_test/ui/list_view_widgets/list_item_widget.dart';
+import 'package:flutter_genesis_test/ui/list_view_widgets/list_movies_widget.dart';
 import 'package:flutter_genesis_test/ui/utils/commands/commands_ui.dart';
 
-class MovieView extends StatefulWidget {
-  MovieView({Key key}) : super(key: key);
+class FavoriteWidget extends StatefulWidget {
+  FavoriteWidget({Key key}) : super(key: key);
 
   @override
-  _MovieViewState createState() => _MovieViewState();
+  FavoriteState createState() => FavoriteState();
 }
 
-class _MovieViewState extends State<MovieView> {
+class FavoriteState extends State<FavoriteWidget> {
   @override
   void initState() {
     super.initState();
-    movieBloc.getMovies();
+    favoriteBloc.getFavorites();
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Pair>(
-      stream: movieBloc.subject.stream,
+      stream: favoriteBloc.subject.stream,
       builder: (context, AsyncSnapshot<Pair> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.exception != null) {
             showErrorMessage(context, snapshot.data.exception);
           }
-          List<MovieInner> listMovies = snapshot.data.expectedResult;
-          if (listMovies != null && listMovies.length > 0) {
-            return _buildListWidget(listMovies);
+          List<MovieInner> listFavorites = snapshot.data.expectedResult;
+          if (listFavorites != null && listFavorites.length > 0) {
+            return _buildListWidget(listFavorites);
           } else {
-            return buildErrorWidget(S.of(context).no_movies_yet);
+            return buildErrorWidget(S.of(context).no_favorites_yet);
           }
         } else if (snapshot.hasError) {
           return buildErrorWidget(snapshot.error);
@@ -46,9 +46,6 @@ class _MovieViewState extends State<MovieView> {
   }
 
   Widget _buildListWidget(List<MovieInner> movies) {
-    return RefreshIndicator(
-      child: ListViewMovies(movies: movies, source: SourceTab.movies, key: UniqueKey()),
-      onRefresh: () => movieBloc.getMovies(),
-    );
+    return ListViewMoviesWidget(movies: movies, source: SourceTab.favorite, key: UniqueKey());
   }
 }

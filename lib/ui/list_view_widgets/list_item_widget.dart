@@ -4,27 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/block/favorite_block.dart';
 import 'package:flutter_genesis_test/block/movie_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
-import 'package:flutter_genesis_test/exception/custom_exception.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
-import 'package:flutter_genesis_test/ui/movie_details_screen.dart';
+import 'package:flutter_genesis_test/ui/screens/movie_details_screen.dart';
 import 'package:flutter_genesis_test/ui/utils/commands/commands_api.dart';
 import 'package:flutter_genesis_test/ui/utils/commands/commands_logic_and_interactions.dart';
 import 'package:flutter_genesis_test/ui/utils/commands/commands_ui.dart';
 import 'package:flutter_genesis_test/ui/utils/constants.dart';
 
-abstract class ListViewMovieItem {}
+abstract class ListViewMovieItemWidget {}
 
-class HeaderItem extends Text implements ListViewMovieItem {
+class HeaderItemWidget extends Text implements ListViewMovieItemWidget {
   final String headerText;
 
-  HeaderItem(this.headerText) : super(headerText);
+  HeaderItemWidget(this.headerText) : super(headerText);
 }
 
-class RegularItem extends StatelessWidget implements ListViewMovieItem {
+class RegularItemWidget extends StatelessWidget implements ListViewMovieItemWidget {
   final MovieInner movie;
   final SourceTab source;
 
-  const RegularItem({this.movie, this.source, Key key}) : super(key: key);
+  const RegularItemWidget({this.movie, this.source, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

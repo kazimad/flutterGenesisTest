@@ -3,16 +3,16 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
-import 'package:flutter_genesis_test/ui/list_view/list_view_movie_item.dart';
+import 'package:flutter_genesis_test/ui/list_view_widgets/list_item_widget.dart';
 import 'package:flutter_genesis_test/ui/utils/constants.dart';
 import 'package:intl/intl.dart';
 
-class ListViewMovies extends StatelessWidget {
+class ListViewMoviesWidget extends StatelessWidget {
   final List<MovieInner> movies;
   final Key key;
   final SourceTab source;
 
-  ListViewMovies({this.movies, this.source, this.key}) : super(key: key);
+  ListViewMoviesWidget({this.movies, this.source, this.key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +29,8 @@ class ListViewMovies extends StatelessWidget {
   }
 }
 
-List<ListViewMovieItem> headerOrRegular(List<MovieInner> incomingList, SourceTab source) {
-  final technical = <ListViewMovieItem>[];
+List<ListViewMovieItemWidget> headerOrRegular(List<MovieInner> incomingList, SourceTab source) {
+  final technical = <ListViewMovieItemWidget>[];
 
   incomingList.sort((a, b) => a.releaseDate.compareTo(b.releaseDate));
   DateFormat fullDateFormat = DateFormat(DATE_FORMAT_FULL);
@@ -43,20 +43,20 @@ List<ListViewMovieItem> headerOrRegular(List<MovieInner> incomingList, SourceTab
     var dateShort = shortDateFormat.format(dateFull);
     var month = dateFull.month;
     if (month != currentMonth) {
-      technical.add(HeaderItem(dateShort));
-      technical.add(RegularItem(movie: it, source: source, key: Key("regular")));
+      technical.add(HeaderItemWidget(dateShort));
+      technical.add(RegularItemWidget(movie: it, source: source, key: Key("regular")));
       currentMonth = month;
     } else {
-      technical.add(RegularItem(movie: it, source: source, key: Key("regular")));
+      technical.add(RegularItemWidget(movie: it, source: source, key: Key("regular")));
     }
   });
 
   //separate values in each collection by dates
-  LinkedHashMap<String, List<ListViewMovieItem>> rawHashMap = LinkedHashMap<String, List<ListViewMovieItem>>();
-  List<ListViewMovieItem> array;
+  LinkedHashMap<String, List<ListViewMovieItemWidget>> rawHashMap = LinkedHashMap<String, List<ListViewMovieItemWidget>>();
+  List<ListViewMovieItemWidget> array;
   String lastKey;
   technical.forEach((each) {
-    if (each is HeaderItem) {
+    if (each is HeaderItemWidget) {
       if (lastKey != null) {
         rawHashMap[lastKey] = array;
       }
@@ -69,12 +69,12 @@ List<ListViewMovieItem> headerOrRegular(List<MovieInner> incomingList, SourceTab
   rawHashMap[lastKey] = array;
   //sort each value list by popularity
   rawHashMap.entries.forEach((entry) {
-    entry.value.sort((a, b) => (a as RegularItem).movie.popularity.compareTo((b as RegularItem).movie.popularity));
+    entry.value.sort((a, b) => (a as RegularItemWidget).movie.popularity.compareTo((b as RegularItemWidget).movie.popularity));
   });
   // compose sorted values and headers
-  List<ListViewMovieItem> sortedFilteredResult = List<ListViewMovieItem>();
+  List<ListViewMovieItemWidget> sortedFilteredResult = List<ListViewMovieItemWidget>();
   rawHashMap.entries.forEach((entry) {
-    sortedFilteredResult.add(HeaderItem(entry.key));
+    sortedFilteredResult.add(HeaderItemWidget(entry.key));
     sortedFilteredResult.addAll(entry.value);
   });
   return sortedFilteredResult;
