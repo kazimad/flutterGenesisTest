@@ -8,7 +8,7 @@ import 'package:flutter_genesis_test/ui/utils/commands/commands_ui.dart';
 
 
 class FacebookLoginScreen extends StatefulWidget {
-  final FacebookLogin facebookLogin = new FacebookLogin();
+  final FacebookLogin facebookLogin =   FacebookLogin();
 
   @override
   _State createState() => _State();
@@ -72,6 +72,6 @@ class _State extends State<FacebookLoginScreen> {
   }
 
   _navigateToNextScreen(String token) {
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainScreen(token)));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MainScreen(token)));
   }
 }

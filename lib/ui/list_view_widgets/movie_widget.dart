@@ -47,7 +47,7 @@ class _MovieWidgetState extends State<MovieWidget> {
 
   Widget _buildListWidget(List<MovieInner> movies) {
     return RefreshIndicator(
-      child: ListViewMoviesWidget(movies: movies, source: SourceTab.movies, key: UniqueKey()),
+      child: ListViewMoviesWidget(movies: movies, source: SourceTab.movies),
       onRefresh: () => movieBloc.getMovies(),
     );
   }

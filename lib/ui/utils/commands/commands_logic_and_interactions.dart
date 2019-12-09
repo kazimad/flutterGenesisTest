@@ -5,17 +5,17 @@ import 'package:share/share.dart';
 import '../constants.dart';
 
 String getCurrentTimeAndFormat() {
-  DateTime now = new DateTime.now();
-  var formatter = new DateFormat(DATE_FORMAT_FULL);
-  DateTime date = new DateTime(now.year, now.month, now.day);
+  DateTime now =   DateTime.now();
+  var formatter =   DateFormat(DATE_FORMAT_FULL);
+  DateTime date =   DateTime(now.year, now.month, now.day);
   var formattedDate = formatter.format(date);
   return formattedDate;
 }
 
 String getFutureTimeAndFormat() {
-  DateTime now = new DateTime.now();
-  var formatter = new DateFormat(DATE_FORMAT_FULL);
-  DateTime date = new DateTime(now.year, now.month + 3, now.day);
+  DateTime now =   DateTime.now();
+  var formatter =   DateFormat(DATE_FORMAT_FULL);
+  DateTime date =   DateTime(now.year, now.month + 3, now.day);
   var formattedDate = formatter.format(date);
   return formattedDate;
 }

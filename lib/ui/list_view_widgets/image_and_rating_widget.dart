@@ -17,16 +17,16 @@ class ImageAndRatingWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.only(right: margin8, left: margin8, bottom: margin8),
+          padding: EdgeInsets.only(right:  8, left:  8, bottom:  8),
           child: Hero(
             tag: HERO_BASE_KEY + movie.id.toString(),
             child: Container(
               width: imageSize,
               height: imageSize,
               child: CachedNetworkImage(
-                imageUrl: validatePosterPath(movie),
-                placeholder: (context, url) => new CircularProgressIndicator(),
-                errorWidget: (context, url, error) => new Icon(Icons.error),
+                imageUrl: aliasPosterPath(movie),
+                placeholder: (context, url) =>   CircularProgressIndicator(),
+                errorWidget: (context, url, error) =>   Icon(Icons.error),
               ),
             ),
           ),

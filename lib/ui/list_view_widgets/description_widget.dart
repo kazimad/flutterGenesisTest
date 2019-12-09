@@ -25,13 +25,13 @@ class _DescriptionWidgetState extends State<DescriptionWidget> {
   Widget build(BuildContext context) {
     return Flexible(
       child: Padding(
-        padding: EdgeInsets.only(top: margin8),
+        padding: EdgeInsets.only(top:  8),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Container(margin: EdgeInsets.only(top: margin8), child: Text(widget.movie.title, style: TextStyle(fontWeight: FontWeight.bold))),
+            Container(margin: EdgeInsets.only(top:  8), child: Text(widget.movie.title, style: TextStyle(fontWeight: FontWeight.bold))),
             Container(
-                margin: EdgeInsets.only(top: margin8),
+                margin: EdgeInsets.only(top:  8),
                 child: Text(widget.movie.overview, maxLines: movieCardMaxLinesText, overflow: TextOverflow.ellipsis)),
             Divider(
               color: Colors.grey,
@@ -43,7 +43,6 @@ class _DescriptionWidgetState extends State<DescriptionWidget> {
                 Flexible(
                   fit: FlexFit.loose,
                   child: MaterialButton(
-                    padding: EdgeInsets.only(left: 0),
                     child: AutoSizeText(
                       properText(widget.movie, context),
                       style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),

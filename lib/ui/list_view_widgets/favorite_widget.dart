@@ -46,6 +46,6 @@ class FavoriteState extends State<FavoriteWidget> {
   }
 
   Widget _buildListWidget(List<MovieInner> movies) {
-    return ListViewMoviesWidget(movies: movies, source: SourceTab.favorite, key: UniqueKey());
+    return ListViewMoviesWidget(movies: movies, source: SourceTab.favorite);
   }
 }

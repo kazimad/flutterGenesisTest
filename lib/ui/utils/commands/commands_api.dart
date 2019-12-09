@@ -3,7 +3,7 @@ import 'package:flutter_genesis_test/ui/utils/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-String validatePosterPath(MovieInner movie) {
+String aliasPosterPath(MovieInner movie) {
   if (movie.posterPath != null) {
     return BASE_IMAGE_LINK + movie.posterPath;
   } else {

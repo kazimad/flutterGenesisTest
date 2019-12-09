@@ -7,7 +7,7 @@ import 'package:flutter_genesis_test/ui/utils/constants.dart';
 import 'description_widget.dart';
 import 'image_and_rating_widget.dart';
 
-abstract class ListViewMovieItemWidget {}
+abstract class ListViewMovieItemWidget extends Widget {}
 
 class HeaderItemWidget extends Text implements ListViewMovieItemWidget {
   final String headerText;
@@ -25,7 +25,7 @@ class RegularItemWidget extends StatelessWidget implements ListViewMovieItemWidg
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-        padding: const EdgeInsets.all(margin8),
+        padding: const EdgeInsets.all( 8),
         child: GestureDetector(
           child: Card(
             elevation: movieCardElevation,

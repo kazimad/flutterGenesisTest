@@ -10,27 +10,26 @@ import 'package:intl/intl.dart';
 
 class ListViewMoviesWidget extends StatelessWidget {
   final List<MovieInner> movies;
-  final Key key;
   final SourceTab source;
 
-  ListViewMoviesWidget({this.movies, this.source, this.key});
+  ListViewMoviesWidget({@required this.movies, @required this.source});
 
   @override
   Widget build(BuildContext context) {
-    final widgets = headerOrRegular(movies, source);
+    final widgets = _sortAndAddHeaderItems(movies, source);
 
     return Container(
       child: ListView.builder(
           itemCount: widgets.length,
           padding: const EdgeInsets.all(15.0),
           itemBuilder: (context, position) {
-            return widgets[position] as Widget;
+            return widgets[position];
           }),
     );
   }
 }
 
-List<ListViewMovieItemWidget> headerOrRegular(List<MovieInner> incomingList, SourceTab source) {
+List<ListViewMovieItemWidget> _sortAndAddHeaderItems(List<MovieInner> incomingList, SourceTab source) {
   final technical = <ListViewMovieItemWidget>[];
 
   incomingList.sort((a, b) => a.releaseDate.compareTo(b.releaseDate));

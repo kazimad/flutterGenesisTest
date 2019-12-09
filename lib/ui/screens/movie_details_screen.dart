@@ -1,3 +1,4 @@
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -49,18 +50,18 @@ class MovieImage extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.only(right: margin8, left: margin8, bottom: margin8),
+          padding: EdgeInsets.only(right:  8, left:  8, bottom:  8),
           child: Hero(
             tag: HERO_BASE_KEY + movieToDetail.id.toString(),
             child: Container(
               width: imageSize,
               height: imageSize,
               child: Container(
-                margin: EdgeInsets.only(top: margin8),
+                margin: EdgeInsets.only(top:  8),
                 child: CachedNetworkImage(
-                  imageUrl: validatePosterPath(movieToDetail),
-                  placeholder: (context, url) => new CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => new Icon(Icons.error),
+                  imageUrl: aliasPosterPath(movieToDetail),
+                  placeholder: (context, url) =>   CircularProgressIndicator(),
+                  errorWidget: (context, url, error) =>   Icon(Icons.error),
                 ),
               ),
             ),
@@ -88,14 +89,14 @@ class _MovieDescriptionState extends State<MovieDescription> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: margin8),
+      padding: EdgeInsets.only(top:  8),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Container(margin: EdgeInsets.only(top: margin8), child: Text(widget.movieToDetail.title, style: TextStyle(fontWeight: FontWeight.bold))),
+          Container(margin: EdgeInsets.only(top:  8), child: Text(widget.movieToDetail.title, style: TextStyle(fontWeight: FontWeight.bold))),
           Container(
               child: Padding(
-            padding: EdgeInsets.all(margin8),
+            padding: EdgeInsets.all( 8),
             child: Text(widget.movieToDetail.overview),
           )),
           Divider(
@@ -108,7 +109,6 @@ class _MovieDescriptionState extends State<MovieDescription> {
               Flexible(
                 fit: FlexFit.loose,
                 child: MaterialButton(
-                  padding: EdgeInsets.only(left: 0),
                   child: AutoSizeText(
                     properText(widget.movieToDetail, context),
                     style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
