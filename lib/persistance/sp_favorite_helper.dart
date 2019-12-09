@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter_genesis_test/data_classes/pair.dart';
 import 'package:flutter_genesis_test/repositories/favorite_repository.dart';
-import 'package:flutter_genesis_test/ui/utils/commands/commands_logic_and_interactions.dart';
-import 'package:flutter_genesis_test/ui/utils/constants.dart';
+import 'package:flutter_genesis_test/global_utils/global_commands/commands_logic_and_interactions.dart';
+import 'package:flutter_genesis_test/ui/ui_utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // I know that there is not the best performance : to get them, to read, to decode and to write - but I just wanted to try work with shared preferences

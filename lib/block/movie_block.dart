@@ -17,11 +17,10 @@ class MovieBlock {
   }
 
   updateMovie(MovieInner innerMovie) {
-   _movieRepository.updateMovie(innerMovie);
+    _movieRepository.updateMovie(innerMovie);
   }
-
 
   BehaviorSubject<Pair> get subject => _subject;
 }
 
-final movieBloc =  MovieBlock();
+final movieBloc = MovieBlock();

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter_genesis_test/ui/utils/constants.dart';
+import 'package:flutter_genesis_test/ui/ui_utils/constants.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';

@@ -6,9 +6,9 @@ import 'package:flutter_genesis_test/block/movie_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
 import 'package:flutter_genesis_test/ui/list_view_widgets/source_tab.dart';
-import 'package:flutter_genesis_test/ui/utils/commands/commands_logic_and_interactions.dart';
-import 'package:flutter_genesis_test/ui/utils/commands/commands_ui.dart';
-import 'package:flutter_genesis_test/ui/utils/constants.dart';
+import 'package:flutter_genesis_test/global_utils/global_commands/commands_logic_and_interactions.dart';
+import 'package:flutter_genesis_test/ui/ui_utils/commands/commands_ui.dart';
+import 'package:flutter_genesis_test/ui/ui_utils/constants.dart';
 
 class ListItemDescriptionWidget extends StatefulWidget {
   final MovieInner movie;
@@ -25,13 +25,13 @@ class _ListItemDescriptionWidgetState extends State<ListItemDescriptionWidget> {
   Widget build(BuildContext context) {
     return Flexible(
       child: Padding(
-        padding: EdgeInsets.only(top:  8),
+        padding: EdgeInsets.only(top: 8),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Container(margin: EdgeInsets.only(top:  8), child: Text(widget.movie.title, style: TextStyle(fontWeight: FontWeight.bold))),
+            Container(margin: EdgeInsets.only(top: 8), child: Text(widget.movie.title, style: TextStyle(fontWeight: FontWeight.bold))),
             Container(
-                margin: EdgeInsets.only(top:  8),
+                margin: EdgeInsets.only(top: 8),
                 child: Text(widget.movie.overview, maxLines: movieCardMaxLinesText, overflow: TextOverflow.ellipsis)),
             Divider(
               color: Colors.grey,
@@ -44,21 +44,14 @@ class _ListItemDescriptionWidgetState extends State<ListItemDescriptionWidget> {
                   fit: FlexFit.loose,
                   child: MaterialButton(
                     child: AutoSizeText(
-                      properText(widget.movie, context),
+                      validateTextAddOrRemove(widget.movie, context),
                       style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
                       minFontSize: movieCardMinFontSize,
                       maxLines: movieCardMaxLinesButton,
                       overflow: TextOverflow.ellipsis,
                     ),
                     onPressed: () {
-                      setState(() {
-                        widget.movie.isFavorite ? favoriteBloc.removeFromFavorites(widget.movie.id) : favoriteBloc.addToFavorites(widget.movie.id);
-                        widget.movie.isFavorite = !widget.movie.isFavorite;
-                        movieBloc.updateMovie(widget.movie);
-                        if (widget.source == SourceTab.favorite) {
-                          favoriteBloc.getFavorites();
-                        }
-                      });
+                      _onAddToFavoriteClick();
                     },
                   ),
                 ),
@@ -85,5 +78,16 @@ class _ListItemDescriptionWidgetState extends State<ListItemDescriptionWidget> {
         ),
       ),
     );
+  }
+
+  void _onAddToFavoriteClick() {
+    setState(() {
+      widget.movie.isFavorite ? favoriteBloc.removeFromFavorites(widget.movie.id) : favoriteBloc.addToFavorites(widget.movie.id);
+      widget.movie.isFavorite = !widget.movie.isFavorite;
+      movieBloc.updateMovie(widget.movie);
+      if (widget.source == SourceTab.favorite) {
+        favoriteBloc.getFavorites();
+      }
+    });
   }
 }

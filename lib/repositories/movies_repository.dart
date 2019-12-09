@@ -4,8 +4,8 @@ import 'package:flutter_genesis_test/data_classes/response/movie_parse_result.da
 import 'package:flutter_genesis_test/network/provider/post_api_provider.dart';
 import 'package:flutter_genesis_test/persistance/db_movie_helper.dart';
 import 'package:flutter_genesis_test/persistance/sp_favorite_helper.dart';
-import 'package:flutter_genesis_test/ui/utils/commands/commands_logic_and_interactions.dart';
-import 'package:flutter_genesis_test/ui/utils/constants.dart';
+import 'package:flutter_genesis_test/global_utils/global_commands/commands_logic_and_interactions.dart';
+import 'package:flutter_genesis_test/ui/ui_utils/constants.dart';
 
 class MovieRepository {
   final MovieApiProvider _apiProvider = MovieApiProvider();

@@ -5,7 +5,8 @@ import 'package:flutter_genesis_test/data_classes/pair.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
 import 'package:flutter_genesis_test/ui/list_view_widgets/list_movies_widget.dart';
 import 'package:flutter_genesis_test/ui/list_view_widgets/source_tab.dart';
-import 'package:flutter_genesis_test/ui/utils/commands/commands_ui.dart';
+import 'package:flutter_genesis_test/ui/ui_utils/commands/commands_ui.dart';
+import 'package:flutter_genesis_test/ui/widgets/loading_widget.dart';
 
 class FavoriteTabWidget extends StatefulWidget {
   FavoriteTabWidget({Key key}) : super(key: key);
@@ -34,12 +35,12 @@ class FavoriteState extends State<FavoriteTabWidget> {
           if (listFavorites != null && listFavorites.length > 0) {
             return _buildListWidget(listFavorites);
           } else {
-            return buildErrorWidget(S.of(context).no_favorites_yet);
+            return ErrorWidget(S.of(context).no_favorites_yet);
           }
         } else if (snapshot.hasError) {
-          return buildErrorWidget(snapshot.error);
+          return ErrorWidget(snapshot.error);
         } else {
-          return buildLoadingWidget(context);
+          return LoadingWidget();
         }
       },
     );

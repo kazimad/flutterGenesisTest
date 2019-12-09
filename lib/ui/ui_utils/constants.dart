@@ -12,7 +12,6 @@ const FAVORITE_KEY_NAME = "favorites";
 const API_KEY = "e9cc9ebba25fe2aa6258bd675d3474b0";
 const API_SORT_BY = "release_date.asc";
 
-
 //constants
 final double movieCardElevation = 4;
 final double movieCardMinFontSize = 6;

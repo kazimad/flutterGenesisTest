@@ -4,7 +4,7 @@ import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/data_classes/pair.dart';
 import 'package:flutter_genesis_test/exception/custom_exception.dart';
 import 'package:flutter_genesis_test/persistance/db_movie_helper.dart';
-import 'package:flutter_genesis_test/ui/utils/constants.dart';
+import 'package:flutter_genesis_test/ui/ui_utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<Pair> queryAllFavoritesFromStorage() async {

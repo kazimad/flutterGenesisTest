@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
-import 'package:flutter_genesis_test/ui/utils/commands/commands_api.dart';
-import 'package:flutter_genesis_test/ui/utils/constants.dart';
+import 'package:flutter_genesis_test/network/network_commands/commands_network.dart';
+import 'package:flutter_genesis_test/ui/ui_utils/constants.dart';
 
 class ListItemImageAndRatingWidget extends StatelessWidget {
   final MovieInner movie;
@@ -17,7 +17,7 @@ class ListItemImageAndRatingWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.only(right:  8, left:  8, bottom:  8),
+          padding: EdgeInsets.only(right: 8, left: 8, bottom: 8),
           child: Hero(
             tag: HERO_BASE_KEY + movie.id.toString(),
             child: Container(
@@ -25,8 +25,8 @@ class ListItemImageAndRatingWidget extends StatelessWidget {
               height: imageSize,
               child: CachedNetworkImage(
                 imageUrl: aliasPosterPath(movie),
-                placeholder: (context, url) =>   CircularProgressIndicator(),
-                errorWidget: (context, url, error) =>   Icon(Icons.error),
+                placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
               ),
             ),
           ),

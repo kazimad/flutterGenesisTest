@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
-import 'package:flutter_genesis_test/ui/utils/handlers/error_handler.dart';
+import 'package:flutter_genesis_test/ui/ui_utils/handlers/error_handler.dart';
 
 Future<void> showErrorMessage(BuildContext context, Exception exception) async {
   await Future<void>.microtask(() {
@@ -11,7 +11,7 @@ Future<void> showErrorMessage(BuildContext context, Exception exception) async {
   });
 }
 
-String properText(MovieInner movieInner, BuildContext context) {
+String validateTextAddOrRemove(MovieInner movieInner, BuildContext context) {
   if (movieInner.isFavorite) {
     return S.of(context).remove_from_favorite.toUpperCase();
   } else {
@@ -19,20 +19,4 @@ String properText(MovieInner movieInner, BuildContext context) {
   }
 }
 
-Widget buildLoadingWidget(BuildContext context) {
-  return Center(
-      child: Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [Text(S.of(context).loading_data_from_api), CircularProgressIndicator()],
-  ));
-}
 
-Widget buildErrorWidget(String error) {
-  return Center(
-      child: Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Text("$error"),
-    ],
-  ));
-}

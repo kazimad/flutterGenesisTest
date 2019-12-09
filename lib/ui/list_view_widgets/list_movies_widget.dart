@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/ui/list_view_widgets/list_item_widget.dart';
 import 'package:flutter_genesis_test/ui/list_view_widgets/source_tab.dart';
-import 'package:flutter_genesis_test/ui/utils/constants.dart';
+import 'package:flutter_genesis_test/ui/ui_utils/constants.dart';
 import 'package:intl/intl.dart';
 
 class ListViewMoviesWidget extends StatelessWidget {

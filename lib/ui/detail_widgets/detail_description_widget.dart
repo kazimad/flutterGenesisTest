@@ -5,8 +5,8 @@ import 'package:flutter_genesis_test/block/favorite_block.dart';
 import 'package:flutter_genesis_test/block/movie_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
-import 'package:flutter_genesis_test/ui/utils/commands/commands_logic_and_interactions.dart';
-import 'package:flutter_genesis_test/ui/utils/commands/commands_ui.dart';
+import 'package:flutter_genesis_test/global_utils/global_commands/commands_logic_and_interactions.dart';
+import 'package:flutter_genesis_test/ui/ui_utils/commands/commands_ui.dart';
 
 class DetailDescriptionWidget extends StatefulWidget {
   final MovieInner movieToDetail;
@@ -24,16 +24,16 @@ class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top:  8),
+      padding: EdgeInsets.only(top: 8),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Container(margin: EdgeInsets.only(top:  8), child: Text(widget.movieToDetail.title, style: TextStyle(fontWeight: FontWeight.bold))),
+          Container(margin: EdgeInsets.only(top: 8), child: Text(widget.movieToDetail.title, style: TextStyle(fontWeight: FontWeight.bold))),
           Container(
               child: Padding(
-                padding: EdgeInsets.all( 8),
-                child: Text(widget.movieToDetail.overview),
-              )),
+            padding: EdgeInsets.all(8),
+            child: Text(widget.movieToDetail.overview),
+          )),
           Divider(
             color: Colors.grey,
           ),
@@ -45,20 +45,14 @@ class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
                 fit: FlexFit.loose,
                 child: MaterialButton(
                   child: AutoSizeText(
-                    properText(widget.movieToDetail, context),
+                    validateTextAddOrRemove(widget.movieToDetail, context),
                     style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
                     minFontSize: minFontSize,
                     maxLines: maxLinesButton,
                     overflow: TextOverflow.ellipsis,
                   ),
                   onPressed: () {
-                    setState(() {
-                      widget.movieToDetail.isFavorite
-                          ? favoriteBloc.removeFromFavorites(widget.movieToDetail.id)
-                          : favoriteBloc.addToFavorites(widget.movieToDetail.id);
-                      widget.movieToDetail.isFavorite = !widget.movieToDetail.isFavorite;
-                      movieBloc.updateMovie(widget.movieToDetail);
-                    });
+                    _onAddToFavoriteClick();
                   },
                 ),
               ),
@@ -82,5 +76,15 @@ class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
         ],
       ),
     );
+  }
+
+  void _onAddToFavoriteClick() {
+    setState(() {
+      widget.movieToDetail.isFavorite
+          ? favoriteBloc.removeFromFavorites(widget.movieToDetail.id)
+          : favoriteBloc.addToFavorites(widget.movieToDetail.id);
+      widget.movieToDetail.isFavorite = !widget.movieToDetail.isFavorite;
+      movieBloc.updateMovie(widget.movieToDetail);
+    });
   }
 }

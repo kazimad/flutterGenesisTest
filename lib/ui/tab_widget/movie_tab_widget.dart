@@ -5,7 +5,8 @@ import 'package:flutter_genesis_test/data_classes/pair.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
 import 'package:flutter_genesis_test/ui/list_view_widgets/list_movies_widget.dart';
 import 'package:flutter_genesis_test/ui/list_view_widgets/source_tab.dart';
-import 'package:flutter_genesis_test/ui/utils/commands/commands_ui.dart';
+import 'package:flutter_genesis_test/ui/ui_utils/commands/commands_ui.dart';
+import 'package:flutter_genesis_test/ui/widgets/loading_widget.dart';
 
 class MovieTabWidget extends StatefulWidget {
   MovieTabWidget({Key key}) : super(key: key);
@@ -34,12 +35,12 @@ class _MovieTabWidgetState extends State<MovieTabWidget> {
           if (listMovies != null && listMovies.length > 0) {
             return _buildListWidget(listMovies);
           } else {
-            return buildErrorWidget(S.of(context).no_movies_yet);
+            return ErrorWidget(S.of(context).no_movies_yet);
           }
         } else if (snapshot.hasError) {
-          return buildErrorWidget(snapshot.error);
+          return ErrorWidget(snapshot.error);
         } else {
-          return buildLoadingWidget(context);
+          return LoadingWidget();
         }
       },
     );
