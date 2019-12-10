@@ -8,7 +8,10 @@ class LoadingWidget extends StatelessWidget {
     return Center(
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [Text(S.of(context).loading_data_from_api), CircularProgressIndicator()],
+      children: [
+        Text(S.of(context).loading_data_from_api),
+        CircularProgressIndicator(),
+      ],
     ));
   }
 }

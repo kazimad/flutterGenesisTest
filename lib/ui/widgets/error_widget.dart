@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
-class ErrorWidget extends StatelessWidget {
+class MovieErrorWidget extends StatelessWidget {
   final String error;
 
-  ErrorWidget({@required this.error});
+  MovieErrorWidget(this.error);
 
   @override
   Widget build(BuildContext context) {
