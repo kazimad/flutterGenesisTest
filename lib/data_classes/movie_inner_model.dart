@@ -1,22 +1,33 @@
-import 'package:flutter_genesis_test/data_classes/movie_api.dart';
-import 'package:flutter_genesis_test/global_utils/json_utils.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class MovieInner {
+import 'movie_api_model.dart';
+
+part 'generated/movie_inner_model.g.dart';
+
+@JsonSerializable()
+class MovieInnerModel {
   final int id;
   final double popularity;
+  @JsonKey(name: 'vote_count')
   final int voteCount;
   final bool video;
+  @JsonKey(name: 'poster_path')
   final String posterPath;
   final bool adult;
+  @JsonKey(name: 'backdrop_path')
   final String backdropPath;
+  @JsonKey(name: 'original_language')
   final String originalLanguage;
+  @JsonKey(name: 'original_title')
   final String originalTitle;
   final String title;
   final String overview;
+  @JsonKey(name: 'release_date')
   final String releaseDate;
+  @JsonKey(name: 'is_favorite')
   bool isFavorite;
 
-  MovieInner(
+  MovieInnerModel(
       {this.id,
       this.popularity,
       this.voteCount,
@@ -49,39 +60,11 @@ class MovieInner {
     };
   }
 
-  factory MovieInner.fromDbJson(Map<String, dynamic> json) {
-    return MovieInner(
-        adult: fromJsonToBool(json['adult']),
-        backdropPath: json['backdrop_path'],
-        id: json['id'],
-        originalLanguage: json['original_language'],
-        originalTitle: json['original_title'],
-        overview: json['overview'],
-        popularity: json['popularity'],
-        posterPath: json['poster_path'],
-        releaseDate: json['release_date'],
-        title: json['title'],
-        video: fromJsonToBool(json['video']),
-        voteCount: json['vote_count'],
-        isFavorite: fromJsonToBool(json['is_favorite']));
-  }
+  factory MovieInnerModel.fromJson(Map<String, dynamic> json) => _$MovieInnerModelFromJson(json);
 
-  factory MovieInner.fromMoviePOJO(MovieApi moviePOJO) {
-    return MovieInner(
-        id: moviePOJO.id,
-        popularity: moviePOJO.popularity,
-        voteCount: moviePOJO.voteCount,
-        video: moviePOJO.video,
-        posterPath: moviePOJO.posterPath,
-        adult: moviePOJO.adult,
-        backdropPath: moviePOJO.backdropPath,
-        originalLanguage: moviePOJO.originalLanguage,
-        originalTitle: moviePOJO.originalTitle,
-        title: moviePOJO.title,
-        overview: moviePOJO.overview,
-        releaseDate: moviePOJO.releaseDate,
-        isFavorite: false);
-  }
+  factory MovieInnerModel.fromMoviePOJO(MovieApiModel moviePOJO) => _$MovieInnerModelFromMoviePOJO(moviePOJO);
+
+  Map<String, dynamic> toJson() => _$MovieInnerModelToJson(this);
 
   @override
   String toString() {

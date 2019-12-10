@@ -1,14 +1,14 @@
 import 'dart:collection';
 import 'dart:core';
 import 'package:flutter/material.dart';
-import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
+import 'package:flutter_genesis_test/data_classes/movie_inner_model.dart';
 import 'package:flutter_genesis_test/ui/ui_utils/constants.dart';
 import 'package:flutter_genesis_test/ui/widgets/list_view_widgets/source_tab.dart';
 import 'package:intl/intl.dart';
 import 'list_item_widget.dart';
 
 class ListViewMoviesWidget extends StatelessWidget {
-  final List<MovieInner> movies;
+  final List<MovieInnerModel> movies;
   final SourceTab source;
 
   ListViewMoviesWidget({@required this.movies, @required this.source});
@@ -28,7 +28,7 @@ class ListViewMoviesWidget extends StatelessWidget {
   }
 }
 
-List<ListViewMovieItemWidget> _sortAndAddHeaderItems(List<MovieInner> incomingList, SourceTab source) {
+List<ListViewMovieItemWidget> _sortAndAddHeaderItems(List<MovieInnerModel> incomingList, SourceTab source) {
   final technical = <ListViewMovieItemWidget>[];
 
   incomingList.sort((a, b) => a.releaseDate.compareTo(b.releaseDate));

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
+import 'package:flutter_genesis_test/data_classes/movie_inner_model.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
 import 'package:flutter_genesis_test/ui/ui_utils/handlers/error_handler.dart';
 
@@ -11,7 +11,7 @@ Future<void> showErrorMessage(BuildContext context, Exception exception) async {
   });
 }
 
-String validateTextAddOrRemove(MovieInner movieInner, BuildContext context) {
+String validateTextAddOrRemove(MovieInnerModel movieInner, BuildContext context) {
   if (movieInner.isFavorite) {
     return S.of(context).remove_from_favorite.toUpperCase();
   } else {

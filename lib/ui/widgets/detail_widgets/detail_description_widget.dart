@@ -3,13 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/block/favorite_block.dart';
 import 'package:flutter_genesis_test/block/movie_block.dart';
-import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
+import 'package:flutter_genesis_test/data_classes/movie_inner_model.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
 import 'package:flutter_genesis_test/global_utils/share_utils.dart';
 import 'package:flutter_genesis_test/ui/ui_utils/commands/commands_ui.dart';
 
 class DetailDescriptionWidget extends StatefulWidget {
-  final MovieInner movieToDetail;
+  final MovieInnerModel movieToDetail;
 
   DetailDescriptionWidget({@required this.movieToDetail});
 

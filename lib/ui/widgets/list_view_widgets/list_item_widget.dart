@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
+import 'package:flutter_genesis_test/data_classes/movie_inner_model.dart';
 import 'package:flutter_genesis_test/ui/screens/movie_details_screen.dart';
 import 'package:flutter_genesis_test/ui/ui_utils/constants.dart';
 import 'package:flutter_genesis_test/ui/widgets/list_view_widgets/source_tab.dart';
@@ -16,7 +16,7 @@ class HeaderItemWidget extends Text implements ListViewMovieItemWidget {
 }
 
 class RegularItemWidget extends StatelessWidget implements ListViewMovieItemWidget {
-  final MovieInner movie;
+  final MovieInnerModel movie;
   final SourceTab source;
 
   const RegularItemWidget({this.movie, this.source});

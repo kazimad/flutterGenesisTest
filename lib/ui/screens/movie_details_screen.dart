@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
+import 'package:flutter_genesis_test/data_classes/movie_inner_model.dart';
 import 'package:flutter_genesis_test/ui/widgets/detail_widgets/detail_description_widget.dart';
 import 'package:flutter_genesis_test/ui/widgets/detail_widgets/detail_image_widget.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
-  final MovieInner movieToDetail;
+  final MovieInnerModel movieToDetail;
 
   const MovieDetailsScreen({this.movieToDetail});
 

@@ -1,4 +1,4 @@
-import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
+import 'package:flutter_genesis_test/data_classes/movie_inner_model.dart';
 import 'package:flutter_genesis_test/global_utils/pair.dart';
 import 'package:flutter_genesis_test/repositories/movies_repository.dart';
 import 'package:rxdart/rxdart.dart';
@@ -18,7 +18,7 @@ class MovieBlock {
     _subject.close();
   }
 
-  updateMovie(MovieInner innerMovie) {
+  updateMovie(MovieInnerModel innerMovie) {
     _movieRepository.updateMovie(innerMovie);
   }
 

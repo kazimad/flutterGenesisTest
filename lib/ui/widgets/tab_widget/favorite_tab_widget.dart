@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/block/favorite_block.dart';
-import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
+import 'package:flutter_genesis_test/data_classes/movie_inner_model.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
 import 'package:flutter_genesis_test/global_utils/pair.dart';
 import 'package:flutter_genesis_test/ui/ui_utils/commands/commands_ui.dart';
@@ -32,7 +32,7 @@ class FavoriteState extends State<FavoriteTabWidget> {
           if (snapshot.data.exception != null) {
             showErrorMessage(context, snapshot.data.exception);
           }
-          List<MovieInner> listFavorites = snapshot.data.data;
+          List<MovieInnerModel> listFavorites = snapshot.data.data;
           if (listFavorites != null && listFavorites.length > 0) {
             return _buildListWidget(listFavorites);
           } else {
@@ -47,7 +47,7 @@ class FavoriteState extends State<FavoriteTabWidget> {
     );
   }
 
-  Widget _buildListWidget(List<MovieInner> movies) {
+  Widget _buildListWidget(List<MovieInnerModel> movies) {
     return ListViewMoviesWidget(movies: movies, source: SourceTab.favorite);
   }
 }

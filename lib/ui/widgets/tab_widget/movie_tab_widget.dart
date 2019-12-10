@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/block/movie_block.dart';
-import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
+import 'package:flutter_genesis_test/data_classes/movie_inner_model.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
 import 'package:flutter_genesis_test/global_utils/pair.dart';
 import 'package:flutter_genesis_test/ui/ui_utils/commands/commands_ui.dart';
@@ -33,7 +33,7 @@ class _MovieTabWidgetState extends State<MovieTabWidget> {
           if (snapshot.data.exception != null) {
             showErrorMessage(context, snapshot.data.exception);
           }
-          List<MovieInner> listMovies = snapshot.data.data;
+          List<MovieInnerModel> listMovies = snapshot.data.data;
           if (listMovies != null && listMovies.length > 0) {
             return _buildListWidget(listMovies);
           } else {
@@ -48,7 +48,7 @@ class _MovieTabWidgetState extends State<MovieTabWidget> {
     );
   }
 
-  Widget _buildListWidget(List<MovieInner> movies) {
+  Widget _buildListWidget(List<MovieInnerModel> movies) {
     return RefreshIndicator(
       child: ListViewMoviesWidget(movies: movies, source: SourceTab.movies),
       onRefresh: () => movieBloc.getMovies(),

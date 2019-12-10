@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/block/favorite_block.dart';
 import 'package:flutter_genesis_test/block/movie_block.dart';
-import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
+import 'package:flutter_genesis_test/data_classes/movie_inner_model.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
 import 'package:flutter_genesis_test/global_utils/share_utils.dart';
 import 'package:flutter_genesis_test/ui/ui_utils/commands/commands_ui.dart';
@@ -11,7 +11,7 @@ import 'package:flutter_genesis_test/ui/ui_utils/constants.dart';
 import 'package:flutter_genesis_test/ui/widgets/list_view_widgets/source_tab.dart';
 
 class ListItemDescriptionWidget extends StatefulWidget {
-  final MovieInner movie;
+  final MovieInnerModel movie;
   final SourceTab source;
 
   ListItemDescriptionWidget({this.movie, this.source});

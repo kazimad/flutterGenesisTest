@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
+import 'package:flutter_genesis_test/data_classes/movie_inner_model.dart';
 import 'package:flutter_genesis_test/global_utils/pair.dart';
 import 'package:flutter_genesis_test/exception/custom_exception.dart';
 import 'package:flutter_genesis_test/persistence/db_movie_helper.dart';
@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future<Pair> queryAllFavoritesFromStorage() async {
   Exception error;
-  List<MovieInner> queriedMovies;
+  List<MovieInnerModel> queriedMovies;
   List<dynamic> favoriteIdList = await getFavoriteIdsList();
   if (favoriteIdList != null && favoriteIdList.length > 0) {
     queriedMovies = await queryMoviesFromDbById(DatabaseMovieHelper.instance, favoriteIdList);
@@ -28,13 +28,13 @@ Future<List<dynamic>> getFavoriteIdsList() async {
   return preferencesString != null ? json.decode(preferencesString) : null;
 }
 
-Future<List<MovieInner>> queryMoviesFromDbById(DatabaseMovieHelper dbHelper, List<dynamic> favoritesList) async {
-  List<MovieInner> movies = [];
+Future<List<MovieInnerModel>> queryMoviesFromDbById(DatabaseMovieHelper dbHelper, List<dynamic> favoritesList) async {
+  List<MovieInnerModel> movies = [];
   if (favoritesList != null && favoritesList.length > 0) {
     var queriedFavorites = await dbHelper.queryMoviesWithId(favoritesList);
     queriedFavorites.forEach((each) {
-      movies.add(MovieInner.fromDbJson(each));
+      movies.add(MovieInnerModel.fromJson(each));
     });
   }
-  return Future<List<MovieInner>>.value(movies);
+  return Future<List<MovieInnerModel>>.value(movies);
 }

@@ -1,4 +1,4 @@
-import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
+import 'package:flutter_genesis_test/data_classes/movie_inner_model.dart';
 import 'package:flutter_genesis_test/data_classes/response/movie_parse_result.dart';
 import 'package:flutter_genesis_test/global_utils/pair.dart';
 import 'package:flutter_genesis_test/global_utils/time_and_data_utils.dart';
@@ -26,7 +26,7 @@ class MovieRepository {
       var allFavoritesIds = await getAllFavoriteIds();
 
       response.topResponse.movies.forEach((each) {
-        var innerMovieItem = MovieInner.fromMoviePOJO(each);
+        var innerMovieItem = MovieInnerModel.fromMoviePOJO(each);
         if (allFavoritesIds != null && allFavoritesIds.contains(innerMovieItem.id)) {
           innerMovieItem.isFavorite = true;
         }
@@ -42,16 +42,16 @@ class MovieRepository {
     return Future<Pair>.value(pairResult);
   }
 
-  Future<List<MovieInner>> queryMoviesFromDb(DatabaseMovieHelper dbHelper) async {
-    List<MovieInner> movies = [];
+  Future<List<MovieInnerModel>> queryMoviesFromDb(DatabaseMovieHelper dbHelper) async {
+    List<MovieInnerModel> movies = [];
     var queriedList = await dbHelper.queryAllRows();
     queriedList.forEach((element) {
-      movies.add(MovieInner.fromDbJson(element));
+      movies.add(MovieInnerModel.fromJson(element));
     });
-    return Future<List<MovieInner>>.value(movies);
+    return Future<List<MovieInnerModel>>.value(movies);
   }
 
-  void updateMovie(MovieInner movieInner) async {
+  void updateMovie(MovieInnerModel movieInner) async {
     await dbHelper.update(movieInner.toMap());
   }
 }

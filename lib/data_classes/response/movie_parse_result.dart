@@ -1,13 +1,13 @@
-import 'package:flutter_genesis_test/data_classes/movie_top_response_api.dart';
+import 'package:flutter_genesis_test/data_classes/movie_top_response_api_model.dart';
 
 class MovieParceResult {
-  final MovieTopResponseApi topResponse;
+  final MovieTopResponseApiModel topResponse;
   final Exception error;
 
   MovieParceResult(this.topResponse, this.error);
 
   MovieParceResult.fromJson(Map<String, dynamic> json)
-      : topResponse = MovieTopResponseApi.fromJson(json),
+      : topResponse = MovieTopResponseApiModel.fromJson(json),
         error = null;
 
   MovieParceResult.withError(Exception errorValue)
