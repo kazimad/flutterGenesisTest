@@ -1,6 +1,5 @@
 
 
-// need to add in this pojo field isFavorite
 class MovieApi {
   final int id;
   final double popularity;

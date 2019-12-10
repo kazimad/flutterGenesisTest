@@ -1,5 +1,5 @@
 import 'package:flutter_genesis_test/data_classes/movie_api.dart';
-import 'package:flutter_genesis_test/global_utils/global_commands/commands_logic_and_interactions.dart';
+import 'package:flutter_genesis_test/global_utils/json_utils.dart';
 
 class MovieInner {
   final int id;

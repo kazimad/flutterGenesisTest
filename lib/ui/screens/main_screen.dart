@@ -1,10 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
-import 'package:flutter_genesis_test/network/network_commands/commands_network.dart';
-import 'package:flutter_genesis_test/ui/tab_widget/favorite_tab_widget.dart';
-import 'package:flutter_genesis_test/ui/tab_widget/movie_tab_widget.dart';
+import 'package:flutter_genesis_test/ui/widgets/tab_widget/favorite_tab_widget.dart';
+import 'package:flutter_genesis_test/ui/widgets/tab_widget/movie_tab_widget.dart';
 import 'package:flutter_genesis_test/ui/widgets/tool_bar_widget.dart';
 
 class MainScreen extends StatefulWidget {

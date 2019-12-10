@@ -5,7 +5,7 @@ import 'package:flutter_genesis_test/block/favorite_block.dart';
 import 'package:flutter_genesis_test/block/movie_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
-import 'package:flutter_genesis_test/global_utils/global_commands/commands_logic_and_interactions.dart';
+import 'package:flutter_genesis_test/global_utils/share_utils.dart';
 import 'package:flutter_genesis_test/ui/ui_utils/commands/commands_ui.dart';
 
 class DetailDescriptionWidget extends StatefulWidget {

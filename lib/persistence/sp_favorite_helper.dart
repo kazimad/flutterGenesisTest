@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:flutter_genesis_test/data_classes/pair.dart';
+import 'package:flutter_genesis_test/global_utils/pair.dart';
+import 'package:flutter_genesis_test/global_utils/string_utils.dart';
 import 'package:flutter_genesis_test/repositories/favorite_repository.dart';
-import 'package:flutter_genesis_test/global_utils/global_commands/commands_logic_and_interactions.dart';
 import 'package:flutter_genesis_test/ui/ui_utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -1,11 +1,13 @@
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
-import 'package:flutter_genesis_test/data_classes/pair.dart';
+import 'package:flutter_genesis_test/global_utils/pair.dart';
 import 'package:flutter_genesis_test/repositories/movies_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
+final movieBloc = MovieBlock();
+
 class MovieBlock {
-  final MovieRepository _movieRepository = MovieRepository();
-  final BehaviorSubject<Pair> _subject = BehaviorSubject<Pair>();
+  final _movieRepository = MovieRepository();
+  final _subject = BehaviorSubject<Pair>();
 
   getMovies() async {
     Pair response = await _movieRepository.getMovies();
@@ -22,5 +24,3 @@ class MovieBlock {
 
   BehaviorSubject<Pair> get subject => _subject;
 }
-
-final movieBloc = MovieBlock();

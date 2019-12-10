@@ -5,10 +5,10 @@ import 'package:flutter_genesis_test/block/favorite_block.dart';
 import 'package:flutter_genesis_test/block/movie_block.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
 import 'package:flutter_genesis_test/generated/i18n.dart';
-import 'package:flutter_genesis_test/ui/list_view_widgets/source_tab.dart';
-import 'package:flutter_genesis_test/global_utils/global_commands/commands_logic_and_interactions.dart';
+import 'package:flutter_genesis_test/global_utils/share_utils.dart';
 import 'package:flutter_genesis_test/ui/ui_utils/commands/commands_ui.dart';
 import 'package:flutter_genesis_test/ui/ui_utils/constants.dart';
+import 'package:flutter_genesis_test/ui/widgets/list_view_widgets/source_tab.dart';
 
 class ListItemDescriptionWidget extends StatefulWidget {
   final MovieInner movie;
@@ -45,7 +45,10 @@ class _ListItemDescriptionWidgetState extends State<ListItemDescriptionWidget> {
                   child: MaterialButton(
                     child: AutoSizeText(
                       validateTextAddOrRemove(widget.movie, context),
-                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green,),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                      ),
                       minFontSize: movieCardMinFontSize,
                       maxLines: movieCardMaxLinesButton,
                       overflow: TextOverflow.ellipsis,
@@ -59,22 +62,18 @@ class _ListItemDescriptionWidgetState extends State<ListItemDescriptionWidget> {
                 Flexible(
                   fit: FlexFit.loose,
                   child: Builder(
-                    builder: (ctx) =>
-                        MaterialButton(
-                          child: AutoSizeText(
-                            S
-                                .of(context)
-                                .share
-                                .toUpperCase(),
-                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-                            minFontSize: movieCardMinFontSize,
-                            maxLines: movieCardMaxLinesButton,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          onPressed: () {
-                            doShare(widget.movie);
-                          },
-                        ),
+                    builder: (ctx) => MaterialButton(
+                      child: AutoSizeText(
+                        S.of(context).share.toUpperCase(),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+                        minFontSize: movieCardMinFontSize,
+                        maxLines: movieCardMaxLinesButton,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      onPressed: () {
+                        doShare(widget.movie);
+                      },
+                    ),
                   ),
                 )
               ],

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_genesis_test/data_classes/movie_inner.dart';
-import 'package:flutter_genesis_test/ui/list_view_widgets/source_tab.dart';
 import 'package:flutter_genesis_test/ui/screens/movie_details_screen.dart';
 import 'package:flutter_genesis_test/ui/ui_utils/constants.dart';
+import 'package:flutter_genesis_test/ui/widgets/list_view_widgets/source_tab.dart';
 
 import 'list_item_description_widget.dart';
 import 'list_item_image_and_rating_widget.dart';
