@@ -11,7 +11,7 @@ description: A Flutter Genesis test
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.12.0
 
 environment:
   sdk: ">=2.5.0 <3.0.0"
@@ -27,8 +27,8 @@ dependencies:
   dio: 3.0.6
   retrofit: any
   rxdart: 0.22.2
-  intl: 0.15.8
-  cached_network_image: 1.1.1
+  intl: 0.16.0
+  cached_network_image: 2.0.0-rc
   share: ^0.6.2+4
   flutter_facebook_login: ^3.0.0
   flutter_localizations:
