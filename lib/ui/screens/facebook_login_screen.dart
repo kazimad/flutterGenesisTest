@@ -60,12 +60,15 @@ class _State extends State<FacebookLoginScreen> {
         _navigateToNextScreen(result.accessToken.token);
         break;
       case FacebookLoginStatus.cancelledByUser:
+        print("Error is 1 'cancelledByUser' ${result.errorMessage}");
         showErrorMessage(context, CustomException(S.of(context).facebook_login_cancelled));
         break;
       case FacebookLoginStatus.error:
+        print("Error is 2 'FacebookLoginStatus.error' ${result.errorMessage}");
         showErrorMessage(context, CustomException((S.of(context).facebook_login_cancelled_with_error_result) + result.errorMessage));
         break;
       default:
+        print("Error is def ${result.errorMessage}");
         showErrorMessage(context, CustomException(S.of(context).some_error_with_facebook_login));
     }
   }
