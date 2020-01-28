@@ -63,12 +63,14 @@ class _ListItemDescriptionWidgetState extends State<ListItemDescriptionWidget> {
                   fit: FlexFit.loose,
                   child: Builder(
                     builder: (ctx) => MaterialButton(
-                      child: AutoSizeText(
-                        S.of(context).share.toUpperCase(),
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-                        minFontSize: movieCardMinFontSize,
-                        maxLines: movieCardMaxLinesButton,
-                        overflow: TextOverflow.ellipsis,
+                      child: Center(
+                        child: AutoSizeText(
+                          S.of(context).share.toUpperCase(),
+                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+                          minFontSize: movieCardMinFontSize,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       onPressed: () {
                         doShare(widget.movie);
