@@ -53,7 +53,7 @@ class _State extends State<FacebookLoginScreen> {
   }
 
   _facebookLogin(BuildContext context) async {
-    final result = await widget.facebookLogin.logIn(['email']);
+    final result = await widget.facebookLogin.logIn(['email','public_profile']);
 
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
