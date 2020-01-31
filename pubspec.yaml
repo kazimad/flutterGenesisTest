@@ -27,7 +27,7 @@ dependencies:
   dio: 3.0.6
   retrofit: any
   rxdart: 0.22.2
-  intl: 0.16.0
+  intl: 0.16.1
   cached_network_image: 2.0.0-rc
   share: ^0.6.2+4
   flutter_facebook_login: ^3.0.0
